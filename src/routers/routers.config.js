@@ -9,6 +9,9 @@ import { Staffs } from '../page/manager/staffs/staffs';
 import { ProjectQuantity } from '../page/report/project-quantity/project-quantity';
 import { StaffsQuantity } from '../page/report/staff-quantity/staff-quantity';
 import { ProjectTypeCreate } from '../page/category/project-type/create-project-type';
+import { ProjectStatusCreate } from '../page/category/project-status/create-project-status';
+import { TechStackCreate } from '../page/category/tech-stack/create-tech-stack';
+import { CustomerGroupCreate } from '../page/category/customer-group/create-customer-group';
 
 export const routes = [
   {
@@ -65,5 +68,35 @@ export const routes = [
     path: "/category/project-type/create",
     exact: true,
     component: ProjectTypeCreate,
+  },
+  {
+    path: "/category/project-status/create",
+    exact: true,
+    component: ProjectStatusCreate,
+  },
+  {
+    path: "/category/tech-stack/create",
+    exact: true,
+    component: TechStackCreate,
+  },
+  {
+    path: "/category/customer-group/create",
+    exact: true,
+    component: CustomerGroupCreate,
+  },
+  {
+    path: "/manager/departments/create",
+    exact: true,
+    component: ProjectStatusCreate,
+  },
+  {
+    path: "/manager/projects/create",
+    exact: true,
+    component: ProjectStatusCreate,
+  },
+  {
+    path: "/manager/staffs/create",
+    exact: true,
+    component: ProjectStatusCreate,
   },
 ];
