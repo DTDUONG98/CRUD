@@ -12,6 +12,9 @@ import { ProjectTypeCreate } from '../page/category/project-type/create-project-
 import { ProjectStatusCreate } from '../page/category/project-status/create-project-status';
 import { TechStackCreate } from '../page/category/tech-stack/create-tech-stack';
 import { CustomerGroupCreate } from '../page/category/customer-group/create-customer-group';
+import { DepartmentsCreate } from '../page/manager/departments/create-departments';
+import { StaffsCreate } from '../page/manager/staffs/staffs-create';
+import { ProjectsCreate } from '../page/manager/project/create-projects';
 
 export const routes = [
   {
@@ -87,16 +90,16 @@ export const routes = [
   {
     path: "/manager/departments/create",
     exact: true,
-    component: ProjectStatusCreate,
+    component: DepartmentsCreate,
   },
   {
     path: "/manager/projects/create",
     exact: true,
-    component: ProjectStatusCreate,
+    component: ProjectsCreate,
   },
   {
     path: "/manager/staffs/create",
     exact: true,
-    component: ProjectStatusCreate,
+    component: StaffsCreate,
   },
 ];

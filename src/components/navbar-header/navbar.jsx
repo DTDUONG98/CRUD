@@ -36,14 +36,14 @@ export const Navbar = () => {
               <div className="" />
               <div className="absolute right-0 w-32 rounded-md shadow-lg z-20">
                 <Link
-                  to="project-type"
+                  to="/"
                   className="flex items-center justify-start px-5 py-2 text-sm rounded-md pxcapitalize text-gray-700 hover:bg-indigo-600 hover:text-white"
                 >
                   <AiOutlineSetting className="text-lg mr-2" />
                   <p className="font-medium">Settings</p>
                 </Link>
                 <Link
-                  to="/login"
+                  to="/"
                   className="flex items-center mt-1 px-5 py-2 text-sm capitalize rounded-md text-gray-700 hover:bg-indigo-600 hover:text-white"
                 >
                   <AiOutlineLogin className="text-lg mr-2" />
