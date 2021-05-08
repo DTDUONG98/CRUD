@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
-// import { Loading } from "../../../components/loading/loading";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableProjectType from "./row-table-project-type";
+import firebase from '../../../services/firebase';
 const queryString = require("query-string");
 export const TableProjectType = () => {
-    //   const [loading, setLoading] = useState(false);
     const [ListProjectType, setListProjectType] = useState([]);
     const [page, setPage] = useState(1);
-    const getDataProjectStatus = async () => {
-        console.log('get data')
+    const getDataProjectType = async () => {
+        const ref = firebase.database().ref("projectType");
+        ref.on("value", (snapshot) => {
+            setListProjectType({data: snapshot.val()})
+        });
     };
     useEffect(() => {
-        getDataProjectStatus();
+        getDataProjectType();
     }, [page]);
     const handelChangePage = e => {
         const numberPage = e;

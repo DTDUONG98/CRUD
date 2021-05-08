@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-// import { Loading } from "../../../components/loading/loading";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableProjectStatus from "./row-table-project-status";
+import firebase from "../../../services/firebase";
 const queryString = require("query-string");
 export const TableProjectStatus = () => {
-    //   const [loading, setLoading] = useState(false);
     const [ListProjectStatus, setListProjectStatus] = useState([]);
     const [page, setPage] = useState(1);
     const getDataProjectStatus = async () => {
-        console.log('get data')
+        const ref = firebase.database().ref("projectStatus");
+        ref.on("value", (snapshot) => {
+            setListProjectStatus({data: snapshot.val()})
+        });
     };
     useEffect(() => {
         getDataProjectStatus();

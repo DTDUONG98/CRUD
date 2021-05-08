@@ -94,7 +94,7 @@ export const SidebarLeft = () => {
                 className="flex items-center mt-3 p-2 rounded-lg hover:text-gray-900 hover:bg-gray-200"
               >
                 <FcConferenceCall className=" text-2xl" />
-                <p className="  text-base ml-3">Customers</p>
+                <p className="  text-base ml-3">Customer Group</p>
               </NavLink>
             </div>
           </ul>
