@@ -12,6 +12,7 @@ Route.group(() => {
     Route.resource('/project_types', "ProjectTypeController").name('project_types')
     Route.resource('/project_status', "ProjectStatusController").name("project_status")
     Route.resource('/customer_groups', "CustomerGroupController").name("customer_groups")
+    Route.resource('/staffs', "StaffController").name("staffs")
   }).middleware([]);
 
   // ---------------------------------- Auth Routes ---------------------------------------//

@@ -16,9 +16,9 @@ export default class ProjectStatusController extends BaseController {
   StaffTechModel = StaffTechModel;
   StaffModel = StaffModel;
 
-  async index() {
+  // async index() {
 
-  }
+  // }
 
   async detail() {
 
@@ -40,9 +40,9 @@ export default class ProjectStatusController extends BaseController {
       .where("staffId", id)
       .select(["*"]);
     let techIds: number[] = staffTechs.map( e => e.techId);
-    let techs = await this.TechStackModel.query()
-      .whereIn("id", [techIds])
-      .select(["*"]);
+    let techs = (techIds.length) ? await this.TechStackModel.query()
+      .whereIn("id", [])
+      .select(["*"]) : [];
     /**
      * Get Projects
      */
@@ -50,9 +50,9 @@ export default class ProjectStatusController extends BaseController {
       .where("staffId", id)
       .select(["*"]);
     let projectIds: number[] = projectStaffs.map( e => e.projectId);
-    let projects = await this.ProjectModel.query()
+    let projects = (projectIds.length) ? await this.ProjectModel.query()
       .whereIn("id", [projectIds])
-      .select(["*"]);
+      .select(["*"]) : [];
     
     return {
       ...staff,
