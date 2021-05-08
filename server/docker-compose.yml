@@ -1,0 +1,12 @@
+version: '3.7'
+services: 
+  postgresql:
+    image: postgres
+    container_name: postgresql
+    ports: 
+      - '5432:5432'
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: mq123
+      POSTGRES_DB: db_test

@@ -1,0 +1,616 @@
+{
+  "action": "Action",
+  "login": {
+    "title": "Login page",
+    "description": "",
+    "content": "Welcome! Please login to your account.",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "username": "Username",
+    "password": "Password",
+    "otp": "OTP"
+  },
+  "forgotPassword": {
+    "title": "Forgot Password",
+    "description": "",
+    "content": "Enter your email and we will send you a password reset link.",
+    "email": "Email"
+  },
+  "resetPassword": {
+    "title": "Reset Password",
+    "description": "",
+    "content": "Enter the new password and re-enter the password to reset the password",
+    "newPassword": "New Password",
+    "reNewPassword": "Re-new Password"
+  },
+  "changePassword": {
+    "title": "Change Password",
+    "password": "Password",
+    "rePassword": "Re-password"
+  },
+  "dashboard": {
+    "index": {
+      "title": "Dashboard",
+      "description": ""
+    },
+    "types": {
+      "lastHour": "Last Hour",
+      "today": "Today",
+      "week": "This Week",
+      "month": "This Month"
+    },
+    "table": {
+      "time": "Time",
+      "responseTime": "Response Time",
+      "quantity": "Quantity"
+    },
+    "content": {
+      "title": "Number usage",
+      "requestTitle": "The number of requests chart"
+    }
+  },
+  "admins": {
+    "index": {
+      "title": "List Of Accounts",
+      "description": ""
+    },
+    "create": {
+      "title": "Create a new account",
+      "description": "Fill out the information to create a new account"
+    },
+    "edit": {
+      "title": "Edit Account",
+      "description": ""
+    },
+    "twofa": {
+      "title": "2-FA Settings",
+      "description": "",
+      "enabledAlready": "2FA is already enabled. You can turn it off at any time. But we do not recommend it.",
+      "notEnable": "You have not enabled 2FA. Please set up 2FA to connect to your phone for enhanced security.",
+      "twoFaRequired": "2FA is required.",
+      "link": {
+        "title": "To use two-step security. You need to install the Google Authenticator app on your mobile.",
+        "link": "You can download it here:",
+        "android": "https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_SG",
+        "ios": "https://apps.apple.com/us/app/google-authenticator/id388497605"
+      }
+    },
+    "table": {
+      "username": "Username",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "roleGroup": "Role Group",
+      "group": "Group",
+      "parent": "Parent",
+      "email": "Email",
+      "createdAt": "Created At"
+    },
+    "form": {
+      "username": "Username",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "roleGroup": "Role Group",
+      "group": "Group",
+      "password": "Password",
+      "email": "Email",
+      "rePassword": "Re Password",
+      "apiKey": "API Key",
+      "qrcode": "QR Code",
+      "enable2fa": "Enable",
+      "enterCode": "Enter Code"
+    }
+  },
+  "roleGroups": {
+    "index": {
+      "title": "List of Role Group",
+      "description": "You can search or filter by conditions"
+    },
+    "create": {
+      "title": "Add new Role Group",
+      "description": "In this screen, you can add a role group"
+    },
+    "edit": {
+      "title": "Edit Role Group",
+      "description": ""
+    },
+    "role": {
+      "title": "Decentralize the group of accounts",
+      "description": "Choose the right permissions for the group of accounts."
+    },
+    "table": {
+      "name": "Name",
+      "description": "Description",
+      "decentralization": "Decentralization",
+      "parent": "Parent",
+      "createdAt": "Created At"
+    },
+    "form": {
+      "name": "Name",
+      "description": "Description",
+      "parent": "Parent"
+    }
+  },
+  "blackNumbers": {
+    "index": {
+      "title": "Blacklist",
+      "description": ""
+    },
+    "upload": {
+      "title": "Upload Blacklist",
+      "description": ""
+    },
+    "create": {
+      "title": "Add the phone number to blacklist",
+      "description": ""
+    },
+    "form": {
+      "title": "Terms and Conditions",
+      "textTile": "Currently, You have {{total}} records. Last updated at {{date}}",
+      "content": "By uploading/editing my company's <span>blacklist</span>.",
+      "content1": "Our company fully understood that we will be held responsible for the numbers uploaded into the blacklist.",
+      "content2": "I had read and agreed with the <strong>terms and conditions</strong> above."
+    },
+    "table": {
+      "phoneNumber": "Phone number"
+    },
+    "replace": "Replace",
+    "append": "Append"
+  },
+  "whiteNumbers": {
+    "index": {
+      "title": "Whitelist",
+      "description": ""
+    },
+    "upload": {
+      "title": "Upload Whitelist",
+      "description": ""
+    },
+    "create": {
+      "title": "Add the phone number to whitelist",
+      "description": ""
+    },
+    "form": {
+      "title": "Terms and Conditions",
+      "textTile": "Currently, You have {{total}} records. Last updated at {{date}}",
+      "content": "By uploading/editing my company's <span>whitelist</span>.",
+      "content1": "Our company fully understood that we will be held responsible for the numbers uploaded into the whitelist.",
+      "content2": "I had read and agreed with the <strong>terms and conditions</strong> above."
+    },
+    "table": {
+      "phoneNumber": "Phone number"
+    },
+    "replace": "Replace",
+    "append": "Append"
+  },
+  "mnoDB": {
+    "index": {
+      "title": "List of MNO DB",
+      "description": ""
+    },
+    "upload": {
+      "title": "Upload MNO DB",
+      "description": ""
+    },
+    "create": {
+      "title": "Add phone number to MNO DB",
+      "description": ""
+    },
+    "form": {
+      "title": "Terms and Conditions",
+      "textTile": "Currently, You have {{total}} records. Last updated at {{date}}",
+      "content": "By uploading/editing my company's <span>MNO DB</span>.",
+      "content1": "Our company fully understood that we will be held responsible for the numbers uploaded into the MNO DB.",
+      "content2": "I had read and agreed with the <strong>terms and conditions</strong> above."
+    },
+    "table": {
+      "phoneNumber": "Phone number",
+      "voice": "Voice",
+      "text": "Text",
+      "fax": "Fax",
+      "isValid": "Valid"
+    },
+    "types": {
+      "nr": "NR",
+      "dnc": "DNC"
+    },
+    "inValid": "Invalid",
+    "replace": "Replace",
+    "append": "Append"
+  },
+  "agents": {
+    "index": {
+      "title": "List of Agent Number",
+      "description": ""
+    },
+    "create": {
+      "title": "Add Agent Number",
+      "description": ""
+    },
+    "multilcreate": {
+      "title": "Add Agent Number",
+      "description": ""
+    },
+    "upload": {
+      "title": "Upload Agent Number",
+      "description": ""
+    },
+    "edit": {
+      "title": "Edit Agent Number",
+      "description": ""
+    },
+    "table": {
+      "phoneNumber": "Phone Number",
+      "createdAt": "Created At",
+      "ownerName": "Owner Name",
+      "group": "Group"
+    },
+    "form": {
+      "title": "Terms and Conditions",
+      "textTile": "Currently, You have {{total}} records. Last updated at {{date}}",
+      "content": "By uploading/editing my company's <span>agents</span>.",
+      "content1": "Our company fully understood that we will be held responsible for the numbers uploaded into the agents.",
+      "content2": "I had read and agreed with the <strong>terms and conditions</strong> above."
+    }
+  },
+  "dncAccounts": {
+    "index": {
+      "title": "List of DNC Account",
+      "description": ""
+    },
+    "create": {
+      "title": "Add DNC Account",
+      "description": "At this screen, you can add 1 account to the system"
+    },
+    "edit": {
+      "title": "Edit DNC Account",
+      "description": ""
+    },
+    "statistic": {
+      "title": "Statistic Bot",
+      "description": ""
+    },
+    "login": {
+      "title": "Sign in to your account",
+      "description": "We are trying to re-login your DNC account. Please turn on your phone and get ready with Sing Pass Mobile",
+      "login": "Login",
+      "captchaVerification": "Captcha confirm",
+      "singPassVerification": "Confirm on SingPass",
+      "done": "Done",
+      "startDescription": "The system will proceed to automatically log in to DNC with the corpPass account. It needs to be verified on the owner's SingPass Mobile. So contact the account owner and make sure you are ready to confirm.",
+      "loginDescription": "Automatically log in to the DNC system.",
+      "loginOK": "Login successfully!",
+      "loginNOK": "An error occurred, please check the account information.",
+      "captchaDescription": "Check and handle captcha",
+      "captchaOK": "Successfully overcome captcha!",
+      "captchaNOK": "Cannot pass captcha or incorrect captcha, please try again.",
+      "captchaDetection": "Need to enter captcha, please re-enter the characters in the image below into the input, then click OK",
+      "singPassDescription": "Confirm on Sing Pass Mobile of account holder within 2 minutes.",
+      "singPassOK": "Successful verification!",
+      "singPassNOK": "Verification failed, please try again",
+      "doneDescription": "Completed login process.",
+      "start": "Start",
+      "submit": "Submit"
+    },
+    "table": {
+      "account": "Account",
+      "status": "Status",
+      "credit": "Credit",
+      "enable": "Enable",
+      "disable": "Disable",
+      "uen": "UEN",
+      "login": "Login",
+      "loggedIn": "Logged",
+      "loggedOut": "Signed out",
+      "lastActive": "Updated At",
+      "reLogin": "Re-login",
+      "traffic": "Traffic",
+      "requests": "Requests per hour",
+      "quantity": "Numbers per request",
+      "maxQuantity": "Highest quantity",
+      "avgTime": "AVG response time",
+      "cookie": "Cookie"
+    },
+    "form": {
+      "uen": "UEN/ENTITY ID",
+      "corpPassId": "CORPPASS ID",
+      "password": "Password",
+      "email": "Email",
+      "enable": "Enable"
+    }
+  },
+  "cdrs": {
+    "index": {
+      "title": "List of CDR Logs",
+      "description": ""
+    },
+    "table": {
+      "recordId": "Record ID",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "svcProvider": "Svc Provider",
+      "groupId": "Group ID",
+      "groupName": "Group Name",
+      "aParty": "A-Party",
+      "bParty": "B-Party",
+      "result": "Screening Result",
+      "chargeable": "Charging Indicator"
+    },
+    "result": {
+      "noagent": "NOAGENT",
+      "cwl": "CWL",
+      "cbl": "CBL",
+      "spnr": "SPNR",
+      "spdnc": "SPDNC",
+      "dnc": "DNC",
+      "nr": "NR",
+      "invalidphone": "INVALIDPHONE",
+      "pending": "PENDING"
+    }
+  },
+  "auditLogs": {
+    "index": {
+      "title": "List of Audit Logs",
+      "description": ""
+    },
+    "table": {
+      "userName": "User Name(Action Done By)",
+      "controller": "Controller",
+      "highLevel": "High Level Description",
+      "detailLevel": "Detailed Description",
+      "remarks": "Remarks",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At"
+    }
+  },
+  "settings": {
+    "index": {
+      "title": "List of settings",
+      "description": ""
+    },
+    "edit": {
+      "title": "Edit Settings",
+      "description": ""
+    },
+    "table": {
+      "name": "Name",
+      "description": "Description",
+      "key": "Key",
+      "value": "Value",
+      "createdAt": "Created At"
+    },
+    "form": {
+      "name": "Name",
+      "description": "Description",
+      "key": "Key",
+      "value": "Value"
+    }
+  },
+  "groups": {
+    "index": {
+      "title": "List of Group",
+      "description": "You can search or filter by conditions"
+    },
+    "create": {
+      "title": "Add new Group",
+      "description": "In this screen, you can add a group"
+    },
+    "edit": {
+      "title": "Edit Group",
+      "description": ""
+    },
+    "table": {
+      "code": "ID",
+      "name": "Name",
+      "description": "Description",
+      "parent": "Parent",
+      "role": "Role",
+      "createdAt": "Created At"
+    },
+    "form": {
+      "code": "ID",
+      "name": "Name",
+      "parent": "Parent",
+      "role": "Role",
+      "description": "Description"
+    }
+  },
+  "errors": {
+    "403": {
+      "title": "You don't have access",
+      "description": "Sorry, You do not have permission to access this page.",
+      "permissionDetail": "This page requires permissions: \"{{permission}}\" with the value: \"{{requirePermission}}\". But You have: \"{{userPermission}}\"."
+    },
+    "404": {
+      "title": "404! Page not found",
+      "notfound": "Oops! Page not found",
+      "content": "The page you are visiting may have been removed or is temporarily unavailable. Please return to this page later!",
+      "goBack": "Back"
+    }
+  },
+  "vn_warehouses": {
+    "index": {
+      "title": "Dữ liệu thuốc Việt Nam",
+      "description": ""
+    },
+    "table": {
+      "name": "Tên thuốc",
+      "typePrice": "Loại giá",
+      "declarationDate": "Ngày kê khai",
+      "petition": "Văn bản kiến nghị",
+      "activeIngredient": "Tên hoạt chất",
+      "strength": "Nồng độ / Hàm lượng",
+      "registerCode": "Số đăng ký",
+      "form": "Dạng bào chế",
+      "package": "Quy cách đóng gói",
+      "unit": "Đơn vị tính",
+      "price": "Giá kê khai",
+      "priceCIF": "Giá CIF",
+      "company": "Đơn vị KK",
+      "decisionCode": "Số quyết định",
+      "priceTotal": "Thành tiền",
+      "class": "Nhóm",
+      "createdAt": "Ngày tạo"
+    },
+    "form": {
+      "name": "Tên thuốc",
+      "typePrice": "Loại giá",
+      "declarationDate": "Ngày kê khai",
+      "petition": "Văn bản kiến nghị",
+      "activeIngredient": "Tên hoạt chất",
+      "strength": "Nồng độ / Hàm lượng",
+      "registerCode": "Số đăng ký",
+      "form": "Dạng bào chế",
+      "package": "Quy cách đóng gói",
+      "unit": "Đơn vị tính",
+      "price": "Giá kê khai",
+      "priceCIF": "Giá CIF",
+      "company": "Đơn vị KK",
+      "decisionCode": "Số quyết định",
+      "priceTotal": "Thành tiền",
+      "class": "Nhóm",
+      "createdAt": "Ngày tạo"
+    }
+  },
+    "foreign_warehouses": {
+      "index": {
+        "title": "Dữ liệu thuốc Quốc tế",
+        "description": ""
+      },
+      "compare_price": {
+        "title": "Dữ liệu so sánh giá thuốc",
+        "description": ""
+      },
+      "table": {
+        "name": "Tên thuốc",
+        "typePrice": "Loại giá",
+        "declarationDate": "Ngày kê khai",
+        "petition": "Văn bản kiến nghị",
+        "activeIngredient": "Tên hoạt chất",
+        "strength": "Nồng độ / Hàm lượng",
+        "registerCode": "Số đăng ký",
+        "form": "Dạng bào chế",
+        "package": "Quy cách đóng gói",
+        "unit": "Đơn vị tính",
+        "price": "Giá kê khai",
+        "priceCIF": "Giá CIF",
+        "company": "Đơn vị KK",
+        "decisionCode": "Số quyết định",
+        "priceTotal": "Thành tiền",
+        "class": "Nhóm",
+        "createdAt": "Ngày tạo",
+        "type": "Nước"
+      },
+      "form": {
+        "name": "Tên thuốc",
+        "typePrice": "Loại giá",
+        "declarationDate": "Ngày kê khai",
+        "petition": "Văn bản kiến nghị",
+        "activeIngredient": "Tên hoạt chất",
+        "strength": "Nồng độ / Hàm lượng",
+        "registerCode": "Số đăng ký",
+        "form": "Dạng bào chế",
+        "package": "Quy cách đóng gói",
+        "unit": "Đơn vị tính",
+        "price": "Giá kê khai",
+        "priceCIF": "Giá CIF",
+        "company": "Đơn vị KK",
+        "decisionCode": "Số quyết định",
+        "priceTotal": "Thành tiền",
+        "class": "Nhóm",
+        "createdAt": "Ngày tạo",
+        "form.countryGroup": "Nhóm nước"
+      }
+    },
+  "vn_raw_datas": {
+    "index": {
+      "title": "Tra cứu thuốc trong nước",
+      "description": ""
+    },
+    "table": {
+      "name": "Tên thuốc",
+      "typePrice": "Loại giá",
+      "declarationDate": "Ngày kê khai",
+      "petition": "Văn bản kiến nghị",
+      "activeIngredient": "Tên hoạt chất",
+      "strength": "Nồng độ / Hàm lượng",
+      "registerCode": "Số đăng ký",
+      "form": "Dạng bào chế",
+      "package": "Quy cách đóng gói",
+      "unit": "Đơn vị tính",
+      "price": "Giá kê khai",
+      "priceCIF": "Giá CIF",
+      "company": "Đơn vị KK",
+      "decisionCode": "Số quyết định",
+      "priceTotal": "Thành tiền",
+      "class": "Nhóm",
+      "createdAt": "Ngày tạo"
+    },
+    "form": {
+      "name": "Tên thuốc",
+      "typePrice": "Loại giá",
+      "declarationDate": "Ngày kê khai",
+      "petition": "Văn bản kiến nghị",
+      "activeIngredient": "Tên hoạt chất",
+      "strength": "Nồng độ / Hàm lượng",
+      "registerCode": "Số đăng ký",
+      "form": "Dạng bào chế",
+      "package": "Quy cách đóng gói",
+      "unit": "Đơn vị tính",
+      "price": "Giá kê khai",
+      "priceCIF": "Giá CIF",
+      "company": "Đơn vị KK",
+      "decisionCode": "Số quyết định",
+      "priceTotal": "Thành tiền",
+      "class": "Nhóm",
+      "createdAt": "Ngày tạo"
+    }
+  },
+  "foreign_raw_datas": {
+    "index": {
+      "title": "Tra cứu thuốc nước ngoài",
+      "description": ""
+    },
+    "table": {
+      "name": "Name",
+      "type" : "Nước",
+      "data" : "Thông tin",
+      "typePrice": "Type of price",
+      "declarationDate": "Declaration Date",
+      "petition": "Petition",
+      "activeIngredient": "Active Ingredient",
+      "strength": "Strength",
+      "registerCode": "Register Code",
+      "form": "Form",
+      "package": "Package",
+      "unit": "Unit",
+      "price": "Price",
+      "priceCIF": "Price CIF",
+      "company": "Company",
+      "decisionCode": "Decision Code",
+      "priceTotal": "Total Price",
+      "class": "Class",
+      "createdAt": "Created At"
+    },
+    "form": {
+      "name": "Name",
+      "type" : "Nước",
+      "data" : "Thông tin",
+      "typePrice": "Type of price",
+      "declarationDate": "Declaration Date",
+      "petition": "Petition",
+      "activeIngredient": "Active Ingredient",
+      "strength": "Strength",
+      "registerCode": "Register Code",
+      "form": "Form",
+      "package": "Package",
+      "unit": "Unit",
+      "price": "Price",
+      "priceCIF": "Price CIF",
+      "company": "Company",
+      "decisionCode": "Decision Code",
+      "priceTotal": "Total Price",
+      "class": "Class",
+      "createdAt": "Created At"
+    }
+  }
+}

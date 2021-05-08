@@ -1,0 +1,90 @@
+{
+  "frontend": {
+    "admin": {
+      "dashboard": {
+        "index": "Dashboard"
+      },
+      "admins": {
+        "title": "Quản lý tài khoản",
+        "index": "Danh sách tài khoản",
+        "edit": "Edit Account",
+        "create": "Add Account",
+        "twofa": "Cài đặt 2FA"
+      },
+      "roleGroups": {
+        "index": "Role Group Management",
+        "create": "Add Role Group",
+        "edit": "Edit Role Group",
+        "role": "Decentralization Role Group"
+      },
+      "blackNumbers": {
+        "index": "Blacklist",
+        "upload": "Upload Blacklist",
+        "create": "Add Blacklist"
+      },
+      "whiteNumbers": {
+        "index": "Whitelist",
+        "upload": "Upload Whitelist",
+        "create": "Add Whitelist"
+      },
+      "mnoDB": {
+        "index": "MNO DB",
+        "upload": "Upload MNO DB",
+        "create": "Add MNO DB"
+      },
+      "agents": {
+        "index": "Agent Number",
+        "create": "Add Agent Number",
+        "edit": "Edit Agent Number",
+        "multilcreate": "Add Agent Number",
+        "upload": "Upload Agent Number"
+      },
+      "dncAccounts": {
+        "index": "DNC Account",
+        "create": "Add DNC Account",
+        "edit": "Edit DNC Account",
+        "statistic": "Statistic Bot"
+      },
+      "cdrs": {
+        "index": "CDR Log"
+      },
+      "auditLogs": {
+        "index": "Audit Log"
+      },
+      "settings": {
+        "index": "Settings",
+        "edit": "Edit Settings"
+      },
+      "groups": {
+        "index": "Quản lý nhóm tài khoản",
+        "create": "Add Group",
+        "edit": "Edit Group"
+      },
+      "vn_warehouses": {
+        "title": "Dữ liệu (CH) thuốc Việt Nam",
+        "index": "Tra cứu thuốc",
+        "create": "Add Drug",
+        "edit": "Edit Drug"
+      },
+      "foreign_warehouses": {
+        "title": "Dữ liệu thuốc quốc tế",
+        "index": "Tra cứu thuốc",
+        "create": "Add Drug",
+        "edit": "Edit Drug",
+        "compare_price": "So sánh giá thuốc"
+      },
+      "vn_raw_datas": {
+        "title": "Danh sách thuốc Việt Nam",
+        "index": "Tra cứu thuốc",
+        "create": "Add Drug",
+        "edit": "Edit Drug"
+      },
+      "foreign_raw_datas": {
+        "title": "Danh sách thuốc nước ngoài",
+        "index": "Tra cứu thuốc",
+        "create": "Add Drug",
+        "edit": "Edit Drug"
+      }
+    }
+  }
+}

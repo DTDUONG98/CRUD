@@ -1,0 +1,42 @@
+@media (max-width: @screen-md-max) {
+  #admin {
+    .header {
+      width: 100% !important;
+    }
+
+    .main-layout {
+      margin-left: 0px;
+
+      &.collapsed {
+        margin-left: 0px;
+      }
+
+      &>.content {
+        padding: 16px;
+        margin: -80px 8px 8px 8px;
+        height: auto;
+      }
+
+      .scheduleCard {
+        width: 100%;
+        // margin: auto;
+      }
+    }
+
+    .backTop {
+      right: 20px;
+      bottom: 20px;
+    }
+
+    .search {
+      .wrapResult {
+        margin: 8px;
+      }
+    }
+
+    //fix scroll table trên mobile
+    /* .ant-table-body {
+      overflow-x: scroll;
+    } */
+  }
+}
