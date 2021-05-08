@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
-// import { Loading } from "../../../components/loading/loading";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableTechStack from "./row-table-tech-stack";
+import firebase from "../../../services/firebase";
 const queryString = require("query-string");
 export const TableTechStack = () => {
-    //   const [loading, setLoading] = useState(false);
     const [ListTechStack, setListTechStack] = useState([]);
     const [page, setPage] = useState(1);
-    const getDataProjectStatus = async () => {
-        console.log('get data')
+    const getDataTechStack = async () => {
+        const ref = firebase.database().ref("techStack");
+        ref.on("value", (snapshot) => {
+            setListTechStack({data: snapshot.val()})
+        });
     };
     useEffect(() => {
-        getDataProjectStatus();
+        getDataTechStack();
     }, [page]);
     const handelChangePage = e => {
         const numberPage = e;

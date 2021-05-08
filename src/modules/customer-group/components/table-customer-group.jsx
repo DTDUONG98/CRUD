@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
-// import { Loading } from "../../../components/loading/loading";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableCustomerGroup from "./row-table-customer-group";
+import firebase from "../../../services/firebase";
 const queryString = require("query-string");
 export const TableCustomerGroup = () => {
-    //   const [loading, setLoading] = useState(false);
     const [ListCustomerGroup, setListCustomerGroup] = useState([]);
     const [page, setPage] = useState(1);
-    const getDataProjectStatus = async () => {
-        console.log('get data')
+    const getDataCustomerGroup = async () => {
+        const ref = firebase.database().ref("customer");
+        ref.on("value", (snapshot) => {
+          setListCustomerGroup({data: snapshot.val()})
+        });
     };
     useEffect(() => {
-        getDataProjectStatus();
+        getDataCustomerGroup();
     }, [page]);
     const handelChangePage = e => {
         const numberPage = e;
@@ -34,12 +36,12 @@ export const TableCustomerGroup = () => {
                         ListCustomerGroup.data.map(customerGroup => {
                             return (
                                 <RowTableCustomerGroup
-                                    link={"/category/customer-group/" + customerGroup._id}
+                                    link={"/category/customer-group/" + customerGroup.name}
                                     key={customerGroup._id}
                                     number={customerGroup.index + 1}
                                     type={customerGroup.name}
                                     description={customerGroup.description}
-                                    priority={customerGroup.priorityNumber}
+                                    priority={customerGroup.priority}
                                     status={customerGroup.status}
                                 />
                             );

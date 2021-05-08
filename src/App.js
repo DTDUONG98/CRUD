@@ -27,12 +27,12 @@ function App() {
     });
   };
 
-  useEffect(() => {
-    const ref = firebase.database().ref("user");
-    ref.on("value", (snapshot) => {
-      console.log(snapshot.val());
-    });
-  }, []);
+  // useEffect(() => {
+  //   const ref = firebase.database().ref("customer");
+  //   ref.on("value", (snapshot) => {
+  //     console.log(snapshot.val());
+  //   });
+  // }, []);
   return (
     <Router>
       <Switch>
