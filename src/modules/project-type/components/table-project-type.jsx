@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableProjectType from "./row-table-project-type";
-import firebase from '../../../services/firebase';
+import { REACT_APP_BASE_URL } from '../../../routers/router.type'
+import _ from 'lodash';
+import axios from 'axios';
 const queryString = require("query-string");
 export const TableProjectType = () => {
     const [ListProjectType, setListProjectType] = useState([]);
     const [page, setPage] = useState(1);
     const getDataProjectType = async () => {
-        const ref = firebase.database().ref("projectType");
-        ref.on("value", (snapshot) => {
-            setListProjectType({data: snapshot.val()})
-        });
+       const response = await axios.get(`${REACT_APP_BASE_URL}project-types`)
+       const {data} = _.get(response,'data.data', []);
+       console.log('data', data);
+       setListProjectType({data: data});
     };
     useEffect(() => {
         getDataProjectType();
@@ -36,12 +38,12 @@ export const TableProjectType = () => {
                         ListProjectType.data.map(projectType => {
                             return (
                                 <RowTableProjectType
-                                    link={"/category/project-type/" + projectType._id}
-                                    key={projectType._id}
-                                    number={projectType.index + 1}
+                                    link={"/category/project-type/" + projectType.id}
+                                    key={projectType.id}
+                                    number={projectType.id}
                                     type={projectType.name}
                                     description={projectType.description}
-                                    priority={projectType.priorityNumber}
+                                    priority={projectType.priority}
                                     status={projectType.status}
                                 />
                             );

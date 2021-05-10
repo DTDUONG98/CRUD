@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableTechStack from "./row-table-tech-stack";
-import firebase from "../../../services/firebase";
+import axios from 'axios';
+import _ from 'lodash';
+import { REACT_APP_BASE_URL } from '../../../routers/router.type';
 const queryString = require("query-string");
 export const TableTechStack = () => {
     const [ListTechStack, setListTechStack] = useState([]);
     const [page, setPage] = useState(1);
     const getDataTechStack = async () => {
-        const ref = firebase.database().ref("techStack");
-        ref.on("value", (snapshot) => {
-            setListTechStack({data: snapshot.val()})
-        });
+        const response = await axios.get(`${REACT_APP_BASE_URL}tech-stack`)
+        const {data} = _.get(response,'data.data', []);
+        console.log('data', data);
+        setListTechStack({data: data});
     };
     useEffect(() => {
         getDataTechStack();
@@ -35,9 +37,9 @@ export const TableTechStack = () => {
                         ListTechStack.data.map(techStack => {
                             return (
                                 <RowTableTechStack
-                                    link={"/category/tech-stack/" + techStack._id}
-                                    key={techStack._id}
-                                    number={techStack.index + 1}
+                                    link={"/category/tech-stack/" + techStack.id}
+                                    key={techStack.id}
+                                    number={techStack.id}
                                     type={techStack.name}
                                     description={techStack.description}
                                     status={techStack.status}

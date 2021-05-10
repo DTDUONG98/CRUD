@@ -1,16 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Alert } from "react-st-modal"; 
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import { PROJECT_TYPE } from '../../../routers/router.type';
+import { PROJECT_TYPE, REACT_APP_BASE_URL } from '../../../routers/router.type'
+import axios from 'axios';
 export const FormLogin = () => {
   const [loading, setLoading] = useState();
-  const { handleSubmit } = useForm();
+  const { register ,handleSubmit } = useForm();
   const history = useHistory();
   const hanleOnSubmit = async dataUserInput => {
     setLoading(true);
-    history.push(PROJECT_TYPE);
-    
+   try {
+    const email = dataUserInput.email;
+    const password = dataUserInput.password;
+    const respon = await axios.post(`${REACT_APP_BASE_URL}login`, {
+      username : email,
+      password: password,
+    });
+    const {token} = respon.data.data
+    console.log(token);
+    if(token){
+      localStorage.setItem("token", token);
+        setLoading(false);
+        history.push(PROJECT_TYPE);
+    }
+   } catch (error) {
+    setLoading(false);
+    await Alert("Login failed, try again!", "Notification");
+   }
   };
+
+  useEffect(() => {
+    // hanleOnSubmit();
+}, []);
   return (
     <div className="bg-blue-500 h-screen ">
       <div className="flex flex-col items-center flex-1 h-full justify-center px-4 sm:px-0">
@@ -76,6 +98,9 @@ export const FormLogin = () => {
                   >
                     <div className="flex flex-col mt-4">
                       <input
+                        {...register("email", {
+                          required: "Required",
+                        })}
                         id="email"
                         type="text"
                         className="flex-grow outline-none shadow appearance-none border rounded py-2 px-3 text-grey-darker"
@@ -87,6 +112,9 @@ export const FormLogin = () => {
                     </div>
                     <div className="flex flex-col mt-4">
                       <input
+                         {...register("password", {
+                          required: "Required",
+                        })}
                         id="password"
                         type="password"
                         className="flex-grow shadow outline-none appearance-none border rounded py-2 px-3 text-grey-darker"

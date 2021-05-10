@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableProjectStatus from "./row-table-project-status";
-import firebase from "../../../services/firebase";
+import axios from 'axios';
+import _ from 'lodash';
+import { REACT_APP_BASE_URL } from '../../../routers/router.type';
 const queryString = require("query-string");
 export const TableProjectStatus = () => {
     const [ListProjectStatus, setListProjectStatus] = useState([]);
     const [page, setPage] = useState(1);
     const getDataProjectStatus = async () => {
-        const ref = firebase.database().ref("projectStatus");
-        ref.on("value", (snapshot) => {
-            setListProjectStatus({data: snapshot.val()})
-        });
+        const response = await axios.get(`${REACT_APP_BASE_URL}project_status`)
+       const {data} = _.get(response,'data.data', []);
+       console.log('data', data);
+       setListProjectStatus({data: data});
     };
     useEffect(() => {
         getDataProjectStatus();
@@ -35,9 +37,9 @@ export const TableProjectStatus = () => {
                         ListProjectStatus.data.map(projectType => {
                             return (
                                 <RowTableProjectStatus
-                                    link={"/category/project-status/" + projectType._id}
-                                    key={projectType._id}
-                                    number={projectType.index + 1}
+                                    link={"/category/project-status/" + projectType.id}
+                                    key={projectType.id}
+                                    number={projectType.id}
                                     type={projectType.name}
                                     description={projectType.description}
                                     status={projectType.status}

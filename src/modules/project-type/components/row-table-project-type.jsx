@@ -22,7 +22,7 @@ const RowTableProjectType = ({ number, type = null, description, priority, statu
         </td>
         <td
           className="w-2/12 sm:hidden lg:hidden  text-left whitespace-nowrap overflow-hidden overflow-ellipsis"
-          data-title="Description"
+          data-title="description"
         >
           {description}
         </td>
