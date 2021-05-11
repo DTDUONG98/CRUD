@@ -1,17 +1,31 @@
+import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiChevronDown } from "react-icons/bi";
 import { BsPlus } from "react-icons/bs";
 import { FcAbout } from "react-icons/fc";
 import { useHistory } from "react-router-dom";
-// import { LoadingSmallSize } from "../../../components/loading/loading-small-size";
 import { TitlePage } from "../../../components/title-page/title-page";
+import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, CUSTOMER_GROUP } from '../../../routers/router.type';
 export const FormCreateCustomerGroup = () => {
   const [loading, setLoading] = useState(false);
+  const { register: dataForm, handleSubmit } = useForm();
   const history = useHistory();
-  const { handleSubmit } = useForm();
-  const onSubmit = async dataNewProjectStatus => {
-    console.log('create project type')
+  const onSubmit = async dataNewCustomers => {
+    setLoading(true);
+    dataNewCustomers.priority = parseInt(dataNewCustomers.priority);
+    console.log('dataNewCustomers', dataNewCustomers)
+    try {
+      const response  = await axios.post(`${REACT_APP_BASE_URL}customer_groups`,dataNewCustomers)
+      if (response.status === 200) {
+        setLoading(false);
+        setTimeout(() => {
+          history.push(CUSTOMER_GROUP);
+        }, TIMEOUT_REDIRECT);
+      }
+    } catch (error) {
+      setLoading(false);
+    }
   };
   return (
     <div>
@@ -34,6 +48,9 @@ export const FormCreateCustomerGroup = () => {
                   Name
                 </label>
                 <input
+                  {...dataForm("name", {
+                    required: "Required",
+                  })}
                   className="w-full px-5 outline-none py-1 text-gray-700 focus:shadow-md   border-gray-400 border  rounded"
                   id="name"
                   name="name"
@@ -47,6 +64,9 @@ export const FormCreateCustomerGroup = () => {
                   Description
                 </label>
                 <textarea
+                  {...dataForm("description", {
+                    required: "Required",
+                  })}
                   className="w-full outline-none px-5 py-4   text-gray-700 focus:shadow-lg border-gray-400 border rounded"
                   id="description"
                   name="description"
@@ -61,9 +81,12 @@ export const FormCreateCustomerGroup = () => {
                 </label>
                 <div className="relative ">
                   <select
+                    {...dataForm("priority", {
+                      required: "Required",
+                    })}
                     className="w-full appearance-none outline-none px-3 py-3 text-gray-700 bg-gray-200 rounded"
                     id="priority"
-                    name="priorityNumber"
+                    name="priority"
                     required
                   >
                     <option value="1">1</option>
@@ -81,6 +104,9 @@ export const FormCreateCustomerGroup = () => {
                 </label>
                 <div className="relative ">
                   <select
+                    {...dataForm("status", {
+                      required: "Required",
+                    })}
                     className="w-full appearance-none outline-none px-3 py-3 text-gray-700 bg-gray-200 rounded"
                     id="status"
                     name="status"

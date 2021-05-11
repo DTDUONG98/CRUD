@@ -15,48 +15,113 @@ import { CustomerGroupCreate } from '../page/category/customer-group/create-cust
 import { DepartmentsCreate } from '../page/manager/departments/create-departments';
 import { StaffsCreate } from '../page/manager/staffs/staffs-create';
 import { ProjectsCreate } from '../page/manager/project/create-projects';
+import { CustomersDetails } from '../page/category/customer-group/detail-customer-group' 
 
 export const routes = [
+  // login
   {
     path: "/login",
     exact: true,
     component: LoginPage,
   },
+
+
+  // category porject type
   {
     path: "/category/project-type",
     exact: true,
     component: ProjectType,
   },
   {
+    path: "/category/project-type/create",
+    exact: true,
+    component: ProjectTypeCreate,
+  },
+
+
+  // category project status
+  {
     path: "/category/project-status",
     exact: true,
     component: ProjectStatus,
   },
+  {
+    path: "/category/project-status/create",
+    exact: true,
+    component: ProjectStatusCreate,
+  },
+
+
+  // catrgory tech stack
   {
     path: "/category/tech-stack",
     exact: true,
     component: TechStack,
   },
   {
+    path: "/category/tech-stack/create",
+    exact: true,
+    component: TechStackCreate,
+  },
+
+
+  // category customer group
+  {
     path: "/category/customer-group",
     exact: true,
     component: CustomerGroup,
   },
+  {
+    path: "/category/customer-group/create",
+    exact: true,
+    component: CustomerGroupCreate,
+  },
+  {
+    path: "/category/customer-group/:id",
+    exact: true,
+    component: CustomersDetails,
+  },
+
+  // manager depart ment
   {
     path: "/manager/departments",
     exact: true,
     component: Departments,
   },
   {
+    path: "/manager/departments/create",
+    exact: true,
+    component: DepartmentsCreate,
+  },
+
+
+  // manager staff
+  {
     path: "/manager/staffs",
     exact: true,
     component: Staffs,
   },
   {
+    path: "/manager/staffs/create",
+    exact: true,
+    component: StaffsCreate,
+  },
+
+
+  // manager projects
+  {
     path: "/manager/projects",
     exact: true,
     component: Projects,
   },
+  {
+    path: "/manager/projects/create",
+    exact: true,
+    component: ProjectsCreate,
+  },
+
+
+  // report 
   {
     path: "/report/project-quantity",
     exact: true,
@@ -66,40 +131,5 @@ export const routes = [
     path: "/report/staff-quantity",
     exact: true,
     component: StaffsQuantity,
-  },
-  {
-    path: "/category/project-type/create",
-    exact: true,
-    component: ProjectTypeCreate,
-  },
-  {
-    path: "/category/project-status/create",
-    exact: true,
-    component: ProjectStatusCreate,
-  },
-  {
-    path: "/category/tech-stack/create",
-    exact: true,
-    component: TechStackCreate,
-  },
-  {
-    path: "/category/customer-group/create",
-    exact: true,
-    component: CustomerGroupCreate,
-  },
-  {
-    path: "/manager/departments/create",
-    exact: true,
-    component: DepartmentsCreate,
-  },
-  {
-    path: "/manager/projects/create",
-    exact: true,
-    component: ProjectsCreate,
-  },
-  {
-    path: "/manager/staffs/create",
-    exact: true,
-    component: StaffsCreate,
   },
 ];

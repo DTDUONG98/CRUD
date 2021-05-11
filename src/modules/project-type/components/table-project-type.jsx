@@ -4,12 +4,16 @@ import RowTableProjectType from "./row-table-project-type";
 import { REACT_APP_BASE_URL } from '../../../routers/router.type'
 import _ from 'lodash';
 import axios from 'axios';
-const queryString = require("query-string");
 export const TableProjectType = () => {
     const [ListProjectType, setListProjectType] = useState([]);
     const [page, setPage] = useState(1);
     const getDataProjectType = async () => {
-       const response = await axios.get(`${REACT_APP_BASE_URL}project-types`)
+       const response = await axios.get(`${REACT_APP_BASE_URL}project_types`, {
+        params: {
+            page: page-1,
+            pageSize: 5
+        }
+      })
        const {data} = _.get(response,'data.data', []);
        console.log('data', data);
        setListProjectType({data: data});

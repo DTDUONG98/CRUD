@@ -9,3 +9,4 @@ export const PROJECT_QUANTITY = "/report/project-quantity";
 export const STAFFS_QUANTITY = "/report/staff-quantity";
 
 export const REACT_APP_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+export const TIMEOUT_REDIRECT = 1500;

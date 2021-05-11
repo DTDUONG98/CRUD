@@ -1,16 +1,31 @@
 import { useEffect, useState } from "react";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableCustomerGroup from "./row-table-customer-group";
-import firebase from "../../../services/firebase";
+import { Loading } from '../../../components/loading/loading';
+import axios from 'axios';
+import _ from 'lodash';
+import { REACT_APP_BASE_URL } from '../../../routers/router.type';
 const queryString = require("query-string");
 export const TableCustomerGroup = () => {
+    const [loading, setLoading ] = useState(false);
     const [ListCustomerGroup, setListCustomerGroup] = useState([]);
     const [page, setPage] = useState(1);
     const getDataCustomerGroup = async () => {
-        const ref = firebase.database().ref("customer");
-        ref.on("value", (snapshot) => {
-          setListCustomerGroup({data: snapshot.val()})
-        });
+        setLoading(true);
+        try {
+            const response = await axios.get(`${REACT_APP_BASE_URL}customer_groups`, {
+                params: {
+                    page: page-1,
+                    pageSize: 5,
+                }
+            })
+            const {data} = _.get(response,'data.data', []);
+            console.log('data', data);
+            setListCustomerGroup({data: data});
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+        }
     };
     useEffect(() => {
         getDataCustomerGroup();
@@ -21,6 +36,9 @@ export const TableCustomerGroup = () => {
     };
     return (
         <div className="h-96 sm:w-full">
+            {loading ? (
+        <Loading />
+      ) : (
             <div className="sm:w-full sm:flex sm:flex-col sm:items-center">
                 <table className="flex-col shadow-xl flex justify-center sm:w-11/12 bg-white w-11/12 rounded-xl">
                     <thead>
@@ -36,9 +54,9 @@ export const TableCustomerGroup = () => {
                         ListCustomerGroup.data.map(customerGroup => {
                             return (
                                 <RowTableCustomerGroup
-                                    link={"/category/customer-group/" + customerGroup.name}
-                                    key={customerGroup._id}
-                                    number={customerGroup.index + 1}
+                                    link={"/category/customer-group/" + customerGroup.id}
+                                    key={customerGroup.id}
+                                    number={customerGroup.id}
                                     type={customerGroup.name}
                                     description={customerGroup.description}
                                     priority={customerGroup.priority}
@@ -53,6 +71,7 @@ export const TableCustomerGroup = () => {
                     onChange={handelChangePage}
                 />
             </div>
+        )}
         </div>
-    );
+      );
 };

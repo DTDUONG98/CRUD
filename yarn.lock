@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@agney/react-loading@^0.1.2":
+  "integrity" "sha512-kkMpNtdGPfkPXoJQyulJsiapgdbZA0AkMEMOoVYE+10hC151Lvzdjpmg5EITxw+HTNkZ6yGa2EScI+lU/I9UgQ=="
+  "resolved" "https://registry.npmjs.org/@agney/react-loading/-/react-loading-0.1.2.tgz"
+  "version" "0.1.2"
+  dependencies:
+    "tiny-invariant" "^1.1.0"
+
 "@ant-design/colors@^6.0.0":
   "integrity" "sha512-qAZRvPzfdWHtfameEGP2Qvuf838NhergR35o+EuVyB5XvSA98xod5r4utvi4TJ3ywmevm290g9nsCG5MryrdWQ=="
   "resolved" "https://registry.npmjs.org/@ant-design/colors/-/colors-6.0.0.tgz"
@@ -12020,7 +12027,7 @@
     "prop-types" "^15.6.2"
     "react-lifecycles-compat" "^3.0.4"
 
-"react@*", "react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^15.0.0 || ^16.0.0 || ^17.0.0", "react@^15.5.x || ^16.x || ^17.x", "react@^16.0.0 || ^17.0.0", "react@^16.8.0 || ^17", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@^16.9.0 || ^17", "react@^17.0.2", "react@>= 16", "react@>= 16.8.0", "react@>= 16.9.0", "react@>=0.14", "react@>=0.14.0", "react@>=15", "react@>=15.0.0", "react@>=16.0.0", "react@>=16.6.0", "react@>=16.9.0", "react@>=17", "react@0.14.x || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@17.0.2":
+"react@*", "react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^15.0.0 || ^16.0.0 || ^17.0.0", "react@^15.5.x || ^16.x || ^17.x", "react@^16.0.0 || ^17.0.0", "react@^16.8.0 || ^17", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@^16.9.0 || ^17", "react@^17.0.2", "react@>= 16", "react@>= 16.8.0", "react@>= 16.9.0", "react@>=0.14", "react@>=0.14.0", "react@>=15", "react@>=15.0.0", "react@>=16", "react@>=16.0.0", "react@>=16.6.0", "react@>=16.9.0", "react@>=17", "react@0.14.x || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"
@@ -13796,7 +13803,7 @@
   "resolved" "https://registry.npmjs.org/timsort/-/timsort-0.3.0.tgz"
   "version" "0.3.0"
 
-"tiny-invariant@^1.0.2":
+"tiny-invariant@^1.0.2", "tiny-invariant@^1.1.0":
   "integrity" "sha512-ytxQvrb1cPc9WBEI/HSeYYoGD0kWnGEOR8RY6KomWLBVhqz0RgTwVO9dLrGz7dC+nN9llyI7OKAgRq8Vq4ZBSw=="
   "resolved" "https://registry.npmjs.org/tiny-invariant/-/tiny-invariant-1.1.0.tgz"
   "version" "1.1.0"
