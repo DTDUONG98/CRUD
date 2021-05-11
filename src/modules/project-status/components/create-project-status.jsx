@@ -4,14 +4,28 @@ import { BiChevronDown } from "react-icons/bi";
 import { BsPlus } from "react-icons/bs";
 import { FcAbout } from "react-icons/fc";
 import { useHistory } from "react-router-dom";
-// import { LoadingSmallSize } from "../../../components/loading/loading-small-size";
 import { TitlePage } from "../../../components/title-page/title-page";
+import axios from 'axios';
+import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, PROJECT_STATUS } from '../../../routers/router.type';
 export const FormCreateProjectStatus = () => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const { handleSubmit } = useForm();
   const onSubmit = async dataNewProjectStatus => {
-    console.log('create project status')
+    setLoading(true);
+    dataNewProjectStatus.priority = parseInt(dataNewProjectStatus.priority);
+    console.log('dataNewProjectStatus', dataNewProjectStatus)
+    try {
+      const response  = await axios.post(`${REACT_APP_BASE_URL}project_status`,dataNewProjectStatus)
+      if (response.status === 200) {
+        setLoading(false);
+        setTimeout(() => {
+          history.push(PROJECT_STATUS);
+        }, TIMEOUT_REDIRECT);
+      }
+    } catch (error) {
+      setLoading(false);
+    }
   };
   return (
     <div>

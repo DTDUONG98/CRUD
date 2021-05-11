@@ -1,17 +1,30 @@
+import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiChevronDown } from "react-icons/bi";
 import { BsPlus } from "react-icons/bs";
 import { FcAbout } from "react-icons/fc";
 import { useHistory } from "react-router-dom";
-// import { LoadingSmallSize } from "../../../components/loading/loading-small-size";
 import { TitlePage } from "../../../components/title-page/title-page";
+import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, PROJECT_TYPE } from '../../../routers/router.type';
 export const FormCreateProjectType = () => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const { handleSubmit } = useForm();
-  const onSubmit = async dataNewProjectStatus => {
-    console.log('create project type')
+  const onSubmit = async dataNewProjectType => {
+    setLoading(true);
+    dataNewProjectType.priority = parseInt(dataNewProjectType.priority);
+    try {
+      const response = await axios.post(`${REACT_APP_BASE_URL}project_types`,dataNewProjectType)
+      if(response.status == 200){
+        setLoading(false);
+        setTimeout(() => {
+          history.push(PROJECT_TYPE);
+        }, TIMEOUT_REDIRECT);
+      }
+    } catch (error) {
+      setLoading(false);
+    }
   };
   return (
     <div>

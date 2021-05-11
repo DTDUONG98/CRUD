@@ -9,7 +9,12 @@ export const TableProjectStatus = () => {
     const [ListProjectStatus, setListProjectStatus] = useState([]);
     const [page, setPage] = useState(1);
     const getDataProjectStatus = async () => {
-        const response = await axios.get(`${REACT_APP_BASE_URL}project_status`)
+        const response = await axios.get(`${REACT_APP_BASE_URL}project_status`, {
+            params: {
+                page: page-1,
+                pageSize: 5,
+            }
+        })
        const {data} = _.get(response,'data.data', []);
        console.log('data', data);
        setListProjectStatus({data: data});

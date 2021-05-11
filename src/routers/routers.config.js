@@ -15,7 +15,9 @@ import { CustomerGroupCreate } from '../page/category/customer-group/create-cust
 import { DepartmentsCreate } from '../page/manager/departments/create-departments';
 import { StaffsCreate } from '../page/manager/staffs/staffs-create';
 import { ProjectsCreate } from '../page/manager/project/create-projects';
-import { CustomersDetails } from '../page/category/customer-group/detail-customer-group' 
+import { CustomersDetails } from '../page/category/customer-group/detail-customer-group';
+import { ProjectTypeDetails } from '../page/category/project-type/detail-project-type';
+import { ProjectStatusDetails } from '../page/category/project-status/detail-project-status';
 
 export const routes = [
   // login
@@ -37,7 +39,11 @@ export const routes = [
     exact: true,
     component: ProjectTypeCreate,
   },
-
+  {
+    path: "/category/project-type/:id",
+    exact: true,
+    component: ProjectTypeDetails,
+  },
 
   // category project status
   {
@@ -50,7 +56,11 @@ export const routes = [
     exact: true,
     component: ProjectStatusCreate,
   },
-
+  {
+    path: "/category/project-status/:id",
+    exact: true,
+    component: ProjectStatusDetails,
+  },
 
   // catrgory tech stack
   {
