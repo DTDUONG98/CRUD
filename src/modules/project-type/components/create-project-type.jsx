@@ -9,8 +9,8 @@ import { TitlePage } from "../../../components/title-page/title-page";
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, PROJECT_TYPE } from '../../../routers/router.type';
 export const FormCreateProjectType = () => {
   const [loading, setLoading] = useState(false);
+  const { register: dataForm, handleSubmit } = useForm();
   const history = useHistory();
-  const { handleSubmit } = useForm();
   const onSubmit = async dataNewProjectType => {
     setLoading(true);
     dataNewProjectType.priority = parseInt(dataNewProjectType.priority);

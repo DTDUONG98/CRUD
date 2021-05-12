@@ -9,8 +9,8 @@ import axios from 'axios';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, PROJECT_STATUS } from '../../../routers/router.type';
 export const FormCreateProjectStatus = () => {
   const [loading, setLoading] = useState(false);
+  const { register: dataForm, handleSubmit } = useForm();
   const history = useHistory();
-  const { handleSubmit } = useForm();
   const onSubmit = async dataNewProjectStatus => {
     setLoading(true);
     dataNewProjectStatus.priority = parseInt(dataNewProjectStatus.priority);
