@@ -14,6 +14,7 @@ Route.group(() => {
     Route.resource('/customer_groups', "CustomerGroupController").name("customer_groups")
     Route.resource('/staffs', "StaffController").name("staffs")
     Route.resource('/projects', "ProjectController").name("projects")
+    Route.resource('/tech_stacks', "TechStackController").name('tech_stacks')
   }).middleware([]);
 
   // ---------------------------------- Auth Routes ---------------------------------------//
