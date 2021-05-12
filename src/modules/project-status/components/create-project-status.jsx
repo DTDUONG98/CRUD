@@ -13,7 +13,6 @@ export const FormCreateProjectStatus = () => {
   const history = useHistory();
   const onSubmit = async dataNewProjectStatus => {
     setLoading(true);
-    dataNewProjectStatus.priority = parseInt(dataNewProjectStatus.priority);
     console.log('dataNewProjectStatus', dataNewProjectStatus)
     try {
       const response  = await axios.post(`${REACT_APP_BASE_URL}project_status`,dataNewProjectStatus)

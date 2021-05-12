@@ -18,6 +18,7 @@ import { ProjectsCreate } from '../page/manager/project/create-projects';
 import { CustomersDetails } from '../page/category/customer-group/detail-customer-group';
 import { ProjectTypeDetails } from '../page/category/project-type/detail-project-type';
 import { ProjectStatusDetails } from '../page/category/project-status/detail-project-status';
+import { DetailTechStack } from '../page/category/tech-stack/detail-tech-stack';
 
 export const routes = [
   // login
@@ -73,7 +74,11 @@ export const routes = [
     exact: true,
     component: TechStackCreate,
   },
-
+  {
+    path: "/category/tech-stack/:id",
+    exact: true,
+    component: DetailTechStack,
+  },
 
   // category customer group
   {

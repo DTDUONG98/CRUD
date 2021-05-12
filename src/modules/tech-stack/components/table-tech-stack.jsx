@@ -9,7 +9,12 @@ export const TableTechStack = () => {
     const [ListTechStack, setListTechStack] = useState([]);
     const [page, setPage] = useState(1);
     const getDataTechStack = async () => {
-        const response = await axios.get(`${REACT_APP_BASE_URL}tech_stack`)
+        const response = await axios.get(`${REACT_APP_BASE_URL}tech_stacks`, {
+            params: {
+                page: page-1,
+                pageSize: 5,
+            }
+        })
         const {data} = _.get(response,'data.data', []);
         console.log('data', data);
         setListTechStack({data: data});

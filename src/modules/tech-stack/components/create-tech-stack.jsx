@@ -4,14 +4,27 @@ import { BiChevronDown } from "react-icons/bi";
 import { BsPlus } from "react-icons/bs";
 import { FcAbout } from "react-icons/fc";
 import { useHistory } from "react-router-dom";
-// import { LoadingSmallSize } from "../../../components/loading/loading-small-size";
 import { TitlePage } from "../../../components/title-page/title-page";
+import axios from 'axios';
+import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, TECH_STACK } from '../../../routers/router.type';
 export const FormCreateTechStack = () => {
   const [loading, setLoading] = useState(false);
+  const { register: dataForm, handleSubmit } = useForm();
   const history = useHistory();
-  const { handleSubmit } = useForm();
-  const onSubmit = async dataNewProjectStatus => {
-    console.log('create project status')
+  const onSubmit = async dataNewTechStack => {
+    setLoading(true);
+    console.log('dataNewTechStack', dataNewTechStack)
+    try {
+      const response  = await axios.post(`${REACT_APP_BASE_URL}tech_stacks`,dataNewTechStack)
+      if (response.status === 200) {
+        setLoading(false);
+        setTimeout(() => {
+          history.push(TECH_STACK);
+        }, TIMEOUT_REDIRECT);
+      }
+    } catch (error) {
+      setLoading(false);
+    }
   };
   return (
     <div>
@@ -34,6 +47,9 @@ export const FormCreateTechStack = () => {
                   Name
                 </label>
                 <input
+                  {...dataForm("name", {
+                    required: "Required",
+                  })}
                   className="w-full px-5 outline-none py-1 text-gray-700 focus:shadow-md   border-gray-400 border  rounded"
                   id="name"
                   name="name"
@@ -47,6 +63,9 @@ export const FormCreateTechStack = () => {
                   Description
                 </label>
                 <textarea
+                  {...dataForm("description", {
+                    required: "Required",
+                  })}
                   className="w-full outline-none px-5 py-4   text-gray-700 focus:shadow-lg border-gray-400 border rounded"
                   id="description"
                   name="description"
@@ -61,6 +80,9 @@ export const FormCreateTechStack = () => {
                 </label>
                 <div className="relative ">
                   <select
+                    {...dataForm("status", {
+                      required: "Required",
+                    })}
                     className="w-full appearance-none outline-none px-3 py-3 text-gray-700 bg-gray-200 rounded"
                     id="status"
                     name="status"

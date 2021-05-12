@@ -20,6 +20,15 @@ Run build taiwind Css
 
 ### `yarn test`
 
+Run Server
+1. Chạy db : tại crud/server/ ( luôn run )
+ ### docker-compose up 
+2. Chạy table, seed: tại crud/server/server/ ( run xong có thể tắt )
+   ### knex migrate:latest
+  ### knex seed:run
+3. Chạy server: tại crud/server ( luôn run )
+  ### yarn dev-server
+
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
