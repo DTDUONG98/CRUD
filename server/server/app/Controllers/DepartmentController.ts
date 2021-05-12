@@ -19,25 +19,26 @@ export default class DepartmentController extends BaseController {
 
     let departments: any[] = await this.Model.getAll();
     let results: any[] = [];
-    departments.map(async department => {
+    for (let department of departments) {
+
       let department_techs = await this.DepartmentTechModel.query()
         .where("deparmentId", "=", department.id)
         .select(["*"]);
       let techIds: number[] = department_techs.map( e => e.techId);
-
+  
       let techs = (techIds.length) ? await this.TechStackModel.query()
         .whereIn("id", [techIds])
         .select(["*"]) : [];
       let staffs = await this.StaffModel.query()
         .where("deparmentId", department.id)
         .select(["*"]);
-
+  
       results.push({
         ...department,
         tech_stacks: techs,
         staffs: staffs
       });
-    });
+    }
 
     return results;
   }
