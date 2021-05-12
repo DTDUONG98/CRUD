@@ -27,13 +27,16 @@ const RowTableDepartments = ({ number, type = null, mission, techStack, projects
           {mission}
         </td>
         <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="Priority">
-          {techStack}
+          {/* {techStack} */}
+          tech stack
         </td>
         <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="Priority">
-          {projects}
+          {/* {projects} */}
+          project
         </td>
         <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="Priority">
-          {staffs}
+          {/* {staffs} */}
+          staff
         </td>
       </tr>
     </tbody>

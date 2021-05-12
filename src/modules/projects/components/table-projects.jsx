@@ -1,17 +1,33 @@
 import { useEffect, useState } from "react";
-// import { Loading } from "../../../components/loading/loading";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableProjects from "./row-table-projects";
+import axios from 'axios';
+import _ from 'lodash';
+import { REACT_APP_BASE_URL } from '../../../routers/router.type';
 const queryString = require("query-string");
 export const TableProjectType = () => {
-    //   const [loading, setLoading] = useState(false);
+      const [loading, setLoading] = useState(false);
     const [ListProjects, setListProjects] = useState([]);
     const [page, setPage] = useState(1);
-    const getDataProjectStatus = async () => {
-        console.log('get data')
+    const getDataProjects = async () => {
+          setLoading(true);
+          try {
+            const response = await axios.get(`${REACT_APP_BASE_URL}projects`, {
+                params: {
+                    page: page-1,
+                    pageSize: 5
+                }
+            })
+            const {data} = _.get(response, 'data', []);
+            console.log('response', data);
+            setListProjects({data: data});
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+        }
     };
     useEffect(() => {
-        getDataProjectStatus();
+        getDataProjects();
     }, [page]);
     const handelChangePage = e => {
         const numberPage = e;
@@ -36,9 +52,9 @@ export const TableProjectType = () => {
                         ListProjects.data.map(projects => {
                             return (
                                 <RowTableProjects
-                                    link={"/manager/projects/" + projects._id}
-                                    key={projects._id}
-                                    number={projects.index + 1}
+                                    link={"/manager/projects/" + projects.id}
+                                    key={projects.id}
+                                    number={projects.id}
                                     type={projects.name}
                                     projectType={projects.projectType}
                                     projectStatus={projects.projectStatus}

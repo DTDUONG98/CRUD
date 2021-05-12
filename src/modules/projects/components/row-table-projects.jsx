@@ -24,19 +24,24 @@ const RowTableProjects = ({ number, type = null, projectType, techStack,departme
           className="w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0"
           data-title="projectType"
         >
-          {projectType}
+          {/* {projectType} */}
+          project type
         </td>
         <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="projectStatus">
-          {projectStatus}
+          {/* {projectStatus} */}
+          project status
         </td>
         <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="techStack">
-          {techStack}
+          {/* {techStack} */}
+          tech stack
         </td>
         <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="department">
-          {department}
+          {/* {department} */}
+          department
         </td>
         <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="staffJoin">
-          {staffJoin}
+          {/* {staffJoin} */}
+          staff
         </td>
       </tr>
     </tbody>

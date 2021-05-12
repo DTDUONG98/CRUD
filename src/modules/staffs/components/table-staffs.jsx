@@ -1,14 +1,29 @@
 import { useEffect, useState } from "react";
-// import { Loading } from "../../../components/loading/loading";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableStaffs from "./row-table-staffs";
+import axios from 'axios';
+import _ from 'lodash';
+import { REACT_APP_BASE_URL } from '../../../routers/router.type';
 const queryString = require("query-string");
 export const TableStaffs = () => {
-    //   const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [ListStaffs, setListStaffs] = useState([]);
     const [page, setPage] = useState(1);
     const getDataProjectStatus = async () => {
-        console.log('get data')
+        setLoading(true);
+        try {
+            const response = await axios.get(`${REACT_APP_BASE_URL}staffs`, {
+                params: {
+                    page: page-1,
+                    pageSize: 5
+                }
+            })
+            const {data} = _.get(response, 'data', []);
+            setListStaffs({data: data});
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+        }
     };
     useEffect(() => {
         getDataProjectStatus();
@@ -27,22 +42,18 @@ export const TableStaffs = () => {
                             <th className="pt-5 pb-5 w-2/12 text-left">Name</th>
                             <th className="pt-5 pb-5 w-1/12 sm:w-2/12">Birthday</th>
                             <th className="pt-5 pb-5 w-1/12 sm:w-2/12">SĐT</th>
-                            <th className="pt-5 pb-5 w-1/12 sm:w-2/12">Tech Stack</th>
-                            <th className="pt-5 pb-5 w-1/12 sm:w-2/12">Project join</th>
                         </tr>
                     </thead>
                     {ListStaffs.data &&
                         ListStaffs.data.map(staffs => {
                             return (
                                 <RowTableStaffs
-                                    link={"/manager/staffs/" + staffs._id}
-                                    key={staffs._id}
-                                    number={staffs.index + 1}
+                                    link={"/manager/staffs/" + staffs.id}
+                                    key={staffs.id}
+                                    number={staffs.id}
                                     type={staffs.name}
-                                    birthday={staffs.birthday}
-                                    phone={staffs.phone}
-                                    techStack={staffs.techStack}
-                                    projectJoin={staffs.projectJoin}
+                                    birthday={staffs.birth}
+                                    phone={staffs.tel}
                                 />
                             );
                         })}

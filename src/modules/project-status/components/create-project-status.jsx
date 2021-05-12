@@ -48,6 +48,9 @@ export const FormCreateProjectStatus = () => {
                   Name
                 </label>
                 <input
+                  {...dataForm("name", {
+                    required: "Required",
+                  })}
                   className="w-full px-5 outline-none py-1 text-gray-700 focus:shadow-md   border-gray-400 border  rounded"
                   id="name"
                   name="name"
@@ -61,6 +64,9 @@ export const FormCreateProjectStatus = () => {
                   Description
                 </label>
                 <textarea
+                  {...dataForm("description", {
+                    required: "Required",
+                  })}
                   className="w-full outline-none px-5 py-4   text-gray-700 focus:shadow-lg border-gray-400 border rounded"
                   id="description"
                   name="description"
@@ -75,6 +81,9 @@ export const FormCreateProjectStatus = () => {
                 </label>
                 <div className="relative ">
                   <select
+                    {...dataForm("status", {
+                      required: "Required",
+                    })}
                     className="w-full appearance-none outline-none px-3 py-3 text-gray-700 bg-gray-200 rounded"
                     id="status"
                     name="status"

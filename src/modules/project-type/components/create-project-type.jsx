@@ -14,6 +14,7 @@ export const FormCreateProjectType = () => {
   const onSubmit = async dataNewProjectType => {
     setLoading(true);
     dataNewProjectType.priority = parseInt(dataNewProjectType.priority);
+    console.log('dataNewProjectType', dataNewProjectType)
     try {
       const response = await axios.post(`${REACT_APP_BASE_URL}project_types`,dataNewProjectType)
       if(response.status == 200){
@@ -47,6 +48,9 @@ export const FormCreateProjectType = () => {
                   Name
                 </label>
                 <input
+                  {...dataForm("name", {
+                    required: "Required",
+                  })}
                   className="w-full px-5 outline-none py-1 text-gray-700 focus:shadow-md   border-gray-400 border  rounded"
                   id="name"
                   name="name"
@@ -60,6 +64,9 @@ export const FormCreateProjectType = () => {
                   Description
                 </label>
                 <textarea
+                  {...dataForm("description", {
+                    required: "Required",
+                  })}
                   className="w-full outline-none px-5 py-4   text-gray-700 focus:shadow-lg border-gray-400 border rounded"
                   id="description"
                   name="description"
@@ -74,9 +81,12 @@ export const FormCreateProjectType = () => {
                 </label>
                 <div className="relative ">
                   <select
+                    {...dataForm("priority", {
+                      required: "Required",
+                    })}
                     className="w-full appearance-none outline-none px-3 py-3 text-gray-700 bg-gray-200 rounded"
                     id="priority"
-                    name="priorityNumber"
+                    name="priority"
                     required
                   >
                     <option value="1">1</option>
@@ -94,6 +104,9 @@ export const FormCreateProjectType = () => {
                 </label>
                 <div className="relative ">
                   <select
+                    {...dataForm("status", {
+                      required: "Required",
+                    })}
                     className="w-full appearance-none outline-none px-3 py-3 text-gray-700 bg-gray-200 rounded"
                     id="status"
                     name="status"

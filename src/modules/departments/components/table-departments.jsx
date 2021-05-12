@@ -1,17 +1,33 @@
 import { useEffect, useState } from "react";
-// import { Loading } from "../../../components/loading/loading";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableDepartments from "./row-table-departments";
+import axios from 'axios';
+import _ from 'lodash';
+import { REACT_APP_BASE_URL } from '../../../routers/router.type';
 const queryString = require("query-string");
 export const TableDepartments = () => {
-    //   const [loading, setLoading] = useState(false);
+      const [loading, setLoading] = useState(false);
     const [ListDepartments, setListDepartments] = useState([]);
     const [page, setPage] = useState(1);
-    const getDataProjectStatus = async () => {
-        console.log('get data')
+    const getDataDepartment = async () => {
+        setLoading(true);
+        try {
+          const response = await axios.get(`${REACT_APP_BASE_URL}departments`, {
+              params: {
+                  page: page-1,
+                  pageSize: 5
+              }
+          })
+          const {data} = _.get(response, 'data', []);
+          console.log('response', data);
+          setListDepartments({data: data});
+          setLoading(false);
+      } catch (error) {
+          setLoading(false);
+      }
     };
     useEffect(() => {
-        getDataProjectStatus();
+        getDataDepartment();
     }, [page]);
     const handelChangePage = e => {
         const numberPage = e;
@@ -35,9 +51,9 @@ export const TableDepartments = () => {
                         ListDepartments.data.map(departments => {
                             return (
                                 <RowTableDepartments
-                                    link={"/manager/departments/" + departments._id}
-                                    key={departments._id}
-                                    number={departments.index + 1}
+                                    link={"/manager/departments/" + departments.id}
+                                    key={departments.id}
+                                    number={departments.id}
                                     type={departments.name}
                                     mussion={departments.mission}
                                     techStack={departments.techStack}

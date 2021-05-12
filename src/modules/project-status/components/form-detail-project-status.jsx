@@ -3,14 +3,14 @@ import { FcAbout } from "react-icons/fc";
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, PROJECT_STATUS } from '../../../routers/router.type';
-export const FormDetailProjectStatus = ({ projectStatusDetails, setUpdate }) => {
+export const FormDetailProjectStatus = ({ dataDetails, setUpdate }) => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const sumbitDeleteProjectStatus = async () => {
     setLoading(true);
-    const { id } = projectStatusDetails;
+    const { id } = dataDetails;
     try {
-      const respon = await axios.delete(`${REACT_APP_BASE_URL}proect_status/${id}`);
+      const respon = await axios.delete(`${REACT_APP_BASE_URL}project_status/${id}`);
       if (respon.status === 200) {
         setLoading(false);
         setTimeout(() => {
@@ -32,14 +32,14 @@ export const FormDetailProjectStatus = ({ projectStatusDetails, setUpdate }) => 
       </div>
       <div>
         <div className="px-10 py-5 text-gray-600">
-          Name: <b>{projectStatusDetails?.name}</b>
+          Name: <b>{dataDetails?.name}</b>
         </div>
         <div className="px-10 py-5 text-gray-600">
-          Description : <b>{projectStatusDetails?.description}</b>
+          Description : <b>{dataDetails?.description}</b>
         </div>
         <div className="px-10 py-5 text-gray-600">
           Status :{" "}
-          {projectStatusDetails?.status === "active" ? (
+          {dataDetails?.status === "active" ? (
             <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
               <span
                 aria-hidden

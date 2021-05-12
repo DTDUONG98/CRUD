@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 
-const RowTableStaffs = ({ number, type = null, birthday, phone, techStack, projectJoin, link }) => {
+const RowTableStaffs = ({ number, type = null, birthday, phone, link }) => {
   const history = useHistory();
   const onClickRedirect = () => {
     history.push(link);
@@ -24,12 +24,6 @@ const RowTableStaffs = ({ number, type = null, birthday, phone, techStack, proje
         </td>
         <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="phone">
           {phone}
-        </td>
-        <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="techStack">
-          {techStack}
-        </td>
-        <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="projectJoin">
-          {projectJoin}
         </td>
       </tr>
     </tbody>
