@@ -3,11 +3,16 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import "./assets/style/tailwind.css";
 import './index.css';
+import { Provider } from 'react-redux';
+import configStore from './redux/store/store';
 import reportWebVitals from './reportWebVitals';
 
+const store = configStore();
 
 ReactDOM.render(
-    <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
 

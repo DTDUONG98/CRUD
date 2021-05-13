@@ -1,31 +1,31 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { FormDetailStaffs } from "./form-detail-staff";
+import { FormDetailProjects } from "./form-detail-project";
 import { Loading } from '../../../components/loading/loading';
-import { FormEditStaffs } from "./form-edit-staff";
+import { FormEditProjects } from "./form-edit-projects";
 import axios from 'axios';
 import _ from 'lodash';
 import { REACT_APP_BASE_URL } from '../../../routers/router.type';
-export const DetailsStaffs = () => {
-  const [detailsStaffs, setDataDetailsStaffs] = useState([]);
+export const DetailsProjects = () => {
+  const [detailsProjects, setDataDetailsProjects] = useState([]);
   const [editStatus, setEditStatus] = useState(false);
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
   const params = useParams();
   useEffect(() => {
-    const getDataDetailsStaffs = async () => {
+    const getDataDetailsProjects = async () => {
         setLoading(true);
         try {
-          const response = await axios.get(`${REACT_APP_BASE_URL}staffs/${params.id}`)
+          const response = await axios.get(`${REACT_APP_BASE_URL}projects/${params.id}`)
           const {data} = _.get(response,'data', []);
           console.log('data', data);
-          setDataDetailsStaffs(data)
+          setDataDetailsProjects(data)
           setLoading(false);
         } catch (error) {
           setLoading(false);
         }
     };
-    getDataDetailsStaffs();
+    getDataDetailsProjects();
   }, [update]);
 
   return (
@@ -36,14 +36,14 @@ export const DetailsStaffs = () => {
         ) : (
           <div>
             {editStatus ? (
-              <FormEditStaffs
+              <FormEditProjects
                 setUpdate={setUpdate}
-                dataDetails={detailsStaffs}
+                dataDetails={detailsProjects}
                 setEdit={setEditStatus}
                 update={update}
               />
             ) : (
-              <FormDetailStaffs setUpdate={setEditStatus} dataDetails={detailsStaffs} />
+              <FormDetailProjects setUpdate={setEditStatus} dataDetails={detailsProjects} />
             )}
           </div>
         )}

@@ -19,6 +19,8 @@ import { CustomersDetails } from '../page/category/customer-group/detail-custome
 import { ProjectTypeDetails } from '../page/category/project-type/detail-project-type';
 import { ProjectStatusDetails } from '../page/category/project-status/detail-project-status';
 import { DetailTechStack } from '../page/category/tech-stack/detail-tech-stack';
+import { DetailStaffs } from '../page/manager/staffs/detail-staff';
+import { DetailProjects } from '../page/manager/project/detail-projects';
 
 export const routes = [
   // login
@@ -97,7 +99,7 @@ export const routes = [
     component: CustomersDetails,
   },
 
-  // manager depart ment
+  // manager department
   {
     path: "/manager/departments",
     exact: true,
@@ -121,6 +123,11 @@ export const routes = [
     exact: true,
     component: StaffsCreate,
   },
+  {
+    path: "/manager/staffs/:id",
+    exact: true,
+    component: DetailStaffs,
+  },
 
 
   // manager projects
@@ -134,7 +141,11 @@ export const routes = [
     exact: true,
     component: ProjectsCreate,
   },
-
+  {
+    path: "/manager/projects/:id",
+    exact: true,
+    component: DetailProjects,
+  },
 
   // report 
   {

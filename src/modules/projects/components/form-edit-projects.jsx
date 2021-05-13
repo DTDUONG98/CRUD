@@ -3,14 +3,14 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiChevronDown } from "react-icons/bi";
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT } from '../../../routers/router.type';
-export const FormEditStaffs = ({ dataDetails, setUpdate, setEdit, update }) => {
+export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) => {
   const { register: dataForm, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
-  const handeleOnSubmitUpdate = async dataStaffs => {
+  const handeleOnSubmitUpdate = async dataProjects => {
     setLoading(true);
     const {id} = dataDetails;
     try {
-        const respon = await axios.put(`${REACT_APP_BASE_URL}staffs/${id}`, dataStaffs);
+        const respon = await axios.put(`${REACT_APP_BASE_URL}projects/${id}`, dataProjects);
         if (respon.status === 200) {
             setLoading(false);
             setTimeout(() => {

@@ -40,12 +40,10 @@ export const TableProjectType = () => {
                     <thead>
                         <tr className=" flex w-full sm:w-full bg-indigo-700 justify-around text-white rounded-t-xl cursor-pointer hover:bg-indigo-600">
                             <th className="pt-5 pb-5 w-1/12">No.</th>
-                            <th className="pt-5 pb-5 w-2/12 text-left">Name</th>
-                            <th className="pt-5 pb-5 w-2/12 lg:hidden sm:hidden text-left">ProjectType</th>
-                            <th className="pt-5 pb-5 w-1/12 lg:w-2/12 sm:w-2/12">projectStatus</th>
-                            <th className="pt-5 pb-5 w-1/12 sm:w-2/12">tech Stack</th>
+                            <th className="pt-5 pb-5 w-1/12 text-right">Name</th>
+                            <th className="pt-5 pb-5 w-2/12 lg:hidden sm:hidden text-right">Project Type</th>
+                            <th className="pt-5 pb-5 w-2/12 lg:hidden sm:hidden text-center">Project Status</th>
                             <th className="pt-5 pb-5 w-1/12 sm:w-2/12">Department</th>
-                            <th className="pt-5 pb-5 w-1/12 sm:w-2/12">Staff Join</th>
                         </tr>
                     </thead>
                     {ListProjects.data &&
@@ -58,9 +56,7 @@ export const TableProjectType = () => {
                                     type={projects.name}
                                     projectType={projects.projectType}
                                     projectStatus={projects.projectStatus}
-                                    techStack={projects.techStack}
                                     department={projects.department}
-                                    staffJoin={projects.staffJoin}
                                 />
                             );
                         })}

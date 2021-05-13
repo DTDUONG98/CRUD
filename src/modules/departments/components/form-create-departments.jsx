@@ -5,7 +5,8 @@ import { TitlePage } from '../../../components/title-page/title-page'
 import MultiSelect from "react-multi-select-component";
 export const FormCreateDepartments = () => {
 
-  const { handleSubmit } = useForm();
+  const { register: dataForm, handleSubmit } = useForm();
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async data => {
     console.log('on Submit')
@@ -18,6 +19,10 @@ export const FormCreateDepartments = () => {
   const [selectedStaffs, setSelectedStaffs] = useState([]);
   const [selectedProject, setSelectedProject] = useState([]);
   const [selectedTechStacks, setSelectedTechStacks] = useState([]);
+
+  const getDataStaff = async () => {
+    setLoading(true);
+  }
 
   const options = [
     { label: "Grapes 🍇", value: "grapes" },

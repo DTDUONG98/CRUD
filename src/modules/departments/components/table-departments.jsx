@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { REACT_APP_BASE_URL } from '../../../routers/router.type';
 const queryString = require("query-string");
 export const TableDepartments = () => {
-      const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [ListDepartments, setListDepartments] = useState([]);
     const [page, setPage] = useState(1);
     const getDataDepartment = async () => {

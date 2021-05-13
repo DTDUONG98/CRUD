@@ -15,33 +15,22 @@ const RowTableProjects = ({ number, type = null, projectType, techStack,departme
           {number}
         </td>
         <td
-          className="w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0"
+          className="w-1/12 text-center"
           data-title="type"
         >
           {type}
         </td>
         <td
-          className="w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0"
+          className="w-1/12 text-center "
           data-title="projectType"
         >
-          {/* {projectType} */}
-          project type
+          {projectType.name}
         </td>
         <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="projectStatus">
-          {/* {projectStatus} */}
-          project status
-        </td>
-        <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="techStack">
-          {/* {techStack} */}
-          tech stack
+          {projectStatus.name}
         </td>
         <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="department">
-          {/* {department} */}
-          department
-        </td>
-        <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="staffJoin">
-          {/* {staffJoin} */}
-          staff
+          {department.name}
         </td>
       </tr>
     </tbody>
