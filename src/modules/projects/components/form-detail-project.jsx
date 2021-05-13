@@ -9,7 +9,7 @@ import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, STAFFS } from '../../../routers/r
 export const FormDetailProjects = ({ dataDetails, setUpdate }) => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-  const { projectType, projectStatus, department } = dataDetails;
+  console.log('dataDetails', dataDetails)
   const sumbitDeleteProjects = async () => {
     setLoading(true);
     const {id} = dataDetails;
@@ -38,13 +38,13 @@ export const FormDetailProjects = ({ dataDetails, setUpdate }) => {
           Name: <b>{dataDetails?.name}</b>
         </div>
         <div className="px-10 py-5 text-gray-600">
-          Project Type : <b>{projectType.name}</b>
+          Project Type : <b>{dataDetails?.projectType}</b>
         </div>
         <div className="px-10 py-5 text-gray-600">
-          Project Status : <b>{projectStatus.name}</b>
+          Project Status : <b>{dataDetails?.projectStatus}</b>
         </div>
         <div className="px-10 py-5 text-gray-600">
-          Department : <b>{department.name}</b>
+          Department : <b>{dataDetails?.department}</b>
         </div>
         <div className="px-10 py-5 text-gray-600">
         <p>Tech:</p> 
