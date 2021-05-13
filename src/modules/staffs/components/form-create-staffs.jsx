@@ -5,35 +5,82 @@ import { useForm } from "react-hook-form";
 import { BsPlus } from "react-icons/bs";
 import { TitlePage } from '../../../components/title-page/title-page'
 import MultiSelect from "react-multi-select-component";
-import { Input } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+import _ from 'lodash';
+import moment from 'moment';
+import { REACT_APP_BASE_URL, STAFFS, TIMEOUT_REDIRECT } from '../../../routers/router.type';
 export const FormCreateStaffs = () => {
 
-    const { handleSubmit } = useForm();
+    const history = useHistory();
+    const { register: dataForm, handleSubmit } = useForm();
 
-    const onSubmit = async data => {
-        console.log('on Submit')
-    };
+    const [loading, setLoading] = useState(false);
+    const [dataTechStack, setDataTechStack] = useState([]);
+    const [dataProjects, setDataProjects] = useState([]);
 
-    const addDisabled = (arr = []) => {
-        console.log('add Disabled');
-    };
-    
     const [selectedProject, setSelectedProject] = useState([]);
     const [selectedTechStacks, setSelectedTechStacks] = useState([]);
-
     const [dateOfBirth, setDateOfBirth] = useState(new Date());
 
-    const options = [
-        { label: "Grapes 🍇", value: "grapes" },
-        { label: "Mango 🥭", value: "mango" },
-        { label: "Strawberry 🍓", value: "strawberry", disabled: true },
-        { label: "Watermelon 🍉", value: "watermelon" },
-        { label: "Pear 🍐", value: "pear" },
-        { label: "Apple 🍎", value: "apple" },
-        { label: "Tangerine 🍊", value: "tangerine" },
-        { label: "Pineapple 🍍", value: "pineapple" },
-        { label: "Peach 🍑", value: "peach" },
-    ];
+
+    const getDataTechStack = async () => {
+        setLoading(true);
+        try {
+            const response = await axios.get(`${REACT_APP_BASE_URL}tech_stacks`)
+            const {data} = _.get(response,'data.data', []);
+            console.log('data TechStack', data)
+            for( let i=0;i<data.length;i++){
+                data[i].label = data[i].name
+                data[i].value = data[i].name
+            }
+            setDataTechStack(data)
+            setLoading(false);
+        } catch (error) {
+            setLoading(true);
+        }
+    }
+    const getDataProject = async () => {
+        setLoading(true);
+        try {
+            const response = await axios.get(`${REACT_APP_BASE_URL}projects`)
+            const {data} = _.get(response, 'data', []);
+            console.log('data projects', data)
+            for( let i=0;i<data.length;i++){
+                data[i].label = data[i].name
+                data[i].value = data[i].name
+            }
+            setDataProjects(data)
+            setLoading(false);
+        } catch (error) {
+            setLoading(true);
+        }
+    }
+
+    const onSubmit = async data => {
+        setLoading(true);
+        data.birth = moment(dateOfBirth).format('DD/MM/YYYY')
+        data.techs = selectedTechStacks
+        data.projects = selectedProject
+        console.log('dataNewStaff', data)
+        try {
+            const response = await axios.post(`${REACT_APP_BASE_URL}staffs`. data)
+            if(response.status == 200){
+                setLoading(false);
+                setTimeout(() => {
+                  history.push(STAFFS);
+                }, TIMEOUT_REDIRECT);
+              }
+        } catch (error) {
+            setLoading(false)
+        }
+    };
+
+
+    useEffect(() => {
+        getDataTechStack();
+        getDataProject();
+    },[])
 
     return (
         <div className="mt-10">
@@ -50,6 +97,9 @@ export const FormCreateStaffs = () => {
                                 Name<span className="text-red-600">*</span>
                             </label>
                             <input
+                                {...dataForm("name", {
+                                    required: "Required",
+                                })}
                                 className="w-full px-5 outline-none py-1 text-gray-700 focus:shadow-lg border-indigo-700 border rounded"
                                 id="name"
                                 name="name"
@@ -59,20 +109,23 @@ export const FormCreateStaffs = () => {
                             />
                         </div>
                         <div className="w-1/2 sm:w-full pt-4">
-                            <label className="block text-sm text-gray-00 mb-2" htmlFor="email">
+                            <label className="block text-sm text-gray-00 mb-2" htmlFor="phone">
                                 Phone<span className="text-red-600">*</span>
                             </label>
-                            <Input
+                            <input
+                                {...dataForm("tel", {
+                                    required: "Required",
+                                })}
                                 className="w-full px-5 outline-none py-1 text-gray-700 focus:shadow-lg border-indigo-700 border rounded"
-                                id="phone"
-                                name="phone"
-                                type="text"
+                                id="tel"
+                                name="tel"
+                                type="number"
                                 required
                                 placeholder="phone"
                             />
                         </div>
                         <div className="w-1/2 sm:w-full pt-4">
-                            <label className="block text-sm text-gray-00 mb-2" htmlFor="address">
+                            <label className="block text-sm text-gray-00 mb-2" htmlFor="birth">
                                 Date of birth
                             </label>
                             <DatePicker
@@ -82,22 +135,22 @@ export const FormCreateStaffs = () => {
                             />
                         </div>
                         <div className="inline-block mt-2 w-full">
-                            <label className="text-sm text-gray-600 mb-2" htmlFor="techStack">
+                            <label className="text-sm text-gray-600 mb-2" htmlFor="techs">
                                 Select tech stacks
                             </label>
                             <MultiSelect
-                                options={options}
+                                options={dataTechStack}
                                 value={selectedTechStacks}
                                 onChange={setSelectedTechStacks}
                                 labelledBy={"Select"}
                             />
                         </div>
                         <div className="inline-block mt-2 w-full">
-                            <label className="text-sm text-gray-600 mb-2" htmlFor="projectType">
+                            <label className="text-sm text-gray-600 mb-2" htmlFor="projects">
                                 Select projects
                             </label>
                             <MultiSelect
-                                options={options}
+                                options={dataProjects}
                                 value={selectedProject}
                                 onChange={setSelectedProject}
                                 labelledBy={"Select"}
