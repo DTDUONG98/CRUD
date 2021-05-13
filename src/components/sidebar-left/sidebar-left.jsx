@@ -55,7 +55,7 @@ export const SidebarLeft = () => {
        transition duration-500 ease-in-out sm:-translate-x-full
        sm:left-0 sm:m-0 sm:top-0 sm:h-full sm:bg-white"
       >
-        <div className="w-10/12 sm:mt-16">
+        <div className="w-10/12 sm:mt-16" style={{paddingTop: '30px'}}>
           <ul>
             <div className="text-gray-400 text-sm flex items-center">
               <p>CATEGORY</p>
@@ -110,7 +110,7 @@ export const SidebarLeft = () => {
                 <AiOutlineEllipsis />
               </p>
             </div>
-            <div onClick={handleHideSideBar}>
+            <div onClick={handleHideSideBar} style={{paddingTop: '20px'}}>
               <NavLink
                 to="/manager/departments"
                 activeClassName="hover:bg-indigo-700 hover:text-pink-100 bg-indigo-700 text-white rounded-xl"
@@ -138,7 +138,7 @@ export const SidebarLeft = () => {
             </div>
           </ul>
         </div>
-        <div className="w-10/12 mt-5">
+        <div className="w-10/12 mt-5" style={{paddingBottom: '100px', paddingTop: '30px'}}>
           <ul>
             <div className="text-gray-400 text-sm flex items-center">
               <p>REPORT</p>
@@ -146,7 +146,7 @@ export const SidebarLeft = () => {
                 <AiOutlineEllipsis />
               </p>
             </div>
-            <div onClick={handleHideSideBar}>
+            <div onClick={handleHideSideBar} style={{paddingTop: '20px'}}>
               <NavLink
                 to="/report/project-quantity"
                 activeClassName="hover:bg-indigo-700 hover:text-pink-100 bg-indigo-700 text-white rounded-xl"
