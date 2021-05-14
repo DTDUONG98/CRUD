@@ -39,7 +39,7 @@ export const TableStaffs = () => {
                     <thead>
                         <tr className=" flex w-full sm:w-full bg-indigo-700 justify-around text-white rounded-t-xl cursor-pointer hover:bg-indigo-600">
                             <th className="pt-5 pb-5 w-1/12">No.</th>
-                            <th className="pt-5 pb-5 w-1/12 text-center">Name</th>
+                            <th className="pt-5 pb-5 w-2/12 text-center">Name</th>
                             <th className="pt-5 pb-5 w-1/12 text-center">Birthday</th>
                             <th className="pt-5 pb-5 w-1/12 text-center">SĐT</th>
                         </tr>

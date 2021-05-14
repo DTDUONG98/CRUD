@@ -15,7 +15,7 @@ const RowTableStaffs = ({ number, type = null, birthday, phone, link }) => {
           {number}
         </td>
         <td
-          className="w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="type"
+          className="w-2/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="type"
         >
           {type}
         </td>
