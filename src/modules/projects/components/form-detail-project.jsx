@@ -38,13 +38,13 @@ export const FormDetailProjects = ({ dataDetails, setUpdate }) => {
           Name: <b>{dataDetails?.name}</b>
         </div>
         <div className="px-10 py-5 text-gray-600">
-          Project Type : <b>{dataDetails?.projectType}</b>
+          Project Type : <b>{dataDetails?.TypeName}</b>
         </div>
         <div className="px-10 py-5 text-gray-600">
-          Project Status : <b>{dataDetails?.projectStatus}</b>
+          Project Status : <b>{dataDetails?.StatusName}</b>
         </div>
         <div className="px-10 py-5 text-gray-600">
-          Department : <b>{dataDetails?.department}</b>
+          Department : <b>{dataDetails?.departmentName}</b>
         </div>
         <div className="px-10 py-5 text-gray-600">
         <p>Tech:</p> 

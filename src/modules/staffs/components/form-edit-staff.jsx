@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import MultiSelect from "react-multi-select-component";
 import _ from 'lodash';
-import moment from 'moment';
 import { TitlePage } from "../../../components/title-page/title-page";
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT } from '../../../routers/router.type';
 export const FormEditStaffs = ({ dataDetails, setUpdate, setEdit, update }) => {
