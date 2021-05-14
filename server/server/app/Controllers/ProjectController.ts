@@ -19,7 +19,9 @@ export default class ProjectController extends BaseController {
 
     async index() {
 
-        let projects = await this.Model.getAll();
+        let inputs = this.request.all();
+        let records = await this.Model.query().getForGridTable(inputs);
+        let projects = records.data || [];
         let results: any[] = [];
         await Promise.all(
             
@@ -66,7 +68,10 @@ export default class ProjectController extends BaseController {
             })
         );
 
-        return results;
+        return {
+            ...records,
+            data: results
+        };
     }
 
     async detail() {

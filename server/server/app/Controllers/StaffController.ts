@@ -18,7 +18,9 @@ export default class ProjectStatusController extends BaseController {
 
   async index() {
 
-    let staffs = await this.StaffModel.getAll();
+    let inputs = this.request.all();
+    let records = await this.StaffModel.query().getForGridTable(inputs);
+    let staffs = records.data || [];
     let results: any[] = [];
     await Promise.all(
 
@@ -50,7 +52,10 @@ export default class ProjectStatusController extends BaseController {
       })
     );
 
-    return results;
+    return {
+      ...records,
+      data: results
+    };
   }
 
   async detail() {

@@ -17,7 +17,10 @@ export default class DepartmentController extends BaseController {
     
     let inputs = this.request.all();
 
-    let departments: any[] = await this.Model.getAll();
+    let records = await this.Model
+      .query()
+      .getForGridTable(inputs);
+    let departments = records.data || [];
     let results: any[] = [];
     for (let department of departments) {
 
@@ -40,7 +43,10 @@ export default class DepartmentController extends BaseController {
       });
     }
 
-    return results;
+    return {
+      ...records,
+      data: results
+    };
   }
 
   async dettail() {
