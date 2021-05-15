@@ -18,6 +18,9 @@ export const DetailsProjects = () => {
     try {
       const response = await axios.get(`${REACT_APP_BASE_URL}projects/${params.id}`)
       const {data} = _.get(response,'data', []);
+      data.typeName = data.projectType.name
+      data.statusName = data.projectStatus.name
+      // data.departmentName = data.department.name
       setDataProjects(data)
       setLoading(false);
     } catch (error) {
@@ -30,7 +33,6 @@ export const DetailsProjects = () => {
   }, [update]);
 
   return (
-    console.log('dataProjects', dataProjects),
     <div>
       <div>
         {loading ? (

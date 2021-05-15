@@ -4,12 +4,12 @@ import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import _ from 'lodash';
-import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, STAFFS } from '../../../routers/router.type';
+import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, PROJECTS } from '../../../routers/router.type';
 
 export const FormDetailProjects = ({ dataDetails, setUpdate }) => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-  console.log('dataDetails', dataDetails)
+  console.log('dataDetails', dataDetails);
   const sumbitDeleteProjects = async () => {
     setLoading(true);
     const {id} = dataDetails;
@@ -18,7 +18,7 @@ export const FormDetailProjects = ({ dataDetails, setUpdate }) => {
       if (response.status === 200) {
         setLoading(false);
         setTimeout(() => {
-          history.push(STAFFS);
+          history.push(PROJECTS);
         }, TIMEOUT_REDIRECT);
       }
     } catch (error) {
@@ -38,10 +38,10 @@ export const FormDetailProjects = ({ dataDetails, setUpdate }) => {
           Name: <b>{dataDetails?.name}</b>
         </div>
         <div className="px-10 py-5 text-gray-600">
-          Project Type : <b>{dataDetails?.TypeName}</b>
+          Project Type : <b>{dataDetails?.typeName}</b>
         </div>
         <div className="px-10 py-5 text-gray-600">
-          Project Status : <b>{dataDetails?.StatusName}</b>
+          Project Status : <b>{dataDetails?.statusName}</b>
         </div>
         <div className="px-10 py-5 text-gray-600">
           Department : <b>{dataDetails?.departmentName}</b>
