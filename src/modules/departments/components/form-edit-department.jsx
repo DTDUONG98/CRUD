@@ -3,6 +3,9 @@ import { useForm } from "react-hook-form";
 import { BsPlus } from "react-icons/bs";
 import { TitlePage } from '../../../components/title-page/title-page'
 import MultiSelect from "react-multi-select-component";
+import axios from "axios";
+import _ from 'lodash';
+import { REACT_APP_BASE_URL, DEPARTMENTS, TIMEOUT_REDIRECT } from '../../../routers/router.type';
 export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update }) => {
 
   const { register: dataForm, handleSubmit } = useForm();
@@ -12,29 +15,106 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
     console.log('on Submit')
   };
 
-  const addDisabled = (arr = []) => {
-    console.log('add Disabled');
+  const changeArr = (arr = []) => {
+    return arr.map(item => {
+      return { label: item.name, value: item.id };
+    });
   };
+
+  const addDisabled = (arr = []) => {
+    return arr.map(item => {
+      if (item.status === "inactive") {
+        return { label: item.name, value: item.id, disabled: true };
+      }
+      return { label: item.name, value: item.id };
+    });
+  };
+
 
   const [selectedStaffs, setSelectedStaffs] = useState([]);
   const [selectedProject, setSelectedProject] = useState([]);
   const [selectedTechStacks, setSelectedTechStacks] = useState([]);
 
-  const getDataStaff = async () => {
-    setLoading(true);
+  const [dataTechStack, setDataTechStack] = useState([]);
+  const [dataStaff, setDataStaff] = useState([]);
+  const [dataProjects, setDataProjects] = useState([]);
+
+  const dataSelectTechStack = () => {
+    let dataTechs = [];
+    const {tech_stacks} = dataDetails
+    tech_stacks.map(element => {
+      const {name} = element
+      const {id} = element
+      dataTechs.push({label: name, value: id})
+    })
+    setSelectedTechStacks(dataTechs)
   }
 
-  const options = [
-    { label: "Grapes 🍇", value: "grapes" },
-    { label: "Mango 🥭", value: "mango" },
-    { label: "Strawberry 🍓", value: "strawberry", disabled: true },
-    { label: "Watermelon 🍉", value: "watermelon" },
-    { label: "Pear 🍐", value: "pear" },
-    { label: "Apple 🍎", value: "apple" },
-    { label: "Tangerine 🍊", value: "tangerine" },
-    { label: "Pineapple 🍍", value: "pineapple" },
-    { label: "Peach 🍑", value: "peach" },
-  ];
+  const dataSelectStaffs = () => {
+    let dataStaffs = [];
+    const {staffs} = dataDetails
+    staffs.map(element => {
+      const {name} = element
+      const {id} = element
+      dataStaffs.push({label: name, value: id})
+    })
+    setSelectedStaffs(dataStaffs)
+  }
+  const dataSelectProjects = () => {
+    let dataProjects = [];
+    const {projects} = dataDetails
+    projects.map(element => {
+      const {name} = element
+      const {id} = element
+      dataProjects.push({label: name, value: id})
+    })
+    setSelectedProject(dataProjects)
+  }
+
+  const getDataStaff = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`${REACT_APP_BASE_URL}staffs`)
+      const {data} = _.get(response, 'data.data', [])
+      setDataStaff(data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  }
+
+  const getDataTechStack = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`${REACT_APP_BASE_URL}tech_stacks`)
+      const {data} = _.get(response, 'data.data', [])
+      setDataTechStack(data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  }
+
+  const getDataProjects = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`${REACT_APP_BASE_URL}projects`)
+      const {data} = _.get(response, 'data.data', [])
+      setDataProjects(data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getDataStaff();
+    getDataTechStack();
+    getDataProjects();
+    dataSelectTechStack();
+    dataSelectStaffs();
+    dataSelectProjects();
+  },[])
 
   return (
     <div className="mt-10">
@@ -104,7 +184,7 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
               Select tech stacks
             </label>
             <MultiSelect
-              options={options}
+              options={addDisabled(dataTechStack)}
               value={selectedTechStacks}
               onChange={setSelectedTechStacks}
               labelledBy={"Select"}
@@ -115,7 +195,7 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
               Select staffs
             </label>
             <MultiSelect
-              options={options}
+              options={changeArr(dataStaff)}
               value={selectedStaffs}
               onChange={setSelectedStaffs}
               labelledBy={"Select"}
@@ -126,7 +206,7 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
               Select projects
             </label>
             <MultiSelect
-              options={options}
+              options={changeArr(dataProjects)}
               value={selectedProject}
               onChange={setSelectedProject}
               labelledBy={"Select"}

@@ -53,7 +53,8 @@ const getDataProject = async () => {
     const {techs} = dataDetails
     techs.map(element => {
       const {name} = element
-      dataTechs.push({label: name, value: name})
+      const {id} = element
+      dataTechs.push({label: name, value: id})
     })
     setSelectedTechStacks(dataTechs)
   }
@@ -62,7 +63,8 @@ const getDataProject = async () => {
     const {projects} = dataDetails
     projects.map(element => {
       const {name} = element
-      dataProjects.push({label: name, value: name})
+      const {id} = element
+      dataProjects.push({label: name, value: id})
     })
     setSelectedProject(dataProjects)
   }
