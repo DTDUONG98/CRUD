@@ -55,8 +55,6 @@ export const TableDepartments = () => {
                                     type={departments.name}
                                     mission={departments.mission}
                                     func={departments.functions}
-                                    techStack={departments.techStack}
-                                    status={departments.status}
                                 />
                             );
                         })}

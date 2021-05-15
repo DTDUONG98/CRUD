@@ -80,10 +80,6 @@ export const FormCreateProjects = () => {
     try {
         const response = await axios.get(`${REACT_APP_BASE_URL}project_types`)
         const {data} = _.get(response, 'data.data', []);
-        for( let i=0;i<data.length;i++){
-            data[i].label = data[i].name
-            data[i].value = data[i].name
-        }
         setProjectType(data)
         setLoading(false);
     } catch (error) {
@@ -95,10 +91,6 @@ export const FormCreateProjects = () => {
     try {
         const response = await axios.get(`${REACT_APP_BASE_URL}project_status`)
         const {data} = _.get(response, 'data.data', []);
-        for( let i=0;i<data.length;i++){
-            data[i].label = data[i].name
-            data[i].value = data[i].name
-        }
         setProjectStatus(data)
         setLoading(false);
     } catch (error) {
@@ -110,10 +102,6 @@ export const FormCreateProjects = () => {
     try {
         const response = await axios.get(`${REACT_APP_BASE_URL}tech_stacks`)
         const {data} = _.get(response, 'data.data', []);
-        for( let i=0;i<data.length;i++){
-            data[i].label = data[i].name
-            data[i].value = data[i].name
-        }
         setTechStacks(data)
         setLoading(false);
     } catch (error) {
@@ -124,12 +112,7 @@ export const FormCreateProjects = () => {
     setLoading(true);
     try {
         const response = await axios.get(`${REACT_APP_BASE_URL}departments`)
-        const {data} = _.get(response, 'data', []);
-        console.log('data tech stack', data)
-        for( let i=0;i<data.length;i++){
-            data[i].label = data[i].name
-            data[i].value = data[i].name
-        }
+        const {data} = _.get(response, 'data.data', []);
         setDepartment(data)
         setLoading(false);
     } catch (error) {
@@ -141,10 +124,6 @@ export const FormCreateProjects = () => {
     try {
         const response = await axios.get(`${REACT_APP_BASE_URL}staffs`)
         const {data} = _.get(response, 'data.data', []);
-        for( let i=0;i<data.length;i++){
-            data[i].label = data[i].name
-            data[i].value = data[i].name
-        }
         setStaffs(data)
         setLoading(false);
     } catch (error) {
