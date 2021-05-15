@@ -5,6 +5,8 @@ import ProjectStatusModel from '@app/Models/ProjectStatusModel';
 import TechStackModel from '@app/Models/TechStackModel';
 import DeparmentModel from '@app/Models/DeparmentModel';
 import StaffModel from '@app/Models/StaffModel';
+import ProjectTechModel from '@app/Models/ProjectTechModel';
+import ProjectStaffModel from '@app/Models/ProjectStaffModel';
 
 import ApiException from '../Exceptions/ApiException';
 
@@ -16,6 +18,8 @@ export default class ProjectController extends BaseController {
     TechStackModel = TechStackModel;
     DeparmentModel = DeparmentModel;
     StaffModel = StaffModel;
+    ProjectTechModel = ProjectTechModel;
+    ProjectStaffModel = ProjectStaffModel;
 
     async index() {
 
@@ -24,8 +28,8 @@ export default class ProjectController extends BaseController {
         let projects = records.data || [];
         let results: any[] = [];
         await Promise.all(
-            
-            projects.map( async project => {
+
+            projects.map(async project => {
                 const projectId: number = project.id;
                 /**
                  * Get Department
@@ -53,10 +57,10 @@ export default class ProjectController extends BaseController {
                  * Get Staff
                  */
                 let staffs = await this.StaffModel.query()
-                    .join("project_staffs", "project_staffs.projectId", "staffs.id")
-                    .where("project_staffs.staffId", projectId)
+                    .join("project_staffs", "project_staffs.staffId", "staffs.id")
+                    .where("project_staffs.projectId", projectId)
                     .select(["staffs.*"]);
-    
+
                 results.push({
                     ...project,
                     department,
@@ -116,7 +120,7 @@ export default class ProjectController extends BaseController {
             .join("project_staffs", "project_staffs.projectId", "staffs.id")
             .where("project_staffs.staffId", projectId)
             .select(["staffs.*"]);
-        
+
         return {
             ...project,
             department,
@@ -125,6 +129,60 @@ export default class ProjectController extends BaseController {
             techs,
             staffs
         }
+    }
+
+    async store() {
+
+        let inputs = this.request.all();
+        let allowFields = {
+            name: "string",
+            typeId: "number",
+            statusId: "number",
+            deparmentId: "number",
+            techIds: ["number"],
+            staffIds: ["number"],
+        }
+        let params = this.validate(inputs, allowFields, { removeNotAllow: false });
+
+        let dataProject = {
+            name: params['name'],
+            typeId: params['typeId'],
+            statusId: params['statusId'],
+            deparmentId: params['deparmentId']
+        }
+
+        let projectInserted = await this.Model.insertOne(dataProject);
+        const projectId: number = projectInserted.id;
+
+        /**
+         * Insert techIds
+         */
+        let techs: any[] = [];
+        if (Array.isArray(params['techIds'])) {
+            let data: any[] = params['techIds'].map(techId => ({
+                projectId: projectId,
+                techId: techId
+            }));
+            techs = await this.ProjectTechModel.insertMany(data);
+        }
+        /**
+         * Insert staffIds
+         */
+        let staffs: any[] = [];
+        if (Array.isArray(params['staffIds'])) {
+            let data: any[] = params['staffIds'].map(staffId => ({
+                projectId: projectId,
+                staffId: staffId
+            }));
+
+            staffs = await this.ProjectStaffModel.insertMany(data);
+        }
+
+        return {
+            ...projectInserted,
+            techs,
+            staffs
+        };
     }
 
 }
