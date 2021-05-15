@@ -3,6 +3,7 @@ import DeparmentModel from "@app/Models/DeparmentModel";
 import DepartmentTechModel from '@app/Models/DepartmentTechModel';
 import TechStackModel from '@app/Models/TechStackModel';
 import StaffModel from '@app/Models/StaffModel';
+import ProjectModel from '@app/Models/ProjectModel'
 
 import ApiException from '../Exceptions/ApiException';
 
@@ -12,9 +13,10 @@ export default class DepartmentController extends BaseController {
   DepartmentTechModel = DepartmentTechModel;
   TechStackModel = TechStackModel;
   StaffModel = StaffModel;
+  ProjectModel = ProjectModel;
 
   async index() {
-    
+
     let inputs = this.request.all();
 
     let records = await this.Model
@@ -27,19 +29,26 @@ export default class DepartmentController extends BaseController {
       let department_techs = await this.DepartmentTechModel.query()
         .where("deparmentId", "=", department.id)
         .select(["*"]);
-      let techIds: number[] = department_techs.map( e => e.techId);
-  
+      let techIds: number[] = department_techs.map(e => e.techId);
+
       let techs = (techIds.length) ? await this.TechStackModel.query()
         .whereIn("id", techIds)
         .select(["*"]) : [];
       let staffs = await this.StaffModel.query()
         .where("deparmentId", department.id)
         .select(["*"]);
-  
+      /**
+       * Get Project
+       */
+      let projects = await this.ProjectModel.query()
+        .where("deparmentId", department.id)
+        .select(["*"]);
+
       results.push({
         ...department,
         tech_stacks: techs,
-        staffs: staffs
+        staffs: staffs,
+        projects
       });
     }
 
@@ -69,11 +78,18 @@ export default class DepartmentController extends BaseController {
     let staffs = await this.StaffModel.query()
       .where("deparmentId", department.id)
       .select(["*"]);
-    
+    /**
+       * Get Project
+       */
+    let projects = await this.ProjectModel.query()
+      .where("deparmentId", department.id)
+      .select(["*"]);
+
     department = {
       ...department,
       tech_stacks: techs,
-      staffs: staffs
+      staffs: staffs,
+      projects
     }
     return department;
   }
@@ -104,7 +120,7 @@ export default class DepartmentController extends BaseController {
         deparmentId: departmentId,
         techId: e
       }));
-      insertedDepartmentTech = await this.DepartmentTechModel.insertMany(data); 
+      insertedDepartmentTech = await this.DepartmentTechModel.insertMany(data);
     }
 
     return {
@@ -153,15 +169,15 @@ export default class DepartmentController extends BaseController {
 
     if (techIds.length) {
 
-      let departmentTechs: any[] = await  this.DepartmentTechModel.getByCondition({deparmentId: id});
+      let departmentTechs: any[] = await this.DepartmentTechModel.getByCondition({ deparmentId: id });
       let techIdDBs: number[] = departmentTechs.map(e => e.techId);
-      let insertIds:number[] = [];
-      let deleteIds:number[] = [];
-      
-      techIds.map( e => {
+      let insertIds: number[] = [];
+      let deleteIds: number[] = [];
+
+      techIds.map(e => {
         if (!techIdDBs.includes(e)) insertIds.push(e);
       });
-      techIdDBs.map( e => {
+      techIdDBs.map(e => {
         if (!techIds.includes(e)) deleteIds.push(e);
       });
       // Save data
@@ -170,18 +186,18 @@ export default class DepartmentController extends BaseController {
         techId: e
       }));
       if (dataInserts.length) await this.DepartmentTechModel.insertMany(dataInserts);
-      let dataDeletes = deleteIds.map( e => ({
+      let dataDeletes = deleteIds.map(e => ({
         deparmentId: id,
         techId: e
       }));
       if (dataDeletes) {
-        await Promise.all(dataDeletes.map( e => this.DepartmentTechModel.deleteByCondition(e)))
+        await Promise.all(dataDeletes.map(e => this.DepartmentTechModel.deleteByCondition(e)))
       }
     }
 
     return {
       department: await this.Model.getById(id),
-      department_techs: await this.DepartmentTechModel.getByCondition({deparmentId: id})
+      department_techs: await this.DepartmentTechModel.getByCondition({ deparmentId: id })
     }
   }
 }
