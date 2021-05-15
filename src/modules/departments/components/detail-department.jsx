@@ -18,6 +18,7 @@ export const DetailsDepartment = () => {
         try {
           const response = await axios.get(`${REACT_APP_BASE_URL}departments/${params.id}`)
           const {data} = _.get(response,'data', []);
+          console.log('data department', data)
           setDataDetailsDepartment(data)
           setLoading(false);
         } catch (error) {

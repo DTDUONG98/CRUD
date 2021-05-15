@@ -42,8 +42,11 @@ export const FormCreateStaffs = () => {
 
     const onSubmit = async data => {
         setLoading(true);
+        data.deparmentId = null
         data.birth = moment(dateOfBirth).format('DD/MM/YYYY')
-        data.deparmentId = [selectedDepartment.value]
+        selectedDepartment.map(item => {
+            data.deparmentId = item.value
+        })
         console.log('dataNewStaff', data)
         try {
             const response = await axios.post(`${REACT_APP_BASE_URL}staffs`, data)
