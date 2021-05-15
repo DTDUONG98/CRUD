@@ -117,8 +117,8 @@ export default class ProjectController extends BaseController {
          * Get Staff
          */
         let staffs = await this.StaffModel.query()
-            .join("project_staffs", "project_staffs.projectId", "staffs.id")
-            .where("project_staffs.staffId", projectId)
+            .join("project_staffs", "project_staffs.staffId", "staffs.id")
+            .where("project_staffs.projectId", projectId)
             .select(["staffs.*"]);
 
         return {
