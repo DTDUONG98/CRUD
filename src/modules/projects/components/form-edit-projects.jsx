@@ -22,24 +22,22 @@ export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) =>
   const [selectedDepartment, setSelectedDepartment] = useState([]);
   const [selectedStaffs, setSelectedStaffs] = useState([]);
 
-  const onSubmit = async data => {
+  const onSubmit = async dataProjects => {
     setLoading(true);
-    // const {id} = dataDetails;
-    console.log('selectedProjectStatus',selectedProjectStatus);
-    console.log('dataProjects', data)
-    // try {
-    //     const respon = await axios.put(`${REACT_APP_BASE_URL}projects/${id}`, dataProjects);
-    //     if (respon.status === 200) {
-    //         setLoading(false);
-    //         setTimeout(() => {
-    //           setEdit(false);
-    //           setUpdate(!update);
-    //         }, TIMEOUT_REDIRECT);
-    //       }
-    //     setLoading(false);
-    // } catch (error) {
-    //     setLoading(false);
-    // }
+    const {id} = dataDetails;
+    try {
+        const respon = await axios.put(`${REACT_APP_BASE_URL}projects/${id}`, dataProjects);
+        if (respon.status === 200) {
+            setLoading(false);
+            setTimeout(() => {
+              setEdit(false);
+              setUpdate(!update);
+            }, TIMEOUT_REDIRECT);
+          }
+        setLoading(false);
+    } catch (error) {
+        setLoading(false);
+    }
   };
 
   const dataProjectType = async () => {

@@ -21,6 +21,7 @@ import { ProjectStatusDetails } from '../page/category/project-status/detail-pro
 import { DetailTechStack } from '../page/category/tech-stack/detail-tech-stack';
 import { DetailStaffs } from '../page/manager/staffs/detail-staff';
 import { DetailProjects } from '../page/manager/project/detail-projects';
+import { DetailDepartment } from '../page/manager/departments/detail-department';
 
 export const routes = [
   // login
@@ -110,7 +111,11 @@ export const routes = [
     exact: true,
     component: DepartmentsCreate,
   },
-
+  {
+    path: "/manager/departments/:id",
+    exact: true,
+    component: DetailDepartment,
+  },
 
   // manager staff
   {

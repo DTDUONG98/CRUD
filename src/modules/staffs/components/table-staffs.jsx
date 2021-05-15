@@ -18,7 +18,7 @@ export const TableStaffs = () => {
                     pageSize: 5
                 }
             })
-            const {data} = _.get(response, 'data', []);
+            const {data} = _.get(response, 'data.data', []);
             setListStaffs({data: data});
             setLoading(false);
         } catch (error) {
@@ -45,12 +45,12 @@ export const TableStaffs = () => {
                         </tr>
                     </thead>
                     {ListStaffs.data &&
-                        ListStaffs.data.map(staffs => {
+                        ListStaffs.data.map((staffs, index) => {
                             return (
                                 <RowTableStaffs
                                     link={"/manager/staffs/" + staffs.id}
                                     key={staffs.id}
-                                    number={staffs.id}
+                                    number={index + 1}
                                     type={staffs.name}
                                     birthday={staffs.birth}
                                     phone={staffs.tel}

@@ -1,53 +1,79 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { BsPlus } from "react-icons/bs";
+import { useHistory } from "react-router-dom";
 import { TitlePage } from '../../../components/title-page/title-page'
 import MultiSelect from "react-multi-select-component";
+import axios from "axios";
+import _ from 'lodash';
+import { REACT_APP_BASE_URL, DEPARTMENTS, TIMEOUT_REDIRECT } from '../../../routers/router.type';
 export const FormCreateDepartments = () => {
 
   const { register: dataForm, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   const onSubmit = async data => {
-    console.log('on Submit')
+    setLoading(true);
+    data.techIds = []
+    selectedTechStacks.map((item) =>{
+      data.techIds.push(item.value)
+    })
+    try {
+      const response = await axios.post(`${REACT_APP_BASE_URL}departments`, data)
+      if (response.status === 200) {
+        setLoading(false);
+        setTimeout(() => {
+          history.push(DEPARTMENTS);
+        }, TIMEOUT_REDIRECT);
+      }
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   const addDisabled = (arr = []) => {
-    console.log('add Disabled');
+    return arr.map(item => {
+      if (item.status === "inactive") {
+        return { label: item.name, value: item.id, disabled: true };
+      }
+      return { label: item.name, value: item.id };
+    });
   };
 
-  const [selectedStaffs, setSelectedStaffs] = useState([]);
-  const [selectedProject, setSelectedProject] = useState([]);
   const [selectedTechStacks, setSelectedTechStacks] = useState([]);
+  const [dataTechStack, setDataTechStack] = useState([]);
 
-  const getDataStaff = async () => {
+  const getDataTechStack = async () => {
     setLoading(true);
+    try {
+      const response = await axios.get(`${REACT_APP_BASE_URL}tech_stacks`)
+      const {data} = _.get(response, 'data.data', [])
+      setDataTechStack(data);
+    } catch (error) {
+      setLoading(false);
+    }
   }
 
-  const options = [
-    { label: "Grapes 🍇", value: "grapes" },
-    { label: "Mango 🥭", value: "mango" },
-    { label: "Strawberry 🍓", value: "strawberry", disabled: true },
-    { label: "Watermelon 🍉", value: "watermelon" },
-    { label: "Pear 🍐", value: "pear" },
-    { label: "Apple 🍎", value: "apple" },
-    { label: "Tangerine 🍊", value: "tangerine" },
-    { label: "Pineapple 🍍", value: "pineapple" },
-    { label: "Peach 🍑", value: "peach" },
-  ];
+  useEffect(() => {
+    getDataTechStack()
+  },[])
 
   return (
     <div className="mt-10">
-      <TitlePage content="ADD Department " />
+      <TitlePage content="Edit Department " />
       <div className="flex justify-center">
-        <div className="leading-loose w-6/12 sm: w-full">
-          <form className=" m-4 p-10 bg-white rounded shadow-xl" onSubmit={handleSubmit(onSubmit)}>
-            <p className="text-gray-800 font-medium mb-5">Departments information.</p>
-            <div>
+        <div className="leading-loose w-full">
+          <form className=" m-4 p-10 bg-white rounded shadow-xl flex flex-wrap" onSubmit={handleSubmit(onSubmit)}>
+            <p className="text-gray-800 font-medium mb-5 w-full">Departments information.</p>
+            <div className="w-1/2 sm:w-full pt-4 pr-4 sm:pr-0">
               <label className="block text-sm text-gray-600 mb-2" htmlFor="name">
                 Name<span className="text-red-600">*</span>
               </label>
               <input
+                {...dataForm("name", {
+                  required: "Required",
+                })}
                 className="w-full px-5 outline-none py-1 text-gray-700 focus:shadow-lg border-indigo-700 border rounded"
                 id="name"
                 name="name"
@@ -56,11 +82,46 @@ export const FormCreateDepartments = () => {
                 placeholder="Name"
               />
             </div>
-            <div className="mt-4">
+            <div className="w-1/2 sm:w-full pt-4 pr-4 sm:pr-0">
+              <label className="block text-sm text-gray-600 mb-2" htmlFor="functions">
+                Function<span className="text-red-600">*</span>
+              </label>
+              <input
+                {...dataForm("functions", {
+                  required: "Required",
+                })}
+                className="w-full px-5 outline-none py-1 text-gray-700 focus:shadow-lg border-indigo-700 border rounded"
+                id="functions"
+                name="functions"
+                type="text"
+                required
+                placeholder="Functions"
+              />
+            </div>
+            <div className="w-1/2 sm:w-full pt-4 pr-4 sm:pr-0">
+              <label className="block text-sm text-gray-600 mb-2" htmlFor="mission">
+                Mission<span className="text-red-600">*</span>
+              </label>
+              <input
+                {...dataForm("mission", {
+                  required: "Required",
+                })}
+                className="w-full px-5 outline-none py-1 text-gray-700 focus:shadow-lg border-indigo-700 border rounded"
+                id="mission"
+                name="mission"
+                type="text"
+                required
+                placeholder="Mission"
+              />
+            </div>
+            <div className="w-1/2 sm:w-full pt-4 pr-4 sm:pr-0">
               <label className="block text-sm text-gray-600 mb-2" htmlFor="description">
                 Description<span className="text-red-600">*</span>
               </label>
               <textarea
+                {...dataForm("description", {
+                  required: "Required",
+                })}
                 className="w-full outline-none px-5  py-4 text-gray-700 focus:shadow-lg border-indigo-700 border rounded"
                 id="description"
                 name="description"
@@ -70,39 +131,17 @@ export const FormCreateDepartments = () => {
               />
             </div>
             <div className="inline-block mt-2 w-full">
-              <label className="text-sm text-gray-600 mb-2" htmlFor="techStack">
+              <label className="text-sm text-gray-600 mb-2" htmlFor="tech_stacks">
                 Select tech stacks
               </label>
               <MultiSelect
-                options={options}
+                options={addDisabled(dataTechStack)}
                 value={selectedTechStacks}
                 onChange={setSelectedTechStacks}
                 labelledBy={"Select"}
               />
             </div>
-            <div className="inline-block mt-2 w-full">
-              <label className="text-sm text-gray-600 mb-2" htmlFor="staff">
-                Select staffs
-              </label>
-              <MultiSelect
-                options={options}
-                value={selectedStaffs}
-                onChange={setSelectedStaffs}
-                labelledBy={"Select"}
-              />
-            </div>
-            <div className="inline-block mt-2 w-full">
-              <label className="text-sm text-gray-600 mb-2" htmlFor="projectType">
-                Select projects
-              </label>
-              <MultiSelect
-                options={options}
-                value={selectedProject}
-                onChange={setSelectedProject}
-                labelledBy={"Select"}
-              />
-            </div>
-            <div className="flex items-center justify-center mt-6">
+            <div className="ml-auto mr-auto sm:mt-4 pt-8 ">
               <div className="m-3">
                 <button
                   style={{ outline: "none" }}

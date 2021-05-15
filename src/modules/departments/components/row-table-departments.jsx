@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 
-const RowTableDepartments = ({ number, type = null, mission, techStack, projects , staffs , link }) => {
+const RowTableDepartments = ({ number, type = null, mission, func , link }) => {
   const history = useHistory();
   const onClickRedirect = () => {
     history.push(link);
@@ -15,28 +15,19 @@ const RowTableDepartments = ({ number, type = null, mission, techStack, projects
           {number}
         </td>
         <td
-          className="w-2/12 text-left whitespace-nowrap overflow-hidden overflow-ellipsis"
+          className="w-2/12 text-center whitespace-nowrap overflow-hidden overflow-ellipsis"
           data-title="type"
         >
           {type}
         </td>
+        <td className=" w-2/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="function">
+          {func}
+        </td>
         <td
-          className="w-2/12 sm:hidden lg:hidden  text-left whitespace-nowrap overflow-hidden overflow-ellipsis"
-          data-title="Description"
+          className="w-2/12 sm:hidden lg:hidden  text-center whitespace-nowrap overflow-hidden overflow-ellipsis"
+          data-title="mission"
         >
           {mission}
-        </td>
-        <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="Priority">
-          {/* {techStack} */}
-          tech stack
-        </td>
-        <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="Priority">
-          {/* {projects} */}
-          project
-        </td>
-        <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="Priority">
-          {/* {staffs} */}
-          staff
         </td>
       </tr>
     </tbody>

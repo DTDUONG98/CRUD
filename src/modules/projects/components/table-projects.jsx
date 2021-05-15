@@ -18,7 +18,7 @@ export const TableProjectType = () => {
                     pageSize: 5
                 }
             })
-            const {data} = _.get(response, 'data', []);
+            const {data} = _.get(response, 'data.data', []);
             console.log('response', data);
             setListProjects({data: data});
             setLoading(false);
@@ -47,12 +47,12 @@ export const TableProjectType = () => {
                         </tr>
                     </thead>
                     {ListProjects.data &&
-                        ListProjects.data.map(projects => {
+                        ListProjects.data.map((projects, index) => {
                             return (
                                 <RowTableProjects
                                     link={"/manager/projects/" + projects.id}
                                     key={projects.id}
-                                    number={projects.id}
+                                    number={index + 1}
                                     type={projects.name}
                                     projectType={projects.projectType}
                                     projectStatus={projects.projectStatus}

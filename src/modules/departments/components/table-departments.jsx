@@ -18,7 +18,7 @@ export const TableDepartments = () => {
                   pageSize: 5
               }
           })
-          const {data} = _.get(response, 'data', []);
+          const {data} = _.get(response, 'data.data', []);
           console.log('response', data);
           setListDepartments({data: data});
           setLoading(false);
@@ -40,22 +40,21 @@ export const TableDepartments = () => {
                     <thead>
                         <tr className=" flex w-full sm:w-full bg-indigo-700 justify-around text-white rounded-t-xl cursor-pointer hover:bg-indigo-600">
                             <th className="pt-5 pb-5 w-1/12">No.</th>
-                            <th className="pt-5 pb-5 w-2/12 text-left">Name</th>
-                            <th className="pt-5 pb-5 w-2/12 lg:hidden sm:hidden text-left">Mission</th>
-                            <th className="pt-5 pb-5 w-1/12 sm:w-2/12">Tech Stack</th>
-                            <th className="pt-5 pb-5 w-1/12 lg:w-2/12 sm:w-2/12">Project</th>
-                            <th className="pt-5 pb-5 w-1/12 lg:w-2/12 sm:w-2/12">Staff</th>
+                            <th className="pt-5 pb-5 w-2/12 text-center">Name</th>
+                            <th className="pt-5 pb-5 w-2/12 lg:hidden sm:hidden text-center">Function</th>
+                            <th className="pt-5 pb-5 w-2/12 sm:w-2/12 text-center">Mission</th>
                         </tr>
                     </thead>
                     {ListDepartments.data &&
-                        ListDepartments.data.map(departments => {
+                        ListDepartments.data.map((departments, index) => {
                             return (
                                 <RowTableDepartments
                                     link={"/manager/departments/" + departments.id}
                                     key={departments.id}
-                                    number={departments.id}
+                                    number={index + 1}
                                     type={departments.name}
-                                    mussion={departments.mission}
+                                    mission={departments.mission}
+                                    func={departments.functions}
                                     techStack={departments.techStack}
                                     status={departments.status}
                                 />
