@@ -20,7 +20,7 @@ export const DetailsProjects = () => {
       const {data} = _.get(response,'data', []);
       data.typeName = data.projectType.name
       data.statusName = data.projectStatus.name
-      // data.departmentName = data.department.name
+      data.departmentName = data.department.name
       setDataProjects(data)
       setLoading(false);
     } catch (error) {

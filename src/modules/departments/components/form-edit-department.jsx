@@ -52,6 +52,7 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
               id="name"
               name="name"
               type="text"
+              defaultValue={dataDetails.name}
               required
               placeholder="Name"
             />
@@ -65,6 +66,7 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
               id="functions"
               name="functions"
               type="text"
+              defaultValue={dataDetails.functions}
               required
               placeholder="Functions"
             />
@@ -78,6 +80,7 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
               id="mission"
               name="mission"
               type="text"
+              defaultValue={dataDetails.mission}
               required
               placeholder="Mission"
             />
@@ -91,6 +94,7 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
               id="description"
               name="description"
               type="text"
+              defaultValue={dataDetails.description}
               required
               placeholder="Description"
             />

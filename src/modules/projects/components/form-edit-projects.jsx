@@ -43,14 +43,14 @@ export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) =>
   const dataProjectType = async () => {
     let dataProjectType = [];
     const {projectType} = dataDetails
-    dataProjectType.push({...projectType, label: projectType.name, value: projectType.name})
+    dataProjectType.push({...projectType, label: projectType.name, value: projectType.id})
     setSelectedProjectType(dataProjectType)
   }
 
   const dataProjectStatus = async () => {
     let dataProjectStatus = [];
     const {projectStatus} = dataDetails
-    dataProjectStatus.push({...projectStatus,label: projectStatus.name, value: projectStatus.name})
+    dataProjectStatus.push({...projectStatus,label: projectStatus.name, value: projectStatus.id})
     setSelectedProjectStatus(dataProjectStatus)
   }
 
