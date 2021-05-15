@@ -7,30 +7,30 @@ import axios from 'axios';
 import _ from 'lodash';
 import { REACT_APP_BASE_URL } from '../../../routers/router.type';
 export const DetailsProjects = () => {
-  const [detailsProjects, setDataDetailsProjects] = useState([]);
+  const [dataProjects, setDataProjects] = useState([]);
   const [editStatus, setEditStatus] = useState(false);
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
   const params = useParams();
+
+  const getDataDetailsProjects = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`${REACT_APP_BASE_URL}projects/${params.id}`)
+      const {data} = _.get(response,'data', []);
+      setDataProjects(data)
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const getDataDetailsProjects = async () => {
-        setLoading(true);
-        try {
-          const response = await axios.get(`${REACT_APP_BASE_URL}projects/${params.id}`)
-          const {data} = _.get(response,'data', []);
-          data.departmentName = data.department.name
-          data.TypeName = data.projectType.name
-          data.StatusName = data.projectStatus.name
-          setDataDetailsProjects(data)
-          setLoading(false);
-        } catch (error) {
-          setLoading(false);
-        }
-    };
     getDataDetailsProjects();
   }, [update]);
 
   return (
+    console.log('dataProjects', dataProjects),
     <div>
       <div>
         {loading ? (
@@ -40,12 +40,12 @@ export const DetailsProjects = () => {
             {editStatus ? (
               <FormEditProjects
                 setUpdate={setUpdate}
-                dataDetails={detailsProjects}
+                dataDetails={dataProjects}
                 setEdit={setEditStatus}
                 update={update}
               />
             ) : (
-              <FormDetailProjects setUpdate={setEditStatus} dataDetails={detailsProjects} />
+              <FormDetailProjects setUpdate={setEditStatus} dataDetails={dataProjects} />
             )}
           </div>
         )}

@@ -30,7 +30,8 @@ const RowTableProjects = ({ number, type = null, projectType, techStack,departme
           {projectStatus.name}
         </td>
         <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="department">
-          {department.name}
+          {/* {department.name}  */}
+          department name
         </td>
       </tr>
     </tbody>

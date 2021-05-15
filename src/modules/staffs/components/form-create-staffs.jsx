@@ -16,55 +16,37 @@ export const FormCreateStaffs = () => {
     const { register: dataForm, handleSubmit } = useForm();
 
     const [loading, setLoading] = useState(false);
-    const [dataTechStack, setDataTechStack] = useState([]);
-    const [dataProjects, setDataProjects] = useState([]);
+    const [dataDepartment, setDataDepartment] = useState([]);
 
-    const [selectedProject, setSelectedProject] = useState([]);
-    const [selectedTechStacks, setSelectedTechStacks] = useState([]);
+    const [selectedDepartment, setSelectedDepartment] = useState([]);
     const [dateOfBirth, setDateOfBirth] = useState(new Date());
 
+    const getDataDepartment = async () => {
+        setLoading(true);
+        try {
+            const response = await axios.get(`${REACT_APP_BASE_URL}departments`)
+            const {data} = _.get(response, 'data.data', []);
+            setDataDepartment(data)
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+        }
+    }
 
-    const getDataTechStack = async () => {
-        setLoading(true);
-        try {
-            const response = await axios.get(`${REACT_APP_BASE_URL}tech_stacks`)
-            const {data} = _.get(response,'data.data', []);
-            console.log('data TechStack', data)
-            for( let i=0;i<data.length;i++){
-                data[i].label = data[i].name
-                data[i].value = data[i].name
-            }
-            setDataTechStack(data)
-            setLoading(false);
-        } catch (error) {
-            setLoading(true);
-        }
-    }
-    const getDataProject = async () => {
-        setLoading(true);
-        try {
-            const response = await axios.get(`${REACT_APP_BASE_URL}projects`)
-            const {data} = _.get(response, 'data', []);
-            console.log('data projects', data)
-            for( let i=0;i<data.length;i++){
-                data[i].label = data[i].name
-                data[i].value = data[i].name
-            }
-            setDataProjects(data)
-            setLoading(false);
-        } catch (error) {
-            setLoading(true);
-        }
-    }
+    const addDisabled = (arr = []) => {
+        return arr.map(item => {
+          return { label: item.name, value: item.id };
+        });
+      };
+
 
     const onSubmit = async data => {
         setLoading(true);
         data.birth = moment(dateOfBirth).format('DD/MM/YYYY')
-        data.techs = selectedTechStacks
-        data.projects = selectedProject
+        data.deparmentId = [selectedDepartment.value]
         console.log('dataNewStaff', data)
         try {
-            const response = await axios.post(`${REACT_APP_BASE_URL}staffs`. data)
+            const response = await axios.post(`${REACT_APP_BASE_URL}staffs`, data)
             if(response.status == 200){
                 setLoading(false);
                 setTimeout(() => {
@@ -78,8 +60,7 @@ export const FormCreateStaffs = () => {
 
 
     useEffect(() => {
-        getDataTechStack();
-        getDataProject();
+        getDataDepartment();
     },[])
 
     return (
@@ -135,24 +116,13 @@ export const FormCreateStaffs = () => {
                             />
                         </div>
                         <div className="inline-block mt-2 w-full">
-                            <label className="text-sm text-gray-600 mb-2" htmlFor="techs">
-                                Select tech stacks
+                            <label className="text-sm text-gray-600 mb-2" htmlFor="deparments">
+                                Select Department
                             </label>
                             <MultiSelect
-                                options={dataTechStack}
-                                value={selectedTechStacks}
-                                onChange={setSelectedTechStacks}
-                                labelledBy={"Select"}
-                            />
-                        </div>
-                        <div className="inline-block mt-2 w-full">
-                            <label className="text-sm text-gray-600 mb-2" htmlFor="projects">
-                                Select projects
-                            </label>
-                            <MultiSelect
-                                options={dataProjects}
-                                value={selectedProject}
-                                onChange={setSelectedProject}
+                                options={addDisabled(dataDepartment)}
+                                value={selectedDepartment}
+                                onChange={setSelectedDepartment}
                                 labelledBy={"Select"}
                             />
                         </div>

@@ -14,7 +14,7 @@ export const FormDetailProjects = ({ dataDetails, setUpdate }) => {
     setLoading(true);
     const {id} = dataDetails;
     try {
-      const response = await axios.delete(`${REACT_APP_BASE_URL}staffs/${id}`)
+      const response = await axios.delete(`${REACT_APP_BASE_URL}projects/${id}`)
       if (response.status === 200) {
         setLoading(false);
         setTimeout(() => {

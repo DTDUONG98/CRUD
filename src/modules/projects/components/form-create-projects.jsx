@@ -13,16 +13,46 @@ export const FormCreateProjects = () => {
   const { register: dataForm, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
 
+  const addDisabled = (arr = []) => {
+    return arr.map(item => {
+      if (item.status === "inactive") {
+        return { label: item.name, value: item.id, disabled: true };
+      }
+      return { label: item.name, value: item.id };
+    });
+  };
+
+  const changeArr = (arr = []) => {
+    return arr.map(item => {
+      return { label: item.name, value: item.id };
+    });
+};
+
   const onSubmit = async data => {
     setLoading(true);
-    data.department = selectedDepartment
-    data.projectStatus = selectedProjectStatus
-    data.projectType = selectedProjectType
-    data.techs = selectedTechStacks
-    data.staffs = selectedStaffs
+    data.deparmentId = null
+    data.statusId = null
+    data.typeId = null
+    data.techIds = []
+    data.staffIds = []
+    selectedDepartment.map((item) =>{
+      data.deparmentId = item.value
+    })
+    selectedProjectStatus.map((item) =>{
+      data.statusId = item.value
+    })
+    selectedProjectType.map((item) =>{
+      data.typeId = item.value
+    })
+    selectedStaffs.map((item) =>{
+      data.staffIds.push(item.value)
+    })
+    selectedTechStacks.map((item) =>{
+      data.techIds.push(item.value)
+    })
     console.log('dataNewStaff', data)
     try {
-        const response = await axios.post(`${REACT_APP_BASE_URL}projects`. data)
+        const response = await axios.post(`${REACT_APP_BASE_URL}projects`, data)
         if(response.status == 200){
             setLoading(false);
             setTimeout(() => {
@@ -110,7 +140,7 @@ export const FormCreateProjects = () => {
     setLoading(true);
     try {
         const response = await axios.get(`${REACT_APP_BASE_URL}staffs`)
-        const {data} = _.get(response, 'data', []);
+        const {data} = _.get(response, 'data.data', []);
         for( let i=0;i<data.length;i++){
             data[i].label = data[i].name
             data[i].value = data[i].name
@@ -154,55 +184,55 @@ export const FormCreateProjects = () => {
               />
             </div>
             <div className="inline-block mt-2 w-full">
-              <label className="text-sm text-gray-600 mb-2" htmlFor="projectType">
+              <label className="text-sm text-gray-600 mb-2" htmlFor="typeId">
                 Select project type
               </label>
               <MultiSelect
-                options={ProjectType}
+                options={addDisabled(ProjectType)}
                 value={selectedProjectType}
                 onChange={setSelectedProjectType}
                 labelledBy={"Select"}
               />
             </div>
             <div className="inline-block mt-2 w-full">
-              <label className="text-sm text-gray-600 mb-2" htmlFor="projectStatus">
+              <label className="text-sm text-gray-600 mb-2" htmlFor="statusId">
                 Select project status
               </label>
               <MultiSelect
-                options={ProjectStatus}
+                options={addDisabled(ProjectStatus)}
                 value={selectedProjectStatus}
                 onChange={setSelectedProjectStatus}
                 labelledBy={"Select"}
               />
             </div>
             <div className="inline-block mt-2 w-full">
-              <label className="text-sm text-gray-600 mb-2" htmlFor="techStack">
+              <label className="text-sm text-gray-600 mb-2" htmlFor="techIds">
                 Select tech stacks
               </label>
               <MultiSelect
-                options={TechStacks}
+                options={addDisabled(TechStacks)}
                 value={selectedTechStacks}
                 onChange={setSelectedTechStacks}
                 labelledBy={"Select"}
               />
             </div>
             <div className="inline-block mt-2 w-full">
-              <label className="text-sm text-gray-600 mb-2" htmlFor="department">
+              <label className="text-sm text-gray-600 mb-2" htmlFor="deparmentId">
                 Select departments
               </label>
               <MultiSelect
-                options={Department}
+                options={changeArr(Department)}
                 value={selectedDepartment}
                 onChange={setSelectedDepartment}
                 labelledBy={"Select"}
               />
             </div>
             <div className="inline-block mt-2 w-full">
-              <label className="text-sm text-gray-600 mb-2" htmlFor="staff">
+              <label className="text-sm text-gray-600 mb-2" htmlFor="staffIds">
                 Select staffs
               </label>
               <MultiSelect
-                options={Staffs}
+                options={changeArr(Staffs)}
                 value={selectedStaffs}
                 onChange={setSelectedStaffs}
                 labelledBy={"Select"}
