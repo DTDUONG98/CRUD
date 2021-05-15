@@ -49,7 +49,7 @@ export default class DepartmentController extends BaseController {
     };
   }
 
-  async dettail() {
+  async detail() {
 
     let params = this.request.all()
     let id = params.id;
