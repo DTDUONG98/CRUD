@@ -41,7 +41,7 @@ export default class ProjectStatusController extends BaseController {
           .select(["*"]);
         let projectIds: number[] = projectStaffs.map(e => e.projectId);
         let projects = (projectIds.length) ? await this.ProjectModel.query()
-          .whereIn("id", [projectIds])
+          .whereIn("id", projectIds)
           .select(["*"]) : [];
   
         results.push({
@@ -87,7 +87,7 @@ export default class ProjectStatusController extends BaseController {
       .select(["*"]);
     let projectIds: number[] = projectStaffs.map( e => e.projectId);
     let projects = (projectIds.length) ? await this.ProjectModel.query()
-      .whereIn("id", [projectIds])
+      .whereIn("id", projectIds)
       .select(["*"]) : [];
     
     return {

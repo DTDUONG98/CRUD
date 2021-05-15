@@ -30,7 +30,7 @@ export default class DepartmentController extends BaseController {
       let techIds: number[] = department_techs.map( e => e.techId);
   
       let techs = (techIds.length) ? await this.TechStackModel.query()
-        .whereIn("id", [techIds])
+        .whereIn("id", techIds)
         .select(["*"]) : [];
       let staffs = await this.StaffModel.query()
         .where("deparmentId", department.id)
@@ -64,7 +64,7 @@ export default class DepartmentController extends BaseController {
     let techIds: number[] = department_techs.map(e => e.techId);
 
     let techs = (techIds.length) ? await this.TechStackModel.query()
-      .whereIn("id", [techIds])
+      .whereIn("id", techIds)
       .select(["*"]) : [];
     let staffs = await this.StaffModel.query()
       .where("deparmentId", department.id)
