@@ -24,7 +24,7 @@ export default class ProjectStatusController extends BaseController {
     let results: any[] = [];
     await Promise.all(
 
-      staffs.map( async e => {
+      staffs.map(async e => {
         const staffId: number = e.id;
         /**
          * Get tech_stacks
@@ -43,7 +43,7 @@ export default class ProjectStatusController extends BaseController {
         let projects = (projectIds.length) ? await this.ProjectModel.query()
           .whereIn("id", projectIds)
           .select(["*"]) : [];
-  
+
         results.push({
           ...e,
           techs,
@@ -85,11 +85,11 @@ export default class ProjectStatusController extends BaseController {
     let projectStaffs = await this.ProjectStaffModel.query()
       .where("staffId", id)
       .select(["*"]);
-    let projectIds: number[] = projectStaffs.map( e => e.projectId);
+    let projectIds: number[] = projectStaffs.map(e => e.projectId);
     let projects = (projectIds.length) ? await this.ProjectModel.query()
       .whereIn("id", projectIds)
       .select(["*"]) : [];
-    
+
     return {
       ...staff,
       techs,
@@ -97,4 +97,38 @@ export default class ProjectStatusController extends BaseController {
     }
   }
 
+  async store() {
+
+    let inputs = this.request.all();
+    let allowFields = {
+      name: "string",
+      birth: "string",
+      tel: "string",
+      deparmentId: "number",
+      techIds: ["number"]
+    }
+
+    let params = this.validate(inputs, allowFields, { removeNotAllow: false });
+    let dataStaff = {
+      name: params['name'],
+      birth: params['birth'],
+      tel: params['tel'],
+      deparmentId: params['deparmentId']
+    }
+
+    let insertedStaff = await this.Model.insertOne(dataStaff);
+    const staffId: number = insertedStaff.id;
+
+    let techIds: number[] = params.techIds || [];
+    let staff_techs: any[] = [];
+    if (techIds.length) {
+      let data: any[] = techIds.map(techId => ({ techId, staffId }));
+      staff_techs = await this.StaffTechModel.insertMany(data);
+    }
+
+    return {
+      staff: insertedStaff,
+      staff_techs
+    }
+  }
 }
