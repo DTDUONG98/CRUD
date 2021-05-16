@@ -5,6 +5,7 @@ import ProjectStatusModel from '@app/Models/ProjectStatusModel';
 import TechStackModel from '@app/Models/TechStackModel';
 import StaffTechModel from "@app/Models/StaffTechModel";
 import ProjectStaffModel from '@app/Models/ProjectStaffModel';
+import StaffModel from '@app/Models/StaffModel';
 
 import _ from 'lodash';
 
@@ -16,6 +17,7 @@ export default class ReportController extends BaseController {
     TechStackModel = TechStackModel;
     StaffTechModel = StaffTechModel;
     ProjectStaffModel = ProjectStaffModel;
+    StaffModel = StaffModel;
 
     async getStatisticProject() {
 
@@ -127,10 +129,36 @@ export default class ReportController extends BaseController {
                 }
             }
         }
-        let result = await query.groupByRaw(`("project_staffs"."staffId")`)
+        /**
+         * Calculate staff is doing in project
+         */
+        let result: any[] = await query.groupByRaw(`("project_staffs"."staffId")`)
             .count('*', { as: 'numberProject' })
             .select(select);
 
-        return result;
+        /**
+         * Calculate staff isn't in any projects
+         */
+        let freeStaffs = await this.StaffModel.query()
+            .leftJoin("project_staffs", "project_staffs.staffId", "staffs.id")
+            .where("project_staffs.projectId", null)
+            .select(["staffs.*"]);
+        let data: any = _.groupBy(result, e => e.numberProject);
+        data["0"] = freeStaffs.length;
+
+        /**
+         * Set last result : {
+         *  "0" : 1,
+         *  "1" : 2,
+         *  "2" : 3,
+         *  "number of project" : "number of staff has that number of project"
+         * }
+         */
+        let totalLengthProject = projects.length;
+        for (let i = 0; i <= totalLengthProject; i++ ) {
+            if (!data[`${i}`]) data[`${i}`] = 0;
+            else if (Array.isArray(data[`${i}`])) data[`${i}`] = data[`${i}`].length;
+        }
+        return data;
     }
 }
