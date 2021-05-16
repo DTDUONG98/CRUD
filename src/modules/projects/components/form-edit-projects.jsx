@@ -25,19 +25,55 @@ export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) =>
   const onSubmit = async dataProjects => {
     setLoading(true);
     const {id} = dataDetails;
-    try {
-        const respon = await axios.put(`${REACT_APP_BASE_URL}projects/${id}`, dataProjects);
-        if (respon.status === 200) {
-            setLoading(false);
-            setTimeout(() => {
-              setEdit(false);
-              setUpdate(!update);
-            }, TIMEOUT_REDIRECT);
-          }
-        setLoading(false);
-    } catch (error) {
-        setLoading(false);
-    }
+    dataProjects.deparmentId = null
+    dataProjects.statusId = null
+    dataProjects.typeId = null
+    dataProjects.techIds = []
+    dataProjects.staffIds = []
+    selectedDepartment.map((item) =>{
+      dataProjects.deparmentId = item.value
+    })
+    selectedProjectStatus.map((item) =>{
+      dataProjects.statusId = item.value
+    })
+    selectedProjectType.map((item) =>{
+      dataProjects.typeId = item.value
+    })
+    selectedStaffs.map((item) =>{
+      dataProjects.staffIds.push(item.value)
+    })
+    selectedTechStacks.map((item) =>{
+      dataProjects.techIds.push(item.value)
+    })
+    console.log('dataProjects', dataProjects);
+    // try {
+    //     const respon = await axios.put(`${REACT_APP_BASE_URL}projects/${id}`, dataProjects);
+    //     if (respon.status === 200) {
+    //         setLoading(false);
+    //         setTimeout(() => {
+    //           setEdit(false);
+    //           setUpdate(!update);
+    //         }, TIMEOUT_REDIRECT);
+    //       }
+    //     setLoading(false);
+    // } catch (error) {
+    //     setLoading(false);
+    // }
+  };
+
+  const changeArr = (arr = []) => {
+    return arr.map(item => {
+      return { label: item.name, value: item.id };
+    });
+  };
+
+  const addDisabled = (arr = []) => {
+    return arr.map(item => {
+      if (item.status === "inactive") {
+        return { label: item.name, value: item.id, disabled: true };
+      }
+      return { label: item.name, value: item.id };
+    });
   };
 
   const dataProjectType = async () => {
@@ -76,7 +112,8 @@ export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) =>
     const {staffs} = dataDetails
     staffs.map(element => {
       const {name} = element
-      dataStaffs.push({label: name, value: name})
+      const {id} = element
+      dataStaffs.push({label: name, value: id})
     })
     setSelectedStaffs(dataStaffs)
   }
@@ -86,10 +123,6 @@ export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) =>
     try {
         const response = await axios.get(`${REACT_APP_BASE_URL}project_types`)
         const {data} = _.get(response, 'data.data', []);
-        for( let i=0;i<data.length;i++){
-            data[i].label = data[i].name
-            data[i].value = data[i].name
-        }
         setProjectType(data)
         setLoading(false);
     } catch (error) {
@@ -101,10 +134,6 @@ export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) =>
     try {
         const response = await axios.get(`${REACT_APP_BASE_URL}project_status`)
         const {data} = _.get(response, 'data.data', []);
-        for( let i=0;i<data.length;i++){
-            data[i].label = data[i].name
-            data[i].value = data[i].name
-        }
         setProjectStatus(data)
         setLoading(false);
     } catch (error) {
@@ -115,12 +144,7 @@ export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) =>
     setLoading(true);
     try {
         const response = await axios.get(`${REACT_APP_BASE_URL}departments`)
-        const {data} = _.get(response, 'data', []);
-        console.log('data tech stack', data)
-        for( let i=0;i<data.length;i++){
-            data[i].label = data[i].name
-            data[i].value = data[i].name
-        }
+        const {data} = _.get(response, 'data.data', []);
         setDepartment(data)
         setLoading(false);
     } catch (error) {
@@ -131,11 +155,7 @@ export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) =>
     setLoading(true);
     try {
         const response = await axios.get(`${REACT_APP_BASE_URL}staffs`)
-        const {data} = _.get(response, 'data', []);
-        for( let i=0;i<data.length;i++){
-            data[i].label = data[i].name
-            data[i].value = data[i].name
-        }
+        const {data} = _.get(response, 'data.data', []);
         setStaffs(data)
         setLoading(false);
     } catch (error) {
@@ -147,10 +167,6 @@ export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) =>
     try {
         const response = await axios.get(`${REACT_APP_BASE_URL}tech_stacks`)
         const {data} = _.get(response,'data.data', []);
-        for( let i=0;i<data.length;i++){
-            data[i].label = data[i].name
-            data[i].value = data[i].name
-        }
         setTechStacks(data)
         setLoading(false);
     } catch (error) {
@@ -201,7 +217,7 @@ useEffect(() => {
               Select project type
             </label>
             <MultiSelect
-              options={ProjectType}
+              options={addDisabled(ProjectType)}
               value={selectedProjectType}
               onChange={setSelectedProjectType}
               labelledBy={"Select"}
@@ -212,7 +228,7 @@ useEffect(() => {
               Select project status
             </label>
             <MultiSelect
-              options={ProjectStatus}
+              options={addDisabled(ProjectStatus)}
               value={selectedProjectStatus}
               onChange={setSelectedProjectStatus}
               labelledBy={"Select"}
@@ -223,7 +239,7 @@ useEffect(() => {
               Select tech stacks
             </label>
             <MultiSelect
-              options={TechStacks}
+              options={addDisabled(TechStacks)}
               value={selectedTechStacks}
               onChange={setSelectedTechStacks}
               labelledBy={"Select"}
@@ -234,7 +250,7 @@ useEffect(() => {
               Select departments
             </label>
             <MultiSelect
-              options={Department}
+              options={changeArr(Department)}
               value={selectedDepartment}
               onChange={setSelectedDepartment}
               labelledBy={"Select"}
@@ -245,7 +261,7 @@ useEffect(() => {
               Select staffs
             </label>
             <MultiSelect
-              options={Staffs}
+              options={changeArr(Staffs)}
               value={selectedStaffs}
               onChange={setSelectedStaffs}
               labelledBy={"Select"}

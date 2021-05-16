@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import MultiSelect from "react-multi-select-component";
 import _ from 'lodash';
+import moment from 'moment';
 import { TitlePage } from "../../../components/title-page/title-page";
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT } from '../../../routers/router.type';
 export const FormEditStaffs = ({ dataDetails, setUpdate, setEdit, update }) => {
@@ -22,10 +23,6 @@ export const FormEditStaffs = ({ dataDetails, setUpdate, setEdit, update }) => {
     try {
         const response = await axios.get(`${REACT_APP_BASE_URL}tech_stacks`)
         const {data} = _.get(response,'data.data', []);
-        for( let i=0;i<data.length;i++){
-            data[i].label = data[i].name
-            data[i].value = data[i].name
-        }
         setDataTechStack(data)
         setLoading(false);
     } catch (error) {
@@ -36,17 +33,28 @@ const getDataProject = async () => {
     setLoading(true);
     try {
         const response = await axios.get(`${REACT_APP_BASE_URL}projects`)
-        const {data} = _.get(response, 'data', []);
-        for( let i=0;i<data.length;i++){
-            data[i].label = data[i].name
-            data[i].value = data[i].name
-        }
+        const {data} = _.get(response, 'data.data', []);
         setDataProjects(data)
         setLoading(false);
     } catch (error) {
         setLoading(true);
     }
 }
+
+const changeArr = (arr = []) => {
+  return arr.map(item => {
+    return { label: item.name, value: item.id };
+  });
+};
+
+const addDisabled = (arr = []) => {
+  return arr.map(item => {
+    if (item.status === "inactive") {
+      return { label: item.name, value: item.id, disabled: true };
+    }
+    return { label: item.name, value: item.id };
+  });
+};
 
   const dataSelectTech = () => {
     let dataTechs = [];
@@ -58,7 +66,7 @@ const getDataProject = async () => {
     })
     setSelectedTechStacks(dataTechs)
   }
-  const dataSelectPriject = () => {
+  const dataSelectProject = () => {
     let dataProjects = [];
     const {projects} = dataDetails
     projects.map(element => {
@@ -71,6 +79,17 @@ const getDataProject = async () => {
   const onSubmit = async dataStaffs => {
     setLoading(true);
     const {id} = dataDetails;
+    dataStaffs.techIds = []
+    dataStaffs.departmentId = null
+    dataStaffs.projectIds = []
+    selectedTechStacks.map((item) =>{
+      dataStaffs.techIds.push(item.value)
+    })
+    selectedProject.map((item) =>{
+      dataStaffs.projectIds.push(item.value)
+    })
+    dataStaffs.birth = moment(dateOfBirth).format('DD/MM/YYYY')
+    console.log('dataStaffs', dataStaffs);
     try {
         const respon = await axios.put(`${REACT_APP_BASE_URL}staffs/${id}`, dataStaffs);
         if (respon.status === 200) {
@@ -88,7 +107,7 @@ const getDataProject = async () => {
 
   useEffect(() => {
     dataSelectTech()
-    dataSelectPriject()
+    dataSelectProject()
     getDataProject()
     getDataTechStack()
   },[])
@@ -150,8 +169,7 @@ const getDataProject = async () => {
             <div className="inline-block mt-2 w-full pr-1">
               <label className="text-sm text-gray-00 mb-2">Select tech stacks</label>
               <MultiSelect
-                // isLoading={selectedTechStacks}
-                options={dataTechStack}
+                options={addDisabled(dataTechStack)}
                 value={selectedTechStacks}
                 onChange={setSelectedTechStacks}
                 labelledBy={"Select"}
@@ -162,15 +180,14 @@ const getDataProject = async () => {
             <div className="inline-block mt-2 w-full pr-1">
               <label className="text-sm text-gray-00 mb-2">Select projects</label>
               <MultiSelect
-                // isLoading={selectedProject}
-                options={dataProjects}
+                options={changeArr(dataProjects)}
                 value={selectedProject}
                 onChange={setSelectedProject}
                 labelledBy={"Select"}
               />
             </div>
           </div>
-          <div className=" ml-auto mr-auto sm:mt-4">
+          <div className=" ml-auto mr-auto sm:mt-4 pt-4">
               <button
                 onClick={() => setEdit(false)}
                 className="border font-medium border-red-400 bg-red-400 text-white rounded-md px-3 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"

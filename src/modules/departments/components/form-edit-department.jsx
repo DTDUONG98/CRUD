@@ -12,7 +12,34 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async data => {
-    console.log('on Submit')
+    setLoading(true);
+    const {id} = dataDetails
+    data.techIds = []
+    data.staffIds = []
+    data.projectIds = []
+    selectedTechStacks.map((item) =>{
+      data.techIds.push(item.value)
+    })
+    selectedStaffs.map((item) =>{
+      data.staffIds.push(item.value)
+    })
+    selectedProject.map((item) =>{
+      data.projectIds.push(item.value)
+    })
+    console.log('on Submit', data)
+    try {
+      const response = await axios.put(`${REACT_APP_BASE_URL}departments/${id}`, data)
+        if (response.status === 200) {
+          setLoading(false);
+          setTimeout(() => {
+            setEdit(false);
+            setUpdate(!update);
+          }, TIMEOUT_REDIRECT);
+        }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   const changeArr = (arr = []) => {
@@ -128,6 +155,9 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
               Name<span className="text-red-600">*</span>
             </label>
             <input
+              {...dataForm("name", {
+                required: "Required",
+              })}
               className="w-full px-5 outline-none py-1 text-gray-700 focus:shadow-lg border-indigo-700 border rounded"
               id="name"
               name="name"
@@ -142,6 +172,9 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
               Function<span className="text-red-600">*</span>
             </label>
             <input
+              {...dataForm("functions", {
+                required: "Required",
+              })}
               className="w-full px-5 outline-none py-1 text-gray-700 focus:shadow-lg border-indigo-700 border rounded"
               id="functions"
               name="functions"
@@ -156,6 +189,9 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
               Mission<span className="text-red-600">*</span>
             </label>
             <input
+              {...dataForm("mission", {
+                required: "Required",
+              })}
               className="w-full px-5 outline-none py-1 text-gray-700 focus:shadow-lg border-indigo-700 border rounded"
               id="mission"
               name="mission"
@@ -170,6 +206,9 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
               Description<span className="text-red-600">*</span>
             </label>
             <textarea
+              {...dataForm("description", {
+                required: "Required",
+              })}
               className="w-full outline-none px-5  py-4 text-gray-700 focus:shadow-lg border-indigo-700 border rounded"
               id="description"
               name="description"
