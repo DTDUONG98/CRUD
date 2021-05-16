@@ -46,19 +46,19 @@ export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) =>
       dataProjects.techIds.push(item.value)
     })
     console.log('dataProjects', dataProjects);
-    // try {
-    //     const respon = await axios.put(`${REACT_APP_BASE_URL}projects/${id}`, dataProjects);
-    //     if (respon.status === 200) {
-    //         setLoading(false);
-    //         setTimeout(() => {
-    //           setEdit(false);
-    //           setUpdate(!update);
-    //         }, TIMEOUT_REDIRECT);
-    //       }
-    //     setLoading(false);
-    // } catch (error) {
-    //     setLoading(false);
-    // }
+    try {
+        const respon = await axios.put(`${REACT_APP_BASE_URL}projects/${id}`, dataProjects);
+        if (respon.status === 200) {
+            setLoading(false);
+            setTimeout(() => {
+              setEdit(false);
+              setUpdate(!update);
+            }, TIMEOUT_REDIRECT);
+          }
+        setLoading(false);
+    } catch (error) {
+        setLoading(false);
+    }
   };
 
   const changeArr = (arr = []) => {
@@ -93,7 +93,7 @@ export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) =>
   const dataDepartments = async () => {
     let dataDepartment = [];
     const {department} = dataDetails
-    dataDepartment.push({label: department.name, value: department.name})
+    dataDepartment.push({label: department.name, value: department.id})
     setSelectedDepartment(dataDepartment)
   }
 
@@ -102,7 +102,8 @@ export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) =>
     const {techs} = dataDetails
     techs.map(element => {
       const {name} = element
-      dataTechs.push({label: name, value: name})
+      const {id} = element
+      dataTechs.push({label: name, value: id})
     })
     setSelectedTechStacks(dataTechs)
   }
