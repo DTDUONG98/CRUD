@@ -16,6 +16,7 @@ Route.group(() => {
     Route.resource('/projects', "ProjectController").name("projects")
     Route.resource('/tech_stacks', "TechStackController").name('tech_stacks')
     Route.post('/reports/projects', 'ReportController.getStatisticProject').name('reports_projects')
+    Route.post('/reports/staffs', "ReportController.getStatisticStaff").name('reports_staff');
   }).middleware([]);
 
   // ---------------------------------- Auth Routes ---------------------------------------//
