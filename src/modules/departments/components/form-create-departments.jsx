@@ -50,6 +50,7 @@ export const FormCreateDepartments = () => {
       const response = await axios.get(`${REACT_APP_BASE_URL}tech_stacks`)
       const {data} = _.get(response, 'data.data', [])
       setDataTechStack(data);
+      setLoading(false);
     } catch (error) {
       setLoading(false);
     }

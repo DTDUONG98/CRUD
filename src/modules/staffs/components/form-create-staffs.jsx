@@ -17,8 +17,10 @@ export const FormCreateStaffs = () => {
 
     const [loading, setLoading] = useState(false);
     const [dataDepartment, setDataDepartment] = useState([]);
+    const [dataTechStack, setDataTechStack] = useState([]);
 
     const [selectedDepartment, setSelectedDepartment] = useState([]);
+    const [selectTechStack, setSelectTechStack] = useState([]);
     const [dateOfBirth, setDateOfBirth] = useState(new Date());
 
     const getDataDepartment = async () => {
@@ -32,20 +34,44 @@ export const FormCreateStaffs = () => {
             setLoading(false);
         }
     }
+    const getDataTechStack = async () => {
+        setLoading(true);
+        try {
+            const response = await axios.get(`${REACT_APP_BASE_URL}tech_stacks`)
+            const {data} = _.get(response, 'data.data', []);
+            setDataTechStack(data)
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+        }
+    }
 
     const addDisabled = (arr = []) => {
         return arr.map(item => {
           return { label: item.name, value: item.id };
         });
-      };
+    };
+
+    const onAddDisabled = (arr = []) => {
+        return arr.map(item => {
+            if (item.status === "inactive") {
+              return { label: item.name, value: item.id, disabled: true };
+            }
+            return { label: item.name, value: item.id };
+          });
+    };
 
 
     const onSubmit = async data => {
         setLoading(true);
         data.deparmentId = null
+        data.techIds = []
         data.birth = moment(dateOfBirth).format('DD/MM/YYYY')
         selectedDepartment.map(item => {
             data.deparmentId = item.value
+        })
+        selectTechStack.map(item => {
+            data.techIds.push(item.value)
         })
         console.log('dataNewStaff', data)
         try {
@@ -64,6 +90,7 @@ export const FormCreateStaffs = () => {
 
     useEffect(() => {
         getDataDepartment();
+        getDataTechStack();
     },[])
 
     return (
@@ -119,7 +146,7 @@ export const FormCreateStaffs = () => {
                             />
                         </div>
                         <div className="inline-block mt-2 w-full">
-                            <label className="text-sm text-gray-600 mb-2" htmlFor="deparments">
+                            <label className="text-sm text-gray-600 mb-2" htmlFor="deparmentId">
                                 Select Department
                             </label>
                             <MultiSelect
@@ -129,7 +156,18 @@ export const FormCreateStaffs = () => {
                                 labelledBy={"Select"}
                             />
                         </div>
-                        <div className="ml-auto mr-auto sm:mt-4">
+                        <div className="inline-block mt-2 w-full">
+                            <label className="text-sm text-gray-600 mb-2" htmlFor="techIds">
+                                Select Tech Stack
+                            </label>
+                            <MultiSelect
+                                options={onAddDisabled(dataTechStack)}
+                                value={selectTechStack}
+                                onChange={setSelectTechStack}
+                                labelledBy={"Select"}
+                            />
+                        </div>
+                        <div className="ml-auto mr-auto sm:mt-4 pt-4">
                             <div className="m-3">
                                 <button className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
                                     <span className="mr-2">Add</span>

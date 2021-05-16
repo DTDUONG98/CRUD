@@ -34,26 +34,26 @@ export const FormDetailDepartment = ({ dataDetails, setUpdate }) => {
         </div>
       </div>
       <div>
-        <div className="px-10 py-5 text-gray-600">
+        <div className="px-10 py-3 text-gray-600">
           Name: <b>{dataDetails?.name}</b>
         </div>
-        <div className="px-10 py-5 text-gray-600">
+        <div className="px-10 py-3 text-gray-600">
           Function : <b>{dataDetails?.functions}</b>
         </div>
-        <div className="px-10 py-5 text-gray-600">
+        <div className="px-10 py-3 text-gray-600">
           Mission : <b>{dataDetails?.mission}</b>
         </div>
-        <div className="px-10 py-5 text-gray-600">
+        <div className="px-10 py-3 text-gray-600">
           Description : <b>{dataDetails?.description}</b>
         </div>
-        <div className="px-10 py-5 text-gray-600">
+        <div className="px-10 py-3 text-gray-600">
         <p>Tech:</p> 
             <ul className="max-h-48 overflow-x-hidden mt-2">
                 {dataDetails?.tech_stacks && dataDetails?.tech_stacks.map(techStack => (
                 <Link
-                    to={"/tech-stacks/" + techStack.id}
+                    // to={"/category/tech-stacks/" + techStack.id}
                     key={techStack.id}
-                    className="flex justify-start mt-4 cursor-pointer text-gray-700
+                    className="flex justify-start mt-1 cursor-pointer text-gray-700
                     hover:text-gray-500 hover:bg-gray-100 rounded-md py-2 my-2"
                 >
                     <span className="bg-green-500 h-2 w-2 m-2 rounded-full"></span>
@@ -62,18 +62,34 @@ export const FormDetailDepartment = ({ dataDetails, setUpdate }) => {
                 ))}
             </ul>
         </div>
-        <div className="px-10 py-5 text-gray-600">
+        <div className="px-10 py-1 text-gray-600">
         <p>Staffs:</p> 
             <ul className="max-h-48 overflow-x-hidden mt-2">
                 {dataDetails?.staffs && dataDetails?.staffs.map(staffs => (
                 <Link
-                    to={"/staffs/" + staffs.id}
+                    to={"/manager/staffs/" + staffs.id}
                     key={staffs.id}
-                    className="flex justify-start mt-4 cursor-pointer text-gray-700
+                    className="flex justify-start mt-1 cursor-pointer text-gray-700
                     hover:text-gray-500 hover:bg-gray-100 rounded-md py-2 my-2"
                 >
                     <span className="bg-green-500 h-2 w-2 m-2 rounded-full"></span>
                     <span className="font-medium px-2">{staffs.name}</span>
+                </Link>
+                ))}
+            </ul>
+        </div>
+        <div className="px-10 py-1 text-gray-600">
+        <p>Projects:</p> 
+            <ul className="max-h-48 overflow-x-hidden mt-2">
+                {dataDetails?.projects && dataDetails?.projects.map(projects => (
+                <Link
+                    to={"/manager/projects/" + projects.id}
+                    key={projects.id}
+                    className="flex justify-start mt-1 cursor-pointer text-gray-700
+                    hover:text-gray-500 hover:bg-gray-100 rounded-md py-2 my-2"
+                >
+                    <span className="bg-green-500 h-2 w-2 m-2 rounded-full"></span>
+                    <span className="font-medium px-2">{projects.name}</span>
                 </Link>
                 ))}
             </ul>
