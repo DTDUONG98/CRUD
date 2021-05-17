@@ -25,6 +25,10 @@ export const FormDetailProjects = ({ dataDetails, setUpdate }) => {
       setLoading(false);
     }
   };
+
+  const onBack = async () => {
+    history.push(PROJECTS);
+  }
   return (
     <div className="w-10/12 sm:w-11/12 sm:ml-4 rounded-lg shadow-lg bg-white mt-10 ml-5">
       <div className="flex justify-between border-b border-gray-100 px-5 py-4">
@@ -51,7 +55,7 @@ export const FormDetailProjects = ({ dataDetails, setUpdate }) => {
             <ul className="max-h-48 overflow-x-hidden mt-2">
                 {dataDetails?.techs && dataDetails?.techs.map(techStack => (
                 <Link
-                    to={"/tech-stacks/" + techStack.id}
+                    to={"/category/tech-stack/" + techStack.id}
                     key={techStack.id}
                     className="flex justify-start mt-4 cursor-pointer text-gray-700
                     hover:text-gray-500 hover:bg-gray-100 rounded-md py-2 my-2"
@@ -67,7 +71,7 @@ export const FormDetailProjects = ({ dataDetails, setUpdate }) => {
             <ul className="max-h-48 overflow-x-hidden mt-2">
                 {dataDetails?.staffs && dataDetails?.staffs.map(staffs => (
                 <Link
-                    to={"/projects/" + staffs.id}
+                    to={"/manager/staffs/" + staffs.id}
                     key={staffs.id}
                     className="flex justify-start mt-4 cursor-pointer text-gray-700
                     hover:text-gray-500 hover:bg-gray-100 rounded-md py-2 my-2"
@@ -79,6 +83,12 @@ export const FormDetailProjects = ({ dataDetails, setUpdate }) => {
             </ul>
         </div>
         <div className="px-5 py-4 flex justify-end">
+          <button
+            onClick={onBack}
+            className="border font-medium border-red-400 bg-red-400 text-white rounded-md px-3 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"
+          >
+            <p>BACK</p>
+          </button>
           <button
             onClick={sumbitDeleteProjects}
             className="border font-medium border-red-400 bg-red-400 text-white rounded-md px-3 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"

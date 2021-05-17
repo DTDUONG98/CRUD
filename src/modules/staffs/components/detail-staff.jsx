@@ -18,7 +18,6 @@ export const DetailsStaffs = () => {
         try {
           const response = await axios.get(`${REACT_APP_BASE_URL}staffs/${params.id}`)
           const {data} = _.get(response,'data', []);
-          console.log('data', data);
           setDataDetailsStaffs(data)
           setLoading(false);
         } catch (error) {

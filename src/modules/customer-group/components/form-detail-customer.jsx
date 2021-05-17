@@ -22,6 +22,10 @@ export const FormDetailCustomer = ({ dataDetails, setUpdate }) => {
       setLoading(false);
     }
   };
+
+  const onBack = async () => {
+    history.push(CUSTOMER_GROUP);
+  }
   return (
     <div className="w-10/12 sm:w-11/12 sm:ml-4 rounded-lg shadow-lg bg-white mt-10 ml-5">
       <div className="flex justify-between border-b border-gray-100 px-5 py-4">
@@ -61,6 +65,12 @@ export const FormDetailCustomer = ({ dataDetails, setUpdate }) => {
           )}
         </div>
         <div className="px-5 py-4 flex justify-end">
+        <button
+            onClick={onBack}
+            className="border font-medium border-red-400 bg-red-400 text-white rounded-md px-3 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"
+          >
+            <p>BACK</p>
+          </button>
           <button
             onClick={sumbitDeleteCustomers}
             className="border font-medium border-red-400 bg-red-400 text-white rounded-md px-3 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"

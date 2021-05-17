@@ -18,6 +18,12 @@ export const FormEditStaffs = ({ dataDetails, setUpdate, setEdit, update }) => {
   const [selectedTechStacks, setSelectedTechStacks] = useState([]);
   const [selectedProject, setSelectedProject] = useState([]);
 
+  const getDatadateOfBirth = async () => {
+    const {birth} = dataDetails
+    const birthday = new Date(birth) 
+    setDateOfBirth(birthday)
+  }
+
   const getDataTechStack = async () => {
     setLoading(true);
     try {
@@ -88,7 +94,7 @@ const addDisabled = (arr = []) => {
     selectedProject.map((item) =>{
       dataStaffs.projectIds.push(item.value)
     })
-    dataStaffs.birth = moment(dateOfBirth).format('DD/MM/YYYY')
+    dataStaffs.birth = dateOfBirth;
     console.log('dataStaffs', dataStaffs);
     try {
         const respon = await axios.put(`${REACT_APP_BASE_URL}staffs/${id}`, dataStaffs);
@@ -106,6 +112,7 @@ const addDisabled = (arr = []) => {
   };
 
   useEffect(() => {
+    getDatadateOfBirth()
     dataSelectTech()
     dataSelectProject()
     getDataProject()

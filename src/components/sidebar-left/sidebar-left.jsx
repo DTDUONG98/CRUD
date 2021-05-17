@@ -141,27 +141,35 @@ export const SidebarLeft = () => {
         <div className="w-10/12 mt-5" style={{paddingBottom: '100px', paddingTop: '30px'}}>
           <ul>
             <div className="text-gray-400 text-sm flex items-center">
-              <p>REPORT</p>
+              <p>REPORT PROJECT</p>
               <p className="ml-2 text-2xl">
                 <AiOutlineEllipsis />
               </p>
             </div>
             <div onClick={handleHideSideBar} style={{paddingTop: '20px'}}>
               <NavLink
-                to="/report/project-quantity"
+                to="/report-project/follow-status"
                 activeClassName="hover:bg-indigo-700 hover:text-pink-100 bg-indigo-700 text-white rounded-xl"
                 className="flex items-center mt-3 p-2 rounded-lg hover:text-gray-900 hover:bg-gray-200"
               >
                 <FcStatistics className=" text-2xl" />
-                <p className="  text-base ml-3">Project Quantity</p>
+                <p className="  text-base ml-3">Follow Status</p>
               </NavLink>
               <NavLink
-                to="/report/staff-quantity"
+                to="/report-project/follow-type"
                 activeClassName="bg-indigo-700 text-white rounded-xl"
                 className="flex items-center mt-3 p-2 rounded-lg hover:text-gray-900 hover:bg-gray-200"
               >
                 <FcStatistics className=" text-2xl" />
-                <p className="  text-base ml-3">Staffs Quantity</p>
+                <p className="  text-base ml-3">Follow Type</p>
+              </NavLink>
+              <NavLink
+                to="/report-project/follow-tech-stack"
+                activeClassName="bg-indigo-700 text-white rounded-xl"
+                className="flex items-center mt-3 p-2 rounded-lg hover:text-gray-900 hover:bg-gray-200"
+              >
+                <FcStatistics className=" text-2xl" />
+                <p className="  text-base ml-3">Follow Tech Stack</p>
               </NavLink>
             </div>
           </ul>

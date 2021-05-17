@@ -9,7 +9,6 @@ export const FormEditProjectStatus = ({ dataDetails, setUpdate, setEdit, update 
   const handeleOnSubmitUpdate = async dataProjectStatus => {
     setLoading(true);
     const {id} = dataDetails;
-    dataProjectStatus.priority = parseInt(dataProjectStatus.priority);
     try {
         const respon = await axios.put(`${REACT_APP_BASE_URL}project_status/${id}`, dataProjectStatus);
         if (respon.status === 200) {

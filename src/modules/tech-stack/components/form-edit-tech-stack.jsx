@@ -9,7 +9,6 @@ export const FormEditTechStack = ({ dataDetails, setUpdate, setEdit, update }) =
   const handeleOnSubmitUpdate = async dataTechStack => {
     setLoading(true);
     const {id} = dataDetails;
-    dataTechStack.priority = parseInt(dataTechStack.priority);
     try {
         const respon = await axios.put(`${REACT_APP_BASE_URL}tech_stacks/${id}`, dataTechStack);
         if (respon.status === 200) {

@@ -1,3 +1,4 @@
+import moment from "moment-timezone";
 import { useHistory } from "react-router-dom";
 
 const RowTableStaffs = ({ number, type = null, birthday, phone, link }) => {
@@ -20,7 +21,7 @@ const RowTableStaffs = ({ number, type = null, birthday, phone, link }) => {
           {type}
         </td>
         <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="birthday">
-          {birthday}
+          {moment(birthday).format('DD/MM/YYYY')}
         </td>
         <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="phone">
           {phone}

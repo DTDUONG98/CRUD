@@ -45,8 +45,9 @@ export const Navbar = () => {
                 <Link
                   to="/"
                   className="flex items-center mt-1 px-5 py-2 text-sm capitalize rounded-md text-gray-700 hover:bg-indigo-600 hover:text-white"
+                  onClick={(e) => {e.preventDefault(); console.log('Sign Out');}}
                 >
-                  <AiOutlineLogin className="text-lg mr-2" />
+                  <AiOutlineLogin className="text-lg mr-2"/>
                   <p className="font-medium">Sign Out</p>
                 </Link>
               </div>

@@ -66,7 +66,7 @@ export const FormCreateStaffs = () => {
         setLoading(true);
         data.deparmentId = null
         data.techIds = []
-        data.birth = moment(dateOfBirth).format('DD/MM/YYYY')
+        data.birth = dateOfBirth
         selectedDepartment.map(item => {
             data.deparmentId = item.value
         })
