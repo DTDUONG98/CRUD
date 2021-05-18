@@ -141,63 +141,31 @@ export default class DepartmentController extends BaseController {
       techIds: ["number"]
     }
     let params = this.validate(inputs, allowFields, { removeNotAllow: false });
+    const deparmentId: number = params['id'];
+    if (!deparmentId) throw new ApiException(9996, "ID is required!");
+
+
     let dataDepartment = {
-      id: params['id'],
       name: params['name'],
       functions: params['functions'],
       mission: params['mission'],
       description: params['description']
     }
-    // Check isExist
-    let exist = await this.Model.getById(dataDepartment.id);
-    if (!exist) throw new ApiException(6000, "Department doesn't exist!");
-    const id: number = dataDepartment.id;
-    delete dataDepartment.id;
-    let updateDepartment = await this.Model.updateOne(id, dataDepartment);
 
     /**
      * Update DepartmentTech
      */
-    let techIds: number[] = params['techIds'];
-    // Check techId exist
-    let existTechIds: number[] = [];
-    techIds.map(async e => {
-      let exist = await this.TechStackModel.getById(e);
-      if (exist) existTechIds.push(e);
-    })
-    techIds = existTechIds; // asign again to techIds
-
-    if (techIds.length) {
-
-      let departmentTechs: any[] = await this.DepartmentTechModel.getByCondition({ deparmentId: id });
-      let techIdDBs: number[] = departmentTechs.map(e => e.techId);
-      let insertIds: number[] = [];
-      let deleteIds: number[] = [];
-
-      techIds.map(e => {
-        if (!techIdDBs.includes(e)) insertIds.push(e);
-      });
-      techIdDBs.map(e => {
-        if (!techIds.includes(e)) deleteIds.push(e);
-      });
-      // Save data
-      let dataInserts = insertIds.map(e => ({
-        deparmentId: id,
-        techId: e
-      }));
-      if (dataInserts.length) await this.DepartmentTechModel.insertMany(dataInserts);
-      let dataDeletes = deleteIds.map(e => ({
-        deparmentId: id,
-        techId: e
-      }));
-      if (dataDeletes) {
-        await Promise.all(dataDeletes.map(e => this.DepartmentTechModel.deleteByCondition(e)))
-      }
-    }
-
+    let updateDepartment = await this.Model.updateOne(deparmentId, dataDepartment);
+    /**
+     * Update relation table : deparment_techs
+     */
+    await this.DepartmentTechModel.deleteByCondition({deparmentId: deparmentId});
+    let techIds: number[] = params['techIds'] || [];
+    let dataDepartmentTechs: any[] = techIds.map(techId => ({techId, deparmentId}));
+    let updateDepartmentTech = await this.DepartmentTechModel.insertMany(dataDepartmentTechs);
     return {
-      department: await this.Model.getById(id),
-      department_techs: await this.DepartmentTechModel.getByCondition({ deparmentId: id })
+      updateDepartment,
+      updateDepartmentTech
     }
   }
 }
