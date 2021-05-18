@@ -20,7 +20,6 @@ export const TableStaffs = () => {
             })
             const {data} = _.get(response, 'data.data', []);
             setListStaffs({data: data});
-            console.log('data staffs', data)
             setLoading(false);
         } catch (error) {
             setLoading(false);

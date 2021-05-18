@@ -1,10 +1,10 @@
 import React from 'react';
+import _ from 'lodash';
+import axios from 'axios';
 import { useEffect, useState } from "react";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableProjectType from "./row-table-project-type";
 import { REACT_APP_BASE_URL } from '../../../routers/router.type'
-import _ from 'lodash';
-import axios from 'axios';
 export const TableProjectType = () => {
     const [ListProjectType, setListProjectType] = useState([]);
     const [page, setPage] = useState(1);
@@ -16,7 +16,6 @@ export const TableProjectType = () => {
         }
       })
        const {data} = _.get(response,'data.data', []);
-       console.log('data', data);
        setListProjectType({data: data});
     };
     useEffect(() => {

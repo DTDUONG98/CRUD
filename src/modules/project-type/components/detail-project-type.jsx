@@ -8,7 +8,7 @@ import { Loading } from '../../../components/loading/loading';
 import { FormEditProjectType } from "./form-edit-project-type";
 import { REACT_APP_BASE_URL } from '../../../routers/router.type';
 export const DetailsProjectType = () => {
-  const [detailsProjectType, setDataDetailsProjectType] = useState([]);
+  const [detailsProjectType, setDataDetailsProjectType] = useState({});
   const [editStatus, setEditStatus] = useState(false);
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -18,8 +18,7 @@ export const DetailsProjectType = () => {
         setLoading(true);
         try {
           const response = await axios.get(`${REACT_APP_BASE_URL}project_types/${params.id}`)
-          const {data} = _.get(response,'data', []);
-          console.log('data', data);
+          const {data} = _.get(response,'data', {});
           setDataDetailsProjectType(data)
           setLoading(false);
         } catch (error) {

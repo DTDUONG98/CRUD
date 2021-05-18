@@ -9,7 +9,7 @@ import { Loading } from '../../../components/loading/loading';
 import { FormEditCustomer } from "./form-edit-customer-group";
 import { REACT_APP_BASE_URL } from '../../../routers/router.type';
 export const DetailsCustomer = () => {
-  const [detailsCustomer, setDataDetailsCustomers] = useState([]);
+  const [detailsCustomer, setDataDetailsCustomers] = useState({});
   const [editStatus, setEditStatus] = useState(false);
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -19,7 +19,7 @@ export const DetailsCustomer = () => {
         setLoading(true);
         try {
           const response = await axios.get(`${REACT_APP_BASE_URL}customer_groups/${params.id}`)
-          const {data} = _.get(response,'data', []);
+          const {data} = _.get(response,'data', {});
           setDataDetailsCustomers(data)
           setLoading(false);
         } catch (error) {

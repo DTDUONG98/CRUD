@@ -18,5 +18,9 @@ export const PaginationNav = ({ onChange, totalPage, page }) => {
 PaginationNav.propTypes = {
   onChange: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
-  totalPage: PropTypes.number.isRequired
+  totalPage: PropTypes.number
+}
+
+PaginationNav.defaultProps = {
+  totalPage: 10
 }

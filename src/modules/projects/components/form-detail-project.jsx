@@ -11,7 +11,6 @@ import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, PROJECTS } from '../../../routers
 export const FormDetailProjects = ({ dataDetails, setUpdate }) => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-  console.log('dataDetails', dataDetails);
   const sumbitDeleteProjects = async () => {
     setLoading(true);
     const {id} = dataDetails;

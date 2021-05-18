@@ -164,14 +164,14 @@ export const SidebarLeft = () => {
                 <FcStatistics className=" text-2xl" />
                 <p className="  text-base ml-3">Follow Type</p>
               </NavLink>
-              <NavLink
+              {/* <NavLink
                 to="/report-project/follow-tech-stack"
                 activeClassName="bg-indigo-700 text-white rounded-xl"
                 className="flex items-center mt-3 p-2 rounded-lg hover:text-gray-900 hover:bg-gray-200"
               >
                 <FcStatistics className=" text-2xl" />
                 <p className="  text-base ml-3">Follow Tech Stack</p>
-              </NavLink>
+              </NavLink> */}
             </div>
           </ul>
         </div>

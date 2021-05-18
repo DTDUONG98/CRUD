@@ -10,7 +10,6 @@ import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, DEPARTMENTS } from '../../../rout
 export const FormDetailDepartment = ({ dataDetails, setUpdate }) => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-  console.log('dataDetails', dataDetails)
   const sumbitDeleteDepartment = async () => {
     setLoading(true);
     const {id} = dataDetails;

@@ -8,7 +8,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import { REACT_APP_BASE_URL } from '../../../routers/router.type';
 export const DetailsDepartment = () => {
-  const [detailsDepartment, setDataDetailsDepartment] = useState([]);
+  const [detailsDepartment, setDataDetailsDepartment] = useState({});
   const [editStatus, setEditStatus] = useState(false);
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -18,8 +18,7 @@ export const DetailsDepartment = () => {
         setLoading(true);
         try {
           const response = await axios.get(`${REACT_APP_BASE_URL}departments/${params.id}`)
-          const {data} = _.get(response,'data', []);
-          console.log('data department', data)
+          const {data} = _.get(response,'data', {});
           setDataDetailsDepartment(data)
           setLoading(false);
         } catch (error) {

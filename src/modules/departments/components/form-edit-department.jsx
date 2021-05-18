@@ -1,13 +1,13 @@
 import React from 'react';
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { BsPlus } from "react-icons/bs";
 import { TitlePage } from '../../../components/title-page/title-page'
 import MultiSelect from "react-multi-select-component";
 import axios from "axios";
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import { REACT_APP_BASE_URL, DEPARTMENTS, TIMEOUT_REDIRECT } from '../../../routers/router.type';
+import { Alert } from 'react-st-modal';
+import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT } from '../../../routers/router.type';
 export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update }) => {
   const { register: dataForm, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);

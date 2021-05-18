@@ -17,7 +17,6 @@ export const TableProjectStatus = () => {
             }
         })
        const {data} = _.get(response,'data.data', []);
-       console.log('data', data);
        setListProjectStatus({data: data});
     };
     useEffect(() => {

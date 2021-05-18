@@ -16,7 +16,6 @@ export const TableTechStack = () => {
             }
         })
         const {data} = _.get(response,'data.data', []);
-        console.log('data', data);
         setListTechStack({data: data});
     };
     useEffect(() => {

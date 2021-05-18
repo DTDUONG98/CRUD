@@ -8,7 +8,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import { REACT_APP_BASE_URL } from '../../../routers/router.type';
 export const DetailsTechStack = () => {
-  const [detailsTechStack, setDataDetailsTechStack] = useState([]);
+  const [detailsTechStack, setDataDetailsTechStack] = useState({});
   const [editStatus, setEditStatus] = useState(false);
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ export const DetailsTechStack = () => {
         setLoading(true);
         try {
           const response = await axios.get(`${REACT_APP_BASE_URL}tech_stacks/${params.id}`)
-          const {data} = _.get(response,'data', []);
+          const {data} = _.get(response,'data', {});
           setDataDetailsTechStack(data)
           setLoading(false);
         } catch (error) {

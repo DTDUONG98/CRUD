@@ -20,7 +20,6 @@ export const TableDepartments = () => {
               }
           })
           const {data} = _.get(response, 'data.data', []);
-          console.log('response', data);
           setListDepartments({data: data});
           setLoading(false);
       } catch (error) {
