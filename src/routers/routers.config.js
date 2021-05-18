@@ -6,8 +6,6 @@ import { TechStack } from '../page/category/tech-stack/tech-stack';
 import { Departments } from '../page/manager/departments/departments';
 import { Projects } from '../page/manager/project/projects';
 import { Staffs } from '../page/manager/staffs/staffs';
-import { ProjectQuantity } from '../page/report/project-quantity/project-quantity';
-import { StaffsQuantity } from '../page/report/staff-quantity/staff-quantity';
 import { ProjectTypeCreate } from '../page/category/project-type/create-project-type';
 import { ProjectStatusCreate } from '../page/category/project-status/create-project-status';
 import { TechStackCreate } from '../page/category/tech-stack/create-tech-stack';
@@ -22,6 +20,7 @@ import { DetailTechStack } from '../page/category/tech-stack/detail-tech-stack';
 import { DetailStaffs } from '../page/manager/staffs/detail-staff';
 import { DetailProjects } from '../page/manager/project/detail-projects';
 import { DetailDepartment } from '../page/manager/departments/detail-department';
+import { ReportProjectFollowStatus } from '../page/report/project-quantity/report-project-with-status';
 
 export const routes = [
   // login
@@ -154,13 +153,18 @@ export const routes = [
 
   // report 
   {
-    path: "/report/project-quantity",
+    path: "/report-project/follow-status",
     exact: true,
-    component: ProjectQuantity,
+    component: ReportProjectFollowStatus,
   },
   {
-    path: "/report/staff-quantity",
+    path: "/report-project/follow-type",
     exact: true,
-    component: StaffsQuantity,
+    component: ReportProjectFollowStatus,
+  },
+  {
+    path: "/report-project/follow-tech-stack",
+    exact: true,
+    component: ReportProjectFollowStatus,
   },
 ];

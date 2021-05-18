@@ -1,10 +1,11 @@
+import React from 'react';
+import axios from 'axios';
+import _ from 'lodash';
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FormDetailProjectType } from "./form-detai-project-type";
 import { Loading } from '../../../components/loading/loading';
 import { FormEditProjectType } from "./form-edit-project-type";
-import axios from 'axios';
-import _ from 'lodash';
 import { REACT_APP_BASE_URL } from '../../../routers/router.type';
 export const DetailsProjectType = () => {
   const [detailsProjectType, setDataDetailsProjectType] = useState([]);
@@ -27,7 +28,6 @@ export const DetailsProjectType = () => {
     };
     getDataDetailsProjectType();
   }, [update]);
-
   return (
     <div>
       <div>

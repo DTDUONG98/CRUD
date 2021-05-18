@@ -1,27 +1,26 @@
+import React from 'react';
 import axios from "axios";
 import _ from 'lodash';
-import { BsPlus } from "react-icons/bs";
+import { Alert } from 'react-st-modal';
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import PropTypes from 'prop-types';
 import MultiSelect from "react-multi-select-component";
 import { TitlePage } from "../../../components/title-page/title-page";
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT } from '../../../routers/router.type';
 export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) => {
   const { register: dataForm, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
-
   const [ProjectType, setProjectType] = useState([]);
   const [ProjectStatus, setProjectStatus] = useState([]);
   const [TechStacks, setTechStacks] = useState([]);
   const [Department, setDepartment] = useState([]);
   const [Staffs, setStaffs] = useState([]);
-
   const [selectedProjectType, setSelectedProjectType] = useState([]);
   const [selectedProjectStatus, setSelectedProjectStatus] = useState([]);
   const [selectedTechStacks, setSelectedTechStacks] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState([]);
   const [selectedStaffs, setSelectedStaffs] = useState([]);
-
   const onSubmit = async dataProjects => {
     setLoading(true);
     const {id} = dataDetails;
@@ -45,7 +44,6 @@ export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) =>
     selectedTechStacks.map((item) =>{
       dataProjects.techIds.push(item.value)
     })
-    console.log('dataProjects', dataProjects);
     try {
         const respon = await axios.put(`${REACT_APP_BASE_URL}projects/${id}`, dataProjects);
         if (respon.status === 200) {
@@ -53,20 +51,20 @@ export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) =>
             setTimeout(() => {
               setEdit(false);
               setUpdate(!update);
+              Alert("Update Project Success", "Notification");
             }, TIMEOUT_REDIRECT);
           }
         setLoading(false);
     } catch (error) {
         setLoading(false);
+        await Alert("Update Project Fail, try again!", "Notification");
     }
   };
-
   const changeArr = (arr = []) => {
     return arr.map(item => {
       return { label: item.name, value: item.id };
     });
   };
-
   const addDisabled = (arr = []) => {
     return arr.map(item => {
       if (item.status === "inactive") {
@@ -75,28 +73,24 @@ export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) =>
       return { label: item.name, value: item.id };
     });
   };
-
   const dataProjectType = async () => {
     let dataProjectType = [];
     const {projectType} = dataDetails
     dataProjectType.push({...projectType, label: projectType.name, value: projectType.id})
     setSelectedProjectType(dataProjectType)
   }
-
   const dataProjectStatus = async () => {
     let dataProjectStatus = [];
     const {projectStatus} = dataDetails
     dataProjectStatus.push({...projectStatus,label: projectStatus.name, value: projectStatus.id})
     setSelectedProjectStatus(dataProjectStatus)
   }
-
   const dataDepartments = async () => {
     let dataDepartment = [];
     const {department} = dataDetails
     dataDepartment.push({label: department.name, value: department.id})
     setSelectedDepartment(dataDepartment)
   }
-
   const dataSelectTech = () => {
     let dataTechs = [];
     const {techs} = dataDetails
@@ -107,7 +101,6 @@ export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) =>
     })
     setSelectedTechStacks(dataTechs)
   }
-
   const dataStaffs = () => {
     let dataStaffs = [];
     const {staffs} = dataDetails
@@ -118,7 +111,6 @@ export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) =>
     })
     setSelectedStaffs(dataStaffs)
   }
-
   const getProjectType = async () => {
     setLoading(true);
     try {
@@ -174,9 +166,6 @@ export const FormEditProjects = ({ dataDetails, setUpdate, setEdit, update }) =>
         setLoading(true);
     }
 }
-
-
-
 useEffect(() => {
   getDataTechStack()
   getProjectType()
@@ -288,3 +277,10 @@ useEffect(() => {
   </div>
   );
 };
+
+FormEditProjects.propTypes = {
+  dataDetails: PropTypes.object.isRequired,
+  setUpdate: PropTypes.func.isRequired,
+  setEdit: PropTypes.func.isRequired,
+  update: PropTypes.bool.isRequired,
+}

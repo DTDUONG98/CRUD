@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FormDetailDepartment } from "./form-detail-department";
@@ -27,7 +28,6 @@ export const DetailsDepartment = () => {
     };
     getDataDetailsProjects();
   }, [update]);
-
   return (
     <div>
       <div>

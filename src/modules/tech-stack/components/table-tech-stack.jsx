@@ -1,10 +1,10 @@
+import React from 'react';
 import { useEffect, useState } from "react";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableTechStack from "./row-table-tech-stack";
 import axios from 'axios';
 import _ from 'lodash';
 import { REACT_APP_BASE_URL } from '../../../routers/router.type';
-const queryString = require("query-string");
 export const TableTechStack = () => {
     const [ListTechStack, setListTechStack] = useState([]);
     const [page, setPage] = useState(1);

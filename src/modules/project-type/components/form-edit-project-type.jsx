@@ -1,7 +1,10 @@
+import React from 'react';
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiChevronDown } from "react-icons/bi";
+import PropTypes from 'prop-types';
+import { Alert } from 'react-st-modal';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT } from '../../../routers/router.type';
 export const FormEditProjectType = ({ dataDetails, setUpdate, setEdit, update }) => {
   const { register: dataForm, handleSubmit } = useForm();
@@ -17,11 +20,13 @@ export const FormEditProjectType = ({ dataDetails, setUpdate, setEdit, update })
             setTimeout(() => {
               setEdit(false);
               setUpdate(!update);
+              Alert("Update Project Type Success", "Notification");
             }, TIMEOUT_REDIRECT);
           }
         setLoading(false);
     } catch (error) {
         setLoading(false);
+        await Alert("Update Project Type Fail, try again!", "Notification");
     }
   };
   return (
@@ -146,3 +151,10 @@ export const FormEditProjectType = ({ dataDetails, setUpdate, setEdit, update })
     </div>
   );
 };
+
+FormEditProjectType.propTypes = {
+  dataDetails: PropTypes.object.isRequired,
+  setUpdate: PropTypes.func.isRequired,
+  setEdit: PropTypes.func.isRequired,
+  update: PropTypes.bool.isRequired,
+}

@@ -1,7 +1,10 @@
+import React from 'react';
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiChevronDown } from "react-icons/bi";
+import PropTypes from 'prop-types';
+import { Alert} from 'react-st-modal';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT } from '../../../routers/router.type';
 export const FormEditTechStack = ({ dataDetails, setUpdate, setEdit, update }) => {
   const { register: dataForm, handleSubmit } = useForm();
@@ -9,7 +12,6 @@ export const FormEditTechStack = ({ dataDetails, setUpdate, setEdit, update }) =
   const handeleOnSubmitUpdate = async dataTechStack => {
     setLoading(true);
     const {id} = dataDetails;
-    dataTechStack.priority = parseInt(dataTechStack.priority);
     try {
         const respon = await axios.put(`${REACT_APP_BASE_URL}tech_stacks/${id}`, dataTechStack);
         if (respon.status === 200) {
@@ -17,11 +19,13 @@ export const FormEditTechStack = ({ dataDetails, setUpdate, setEdit, update }) =
             setTimeout(() => {
               setEdit(false);
               setUpdate(!update);
+              Alert("Update Tech Stack Success", "Notification");
             }, TIMEOUT_REDIRECT);
           }
         setLoading(false);
     } catch (error) {
         setLoading(false);
+        await Alert("Update Tech Stack Fail, try again!", "Notification");
     }
   };
   return (
@@ -122,3 +126,10 @@ export const FormEditTechStack = ({ dataDetails, setUpdate, setEdit, update }) =
     </div>
   );
 };
+
+FormEditTechStack.propTypes = {
+  dataDetails: PropTypes.object.isRequired,
+  setUpdate: PropTypes.func.isRequired,
+  setEdit: PropTypes.func.isRequired,
+  update: PropTypes.bool.isRequired,
+}

@@ -1,7 +1,10 @@
+import React from 'react';
 import { useState } from "react";
 import { FcAbout } from "react-icons/fc";
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
+import PropTypes from 'prop-types';
+import { Alert } from 'react-st-modal';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, TECH_STACK } from '../../../routers/router.type';
 export const FormDetailTechStack = ({ dataDetails, setUpdate }) => {
   const [loading, setLoading] = useState(false);
@@ -15,13 +18,18 @@ export const FormDetailTechStack = ({ dataDetails, setUpdate }) => {
         setLoading(false);
         setTimeout(() => {
           history.push(TECH_STACK);
+          Alert("Delete Tech Stack Success", "Notification");
         }, TIMEOUT_REDIRECT);
       }
     }
     catch (error) {
       setLoading(false);
+      await Alert("Delete Tech Stack Fail, try again", "Notification");
     }
   };
+  const onBack = async () => {
+    history.push(TECH_STACK);
+  }
   return (
     <div className="w-10/12 sm:w-11/12 sm:ml-4 rounded-lg shadow-lg bg-white mt-10 ml-5">
       <div className="flex justify-between border-b border-gray-100 px-5 py-4">
@@ -58,6 +66,12 @@ export const FormDetailTechStack = ({ dataDetails, setUpdate }) => {
           )}
         </div>
         <div className="px-5 py-4 flex justify-end">
+        <button
+            onClick={onBack}
+            className="border font-medium border-red-400 bg-red-400 text-white rounded-md px-3 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"
+          >
+            <p>BACK</p>
+          </button>
           <button
             onClick={sumbitDeleteTechStack}
             className="border font-medium border-red-400 bg-red-400 text-white rounded-md px-3 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"
@@ -77,3 +91,8 @@ export const FormDetailTechStack = ({ dataDetails, setUpdate }) => {
     </div>
   );
 };
+
+FormDetailTechStack.propTypes = {
+  dataDetails: PropTypes.object.isRequired,
+  setUpdate: PropTypes.func.isRequired
+}

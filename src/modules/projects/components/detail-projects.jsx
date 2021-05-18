@@ -1,10 +1,11 @@
+import React from 'react';
+import axios from 'axios';
+import _ from 'lodash';
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FormDetailProjects } from "./form-detail-project";
 import { Loading } from '../../../components/loading/loading';
 import { FormEditProjects } from "./form-edit-projects";
-import axios from 'axios';
-import _ from 'lodash';
 import { REACT_APP_BASE_URL } from '../../../routers/router.type';
 export const DetailsProjects = () => {
   const [dataProjects, setDataProjects] = useState([]);
@@ -12,7 +13,6 @@ export const DetailsProjects = () => {
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
   const params = useParams();
-
   const getDataDetailsProjects = async () => {
     setLoading(true);
     try {
@@ -27,11 +27,9 @@ export const DetailsProjects = () => {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     getDataDetailsProjects();
   }, [update]);
-
   return (
     <div>
       <div>

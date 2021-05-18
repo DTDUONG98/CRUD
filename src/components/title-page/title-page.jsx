@@ -1,3 +1,5 @@
+import React from 'react';
+import PropTypes from 'prop-types'
 export const TitlePage = ({ content }) => {
     return (
       <div>
@@ -6,3 +8,7 @@ export const TitlePage = ({ content }) => {
       </div>
     );
   };
+
+TitlePage.propTypes = {
+  content: PropTypes.string.isRequired 
+}  

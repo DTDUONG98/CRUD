@@ -1,5 +1,7 @@
+import moment from "moment-timezone";
 import { useHistory } from "react-router-dom";
-
+import React from 'react';
+import PropTypes from 'prop-types';
 const RowTableStaffs = ({ number, type = null, birthday, phone, link }) => {
   const history = useHistory();
   const onClickRedirect = () => {
@@ -20,7 +22,7 @@ const RowTableStaffs = ({ number, type = null, birthday, phone, link }) => {
           {type}
         </td>
         <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="birthday">
-          {birthday}
+          {moment(birthday).format('DD/MM/YYYY')}
         </td>
         <td className=" w-1/12 sm:w-2/12  text-center pl-5 sm:pl-0" data-title="phone">
           {phone}
@@ -29,5 +31,12 @@ const RowTableStaffs = ({ number, type = null, birthday, phone, link }) => {
     </tbody>
   );
 };
-
 export default RowTableStaffs;
+
+RowTableStaffs.propTypes = {
+  number: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
+  birthday: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
+}

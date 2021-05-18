@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
-
+import PropTypes from 'prop-types';
+import React from 'react';
 const RowTableProjectStatus = ({ number, type = null, description, status, link }) => {
   const history = useHistory();
   const onClickRedirect = () => {
@@ -51,3 +52,12 @@ const RowTableProjectStatus = ({ number, type = null, description, status, link 
 };
 
 export default RowTableProjectStatus;
+
+
+RowTableProjectStatus.propTypes = {
+  number: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
+}

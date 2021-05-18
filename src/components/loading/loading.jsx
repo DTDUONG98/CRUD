@@ -1,5 +1,5 @@
 import { useLoading, Audio } from '@agney/react-loading';
-
+import React from 'react';
 export const Loading = () => {
   const { containerProps, BallTriangle } = useLoading({
     loading: true,

@@ -1,3 +1,4 @@
+import React from 'react';
 import { TitlePage } from "../../../components/title-page/title-page";
 import { TableCustomerGroup } from "../../../modules/customer-group/components/table-customer-group";
 import { ButtonAddMore } from '../../../components/buton-add-more/buton-add-more';

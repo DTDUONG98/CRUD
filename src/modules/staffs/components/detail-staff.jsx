@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FormDetailStaffs } from "./form-detail-staff";
@@ -18,7 +19,6 @@ export const DetailsStaffs = () => {
         try {
           const response = await axios.get(`${REACT_APP_BASE_URL}staffs/${params.id}`)
           const {data} = _.get(response,'data', []);
-          console.log('data', data);
           setDataDetailsStaffs(data)
           setLoading(false);
         } catch (error) {
@@ -27,7 +27,6 @@ export const DetailsStaffs = () => {
     };
     getDataDetailsStaffs();
   }, [update]);
-
   return (
     <div>
       <div>

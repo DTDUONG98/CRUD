@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { BsPlus } from "react-icons/bs";
@@ -5,12 +6,17 @@ import { TitlePage } from '../../../components/title-page/title-page'
 import MultiSelect from "react-multi-select-component";
 import axios from "axios";
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import { REACT_APP_BASE_URL, DEPARTMENTS, TIMEOUT_REDIRECT } from '../../../routers/router.type';
 export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update }) => {
-
   const { register: dataForm, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
-
+  const [selectedStaffs, setSelectedStaffs] = useState([]);
+  const [selectedProject, setSelectedProject] = useState([]);
+  const [selectedTechStacks, setSelectedTechStacks] = useState([]);
+  const [dataTechStack, setDataTechStack] = useState([]);
+  const [dataStaff, setDataStaff] = useState([]);
+  const [dataProjects, setDataProjects] = useState([]);
   const onSubmit = async data => {
     setLoading(true);
     const {id} = dataDetails
@@ -26,7 +32,6 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
     selectedProject.map((item) =>{
       data.projectIds.push(item.value)
     })
-    console.log('on Submit', data)
     try {
       const response = await axios.put(`${REACT_APP_BASE_URL}departments/${id}`, data)
         if (response.status === 200) {
@@ -34,20 +39,20 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
           setTimeout(() => {
             setEdit(false);
             setUpdate(!update);
+            Alert("Update Department Success", "Notification");
           }, TIMEOUT_REDIRECT);
         }
       setLoading(false);
     } catch (error) {
       setLoading(false);
+      await  Alert("Update Department Fail", "Notification");
     }
   };
-
   const changeArr = (arr = []) => {
     return arr.map(item => {
       return { label: item.name, value: item.id };
     });
   };
-
   const addDisabled = (arr = []) => {
     return arr.map(item => {
       if (item.status === "inactive") {
@@ -56,16 +61,6 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
       return { label: item.name, value: item.id };
     });
   };
-
-
-  const [selectedStaffs, setSelectedStaffs] = useState([]);
-  const [selectedProject, setSelectedProject] = useState([]);
-  const [selectedTechStacks, setSelectedTechStacks] = useState([]);
-
-  const [dataTechStack, setDataTechStack] = useState([]);
-  const [dataStaff, setDataStaff] = useState([]);
-  const [dataProjects, setDataProjects] = useState([]);
-
   const dataSelectTechStack = () => {
     let dataTechs = [];
     const {tech_stacks} = dataDetails
@@ -76,7 +71,6 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
     })
     setSelectedTechStacks(dataTechs)
   }
-
   const dataSelectStaffs = () => {
     let dataStaffs = [];
     const {staffs} = dataDetails
@@ -97,7 +91,6 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
     })
     setSelectedProject(dataProjects)
   }
-
   const getDataStaff = async () => {
     setLoading(true);
     try {
@@ -109,7 +102,6 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
       setLoading(false);
     }
   }
-
   const getDataTechStack = async () => {
     setLoading(true);
     try {
@@ -121,7 +113,6 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
       setLoading(false);
     }
   }
-
   const getDataProjects = async () => {
     setLoading(true);
     try {
@@ -133,7 +124,6 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
       setLoading(false);
     }
   }
-
   useEffect(() => {
     getDataStaff();
     getDataTechStack();
@@ -142,7 +132,6 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
     dataSelectStaffs();
     dataSelectProjects();
   },[])
-
   return (
     <div className="mt-10">
     <TitlePage content="Edit Department " />
@@ -271,3 +260,10 @@ export const FormEditDepartments = ({ dataDetails, setUpdate, setEdit, update })
   </div>
   );
 };
+
+FormEditDepartments.propTypes = {
+  dataDetails: PropTypes.object.isRequired,
+  setUpdate: PropTypes.func.isRequired,
+  setEdit: PropTypes.func.isRequired,
+  update: PropTypes.bool.isRequired,
+}

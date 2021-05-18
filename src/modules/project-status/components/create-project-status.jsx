@@ -1,9 +1,11 @@
+import React from 'react';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiChevronDown } from "react-icons/bi";
 import { BsPlus } from "react-icons/bs";
 import { FcAbout } from "react-icons/fc";
 import { useHistory } from "react-router-dom";
+import { Alert } from 'react-st-modal';
 import { TitlePage } from "../../../components/title-page/title-page";
 import axios from 'axios';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, PROJECT_STATUS } from '../../../routers/router.type';
@@ -20,10 +22,12 @@ export const FormCreateProjectStatus = () => {
         setLoading(false);
         setTimeout(() => {
           history.push(PROJECT_STATUS);
+          Alert("Create Project Status Success", "Notification");
         }, TIMEOUT_REDIRECT);
       }
     } catch (error) {
       setLoading(false);
+      await Alert("Create Project Status Fali , Try again !", "Notification");
     }
   };
   return (

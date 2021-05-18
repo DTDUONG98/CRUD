@@ -1,10 +1,10 @@
+import React from 'react';
 import { useEffect, useState } from "react";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableStaffs from "./row-table-staffs";
 import axios from 'axios';
 import _ from 'lodash';
 import { REACT_APP_BASE_URL } from '../../../routers/router.type';
-const queryString = require("query-string");
 export const TableStaffs = () => {
     const [loading, setLoading] = useState(false);
     const [ListStaffs, setListStaffs] = useState([]);

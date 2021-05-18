@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from "react";
 import { Alert } from "react-st-modal"; 
 import { useForm } from "react-hook-form";
@@ -29,7 +30,6 @@ export const FormLogin = () => {
     await Alert("Login failed, try again!", "Notification");
    }
   };
-
   useEffect(() => {
     // hanleOnSubmit();
 }, []);

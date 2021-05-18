@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import React from 'react';
+import axios from 'axios';
+import _ from 'lodash';
+import { Alert } from "react-st-modal";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableCustomerGroup from "./row-table-customer-group";
 import { Loading } from '../../../components/loading/loading';
-import axios from 'axios';
-import _ from 'lodash';
 import { REACT_APP_BASE_URL } from '../../../routers/router.type';
 const queryString = require("query-string");
 export const TableCustomerGroup = () => {
@@ -20,6 +22,7 @@ export const TableCustomerGroup = () => {
             setLoading(false);
         } catch (error) {
             setLoading(false);
+            await Alert("GetData failed, try again!", "Notification");
         }
     };
     useEffect(() => {

@@ -1,23 +1,27 @@
+import React from 'react';
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import MultiSelect from "react-multi-select-component";
 import _ from 'lodash';
-import moment from 'moment';
+import PropTypes from 'prop-types';
+import { Alert } from 'react-st-modal';
 import { TitlePage } from "../../../components/title-page/title-page";
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT } from '../../../routers/router.type';
 export const FormEditStaffs = ({ dataDetails, setUpdate, setEdit, update }) => {
   const { register: dataForm, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
   const [dateOfBirth, setDateOfBirth] = useState(new Date());
-
   const [dataTechStack, setDataTechStack] = useState([]);
   const [dataProjects, setDataProjects] = useState([]);
-
   const [selectedTechStacks, setSelectedTechStacks] = useState([]);
   const [selectedProject, setSelectedProject] = useState([]);
-
+  const getDatadateOfBirth = async () => {
+    const {birth} = dataDetails
+    const birthday = new Date(birth) 
+    setDateOfBirth(birthday)
+  }
   const getDataTechStack = async () => {
     setLoading(true);
     try {
@@ -40,13 +44,11 @@ const getDataProject = async () => {
         setLoading(true);
     }
 }
-
 const changeArr = (arr = []) => {
   return arr.map(item => {
     return { label: item.name, value: item.id };
   });
 };
-
 const addDisabled = (arr = []) => {
   return arr.map(item => {
     if (item.status === "inactive") {
@@ -55,7 +57,6 @@ const addDisabled = (arr = []) => {
     return { label: item.name, value: item.id };
   });
 };
-
   const dataSelectTech = () => {
     let dataTechs = [];
     const {techs} = dataDetails
@@ -88,8 +89,7 @@ const addDisabled = (arr = []) => {
     selectedProject.map((item) =>{
       dataStaffs.projectIds.push(item.value)
     })
-    dataStaffs.birth = moment(dateOfBirth).format('DD/MM/YYYY')
-    console.log('dataStaffs', dataStaffs);
+    dataStaffs.birth = dateOfBirth;
     try {
         const respon = await axios.put(`${REACT_APP_BASE_URL}staffs/${id}`, dataStaffs);
         if (respon.status === 200) {
@@ -97,15 +97,17 @@ const addDisabled = (arr = []) => {
             setTimeout(() => {
               setEdit(false);
               setUpdate(!update);
+              Alert("Update Staff Success", "Notification");
             }, TIMEOUT_REDIRECT);
           }
         setLoading(false);
     } catch (error) {
         setLoading(false);
+        await Alert("Update Staff Fail, try again", "Notification");
     }
   };
-
   useEffect(() => {
+    getDatadateOfBirth()
     dataSelectTech()
     dataSelectProject()
     getDataProject()
@@ -207,3 +209,10 @@ const addDisabled = (arr = []) => {
   </div>
   );
 };
+
+FormEditStaffs.propTypes = {
+  dataDetails: PropTypes.object.isRequired,
+  setUpdate: PropTypes.func.isRequired,
+  setEdit: PropTypes.func.isRequired,
+  update: PropTypes.bool.isRequired,
+}
