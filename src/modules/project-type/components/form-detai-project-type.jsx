@@ -4,8 +4,8 @@ import { FcAbout } from "react-icons/fc";
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { Alert } from 'react-st-modal';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, PROJECT_TYPE } from '../../../routers/router.type';
-
 export const FormDetailProjectType = ({ dataDetails, setUpdate }) => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
@@ -18,13 +18,14 @@ export const FormDetailProjectType = ({ dataDetails, setUpdate }) => {
         setLoading(false);
         setTimeout(() => {
           history.push(PROJECT_TYPE);
+          Alert("Delete Project Type Succsess", "Notification");
         }, TIMEOUT_REDIRECT);
       }
     } catch (error) {
       setLoading(false);
+      await Alert("Delete Project Type Fail, try again!", "Notification");
     }
   };
-
   const onBack = async () => {
     history.push(PROJECT_TYPE);
   }

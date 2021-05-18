@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiChevronDown } from "react-icons/bi";
 import PropTypes from 'prop-types';
+import { Alert} from 'react-st-modal';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT } from '../../../routers/router.type';
 export const FormEditTechStack = ({ dataDetails, setUpdate, setEdit, update }) => {
   const { register: dataForm, handleSubmit } = useForm();
@@ -18,11 +19,13 @@ export const FormEditTechStack = ({ dataDetails, setUpdate, setEdit, update }) =
             setTimeout(() => {
               setEdit(false);
               setUpdate(!update);
+              Alert("Update Tech Stack Success", "Notification");
             }, TIMEOUT_REDIRECT);
           }
         setLoading(false);
     } catch (error) {
         setLoading(false);
+        await Alert("Update Tech Stack Fail, try again!", "Notification");
     }
   };
   return (

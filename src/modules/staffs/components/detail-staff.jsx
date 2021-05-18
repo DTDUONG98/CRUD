@@ -27,7 +27,6 @@ export const DetailsStaffs = () => {
     };
     getDataDetailsStaffs();
   }, [update]);
-
   return (
     <div>
       <div>

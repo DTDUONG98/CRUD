@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiChevronDown } from "react-icons/bi";
+import { Alert } from 'react-st-modal';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT } from '../../../routers/router.type';
 export const FormEditCustomer = ({ dataDetails, setUpdate, setEdit, update }) => {
   const { register: dataForm, handleSubmit } = useForm();
@@ -19,11 +20,13 @@ export const FormEditCustomer = ({ dataDetails, setUpdate, setEdit, update }) =>
             setTimeout(() => {
               setEdit(false);
               setUpdate(!update);
+              Alert("Update customer success", "Notification");
             }, TIMEOUT_REDIRECT);
           }
         setLoading(false);
     } catch (error) {
-        setLoading(false);
+      setLoading(false);
+      await Alert("Update customer faild","Notification");
     }
   };
   return (

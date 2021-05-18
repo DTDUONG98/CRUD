@@ -5,9 +5,9 @@ import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { Alert } from 'react-st-modal';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, STAFFS } from '../../../routers/router.type';
 import moment from "moment";
-
 export const FormDetailStaffs = ({ dataDetails, setUpdate }) => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
@@ -20,10 +20,12 @@ export const FormDetailStaffs = ({ dataDetails, setUpdate }) => {
         setLoading(false);
         setTimeout(() => {
           history.push(STAFFS);
+          Alert("Delete Staffs Success", "Notification");
         }, TIMEOUT_REDIRECT);
       }
     } catch (error) {
       setLoading(false);
+      await Alert("Delet Staff Fail, try again!", "Notification");
     }
   };
   const onBack = async () => {

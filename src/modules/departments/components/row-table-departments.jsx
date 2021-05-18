@@ -34,7 +34,6 @@ const RowTableDepartments = ({ number, type = null, mission, func , link }) => {
     </tbody>
   );
 };
-
 export default RowTableDepartments;
 
 RowTableDepartments.propTypes = {

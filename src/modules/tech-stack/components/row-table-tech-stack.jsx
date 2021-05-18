@@ -50,7 +50,6 @@ const RowTableTechStack = ({ number, type = null, description, status, link }) =
     </tbody>
   );
 };
-
 export default RowTableTechStack;
 
 RowTableTechStack.propTypes = {

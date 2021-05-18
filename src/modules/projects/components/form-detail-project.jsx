@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
+import { Alert } from 'react-st-modal';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, PROJECTS } from '../../../routers/router.type';
-
 export const FormDetailProjects = ({ dataDetails, setUpdate }) => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
@@ -21,10 +21,12 @@ export const FormDetailProjects = ({ dataDetails, setUpdate }) => {
         setLoading(false);
         setTimeout(() => {
           history.push(PROJECTS);
+          Alert("Delete Project Success", "Notification");
         }, TIMEOUT_REDIRECT);
       }
     } catch (error) {
       setLoading(false);
+      await Alert("Delete Project Fail, try again!", "Notification");
     }
   };
 

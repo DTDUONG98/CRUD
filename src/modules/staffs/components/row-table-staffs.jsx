@@ -31,7 +31,6 @@ const RowTableStaffs = ({ number, type = null, birthday, phone, link }) => {
     </tbody>
   );
 };
-
 export default RowTableStaffs;
 
 RowTableStaffs.propTypes = {

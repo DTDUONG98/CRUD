@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { FcAbout } from "react-icons/fc";
-import { useHistory } from "react-router-dom";
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { useState } from "react";
+import { FcAbout } from "react-icons/fc";
+import { useHistory } from "react-router-dom";
+import { Alert } from "react-st-modal"; 
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, CUSTOMER_GROUP } from '../../../routers/router.type';
-
 export const FormDetailCustomer = ({ dataDetails, setUpdate }) => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
@@ -18,13 +18,14 @@ export const FormDetailCustomer = ({ dataDetails, setUpdate }) => {
         setLoading(false);
         setTimeout(() => {
           history.push(CUSTOMER_GROUP);
+          Alert("Delete customer success !", "Notification")
         }, TIMEOUT_REDIRECT);
       }
     } catch (error) {
       setLoading(false);
+      await Alert("Delete customer faild !", "Notification")
     }
   };
-
   const onBack = async () => {
     history.push(CUSTOMER_GROUP);
   }

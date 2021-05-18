@@ -38,9 +38,7 @@ const RowTableProjects = ({ number, type = null, projectType, department, projec
     </tbody>
   );
 };
-
 export default RowTableProjects;
-
 
 RowTableProjects.propTypes = {
   number: PropTypes.number.isRequired,

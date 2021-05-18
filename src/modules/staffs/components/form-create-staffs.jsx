@@ -4,26 +4,22 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
 import { BsPlus } from "react-icons/bs";
+import { Alert } from 'react-st-modal';
 import { TitlePage } from '../../../components/title-page/title-page'
 import MultiSelect from "react-multi-select-component";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import _ from 'lodash';
-import moment from 'moment';
 import { REACT_APP_BASE_URL, STAFFS, TIMEOUT_REDIRECT } from '../../../routers/router.type';
 export const FormCreateStaffs = () => {
-
     const history = useHistory();
     const { register: dataForm, handleSubmit } = useForm();
-
     const [loading, setLoading] = useState(false);
     const [dataDepartment, setDataDepartment] = useState([]);
     const [dataTechStack, setDataTechStack] = useState([]);
-
     const [selectedDepartment, setSelectedDepartment] = useState([]);
     const [selectTechStack, setSelectTechStack] = useState([]);
     const [dateOfBirth, setDateOfBirth] = useState(new Date());
-
     const getDataDepartment = async () => {
         setLoading(true);
         try {
@@ -46,13 +42,11 @@ export const FormCreateStaffs = () => {
             setLoading(false);
         }
     }
-
     const addDisabled = (arr = []) => {
         return arr.map(item => {
           return { label: item.name, value: item.id };
         });
     };
-
     const onAddDisabled = (arr = []) => {
         return arr.map(item => {
             if (item.status === "inactive") {
@@ -61,8 +55,6 @@ export const FormCreateStaffs = () => {
             return { label: item.name, value: item.id };
           });
     };
-
-
     const onSubmit = async data => {
         setLoading(true);
         data.deparmentId = null
@@ -74,26 +66,24 @@ export const FormCreateStaffs = () => {
         selectTechStack.map(item => {
             data.techIds.push(item.value)
         })
-        console.log('dataNewStaff', data)
         try {
             const response = await axios.post(`${REACT_APP_BASE_URL}staffs`, data)
             if(response.status == 200){
                 setLoading(false);
                 setTimeout(() => {
                   history.push(STAFFS);
+                  Alert("Created Staffs Success", "Notification");
                 }, TIMEOUT_REDIRECT);
               }
         } catch (error) {
             setLoading(false)
+            await Alert("Created Staffs Fail, try again!", "Notification");
         }
     };
-
-
     useEffect(() => {
         getDataDepartment();
         getDataTechStack();
     },[])
-
     return (
         <div className="mt-10">
             <TitlePage content="ADD Staff " />

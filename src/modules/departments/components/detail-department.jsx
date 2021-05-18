@@ -28,7 +28,6 @@ export const DetailsDepartment = () => {
     };
     getDataDetailsProjects();
   }, [update]);
-
   return (
     <div>
       <div>

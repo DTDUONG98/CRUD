@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from 'react';
 import { useState } from "react";
+import { Alert } from "react-st-modal"; 
 import { useForm } from "react-hook-form";
 import { BiChevronDown } from "react-icons/bi";
 import { BsPlus } from "react-icons/bs";
@@ -26,6 +27,7 @@ export const FormCreateCustomerGroup = () => {
       }
     } catch (error) {
       setLoading(false);
+      await Alert("Add customer group failed, try again!", "Notification");
     }
   };
   return (

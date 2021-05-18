@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from 'prop-types';
+import { Alert } from 'react-st-modal';
 import { BiChevronDown } from "react-icons/bi";
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT } from '../../../routers/router.type';
 export const FormEditProjectStatus = ({ dataDetails, setUpdate, setEdit, update }) => {
@@ -18,11 +19,13 @@ export const FormEditProjectStatus = ({ dataDetails, setUpdate, setEdit, update 
             setTimeout(() => {
               setEdit(false);
               setUpdate(!update);
+              Alert("Update Project Status Success", "Notification");
             }, TIMEOUT_REDIRECT);
           }
         setLoading(false);
     } catch (error) {
         setLoading(false);
+        await Alert("Update Project Status Fail, try again!", "Notification");
     }
   };
   return (

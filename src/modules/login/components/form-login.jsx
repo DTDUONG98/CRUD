@@ -30,7 +30,6 @@ export const FormLogin = () => {
     await Alert("Login failed, try again!", "Notification");
    }
   };
-
   useEffect(() => {
     // hanleOnSubmit();
 }, []);

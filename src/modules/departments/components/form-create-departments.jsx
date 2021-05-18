@@ -1,19 +1,17 @@
 import React from 'react';
+import axios from "axios";
+import _ from 'lodash';
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { BsPlus } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
 import { TitlePage } from '../../../components/title-page/title-page'
 import MultiSelect from "react-multi-select-component";
-import axios from "axios";
-import _ from 'lodash';
 import { REACT_APP_BASE_URL, DEPARTMENTS, TIMEOUT_REDIRECT } from '../../../routers/router.type';
 export const FormCreateDepartments = () => {
-
   const { register: dataForm, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-
   const onSubmit = async data => {
     setLoading(true);
     data.techIds = []
@@ -26,13 +24,14 @@ export const FormCreateDepartments = () => {
         setLoading(false);
         setTimeout(() => {
           history.push(DEPARTMENTS);
+          Alert("Create Department success", "Notification");
         }, TIMEOUT_REDIRECT);
       }
     } catch (error) {
       setLoading(false);
+      await Alert("Create Department faild, try again!", "Notification");
     }
   };
-
   const addDisabled = (arr = []) => {
     return arr.map(item => {
       if (item.status === "inactive") {
@@ -41,10 +40,8 @@ export const FormCreateDepartments = () => {
       return { label: item.name, value: item.id };
     });
   };
-
   const [selectedTechStacks, setSelectedTechStacks] = useState([]);
   const [dataTechStack, setDataTechStack] = useState([]);
-
   const getDataTechStack = async () => {
     setLoading(true);
     try {
@@ -56,11 +53,9 @@ export const FormCreateDepartments = () => {
       setLoading(false);
     }
   }
-
   useEffect(() => {
     getDataTechStack()
   },[])
-
   return (
     <div className="mt-10">
       <TitlePage content="Edit Department " />

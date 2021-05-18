@@ -53,7 +53,6 @@ const RowTableCustomerGroup = ({ number, type = null, description, priority, sta
     </tbody>
   );
 };
-
 export default RowTableCustomerGroup;
 
 RowTableCustomerGroup.propTypes = {

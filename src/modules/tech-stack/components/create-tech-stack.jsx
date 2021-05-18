@@ -5,6 +5,7 @@ import { BiChevronDown } from "react-icons/bi";
 import { BsPlus } from "react-icons/bs";
 import { FcAbout } from "react-icons/fc";
 import { useHistory } from "react-router-dom";
+import { Alert } from 'react-st-modal';
 import { TitlePage } from "../../../components/title-page/title-page";
 import axios from 'axios';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, TECH_STACK } from '../../../routers/router.type';
@@ -21,10 +22,12 @@ export const FormCreateTechStack = () => {
         setLoading(false);
         setTimeout(() => {
           history.push(TECH_STACK);
+          Alert("Created Tech Stack Success", "Notification");
         }, TIMEOUT_REDIRECT);
       }
     } catch (error) {
       setLoading(false);
+      await Alert("Created Teach Stack Fail, try again!", "Notification");
     }
   };
   return (

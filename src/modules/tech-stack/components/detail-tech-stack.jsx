@@ -19,7 +19,6 @@ export const DetailsTechStack = () => {
         try {
           const response = await axios.get(`${REACT_APP_BASE_URL}tech_stacks/${params.id}`)
           const {data} = _.get(response,'data', []);
-          console.log('data', data);
           setDataDetailsTechStack(data)
           setLoading(false);
         } catch (error) {
@@ -28,7 +27,6 @@ export const DetailsTechStack = () => {
     };
     getDataDetailsProjectStatus();
   }, [update]);
-
   return (
     <div>
       <div>

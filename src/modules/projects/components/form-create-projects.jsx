@@ -1,19 +1,28 @@
 import React from 'react';
+import axios from 'axios';
+import _ from 'lodash';
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { BsPlus } from "react-icons/bs";
+import { Alert } from 'react-st-modal';
 import { TitlePage } from '../../../components/title-page/title-page'
 import MultiSelect from "react-multi-select-component";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
-import _ from 'lodash';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, PROJECTS } from '../../../routers/router.type';
 export const FormCreateProjects = () => {
-
   const history = useHistory();
   const { register: dataForm, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
-
+  const [selectedProjectType, setSelectedProjectType] = useState([]);
+  const [selectedProjectStatus, setSelectedProjectStatus] = useState([]);
+  const [selectedTechStacks, setSelectedTechStacks] = useState([]);
+  const [selectedDepartment, setSelectedDepartment] = useState([]);
+  const [selectedStaffs, setSelectedStaffs] = useState([]);
+  const [ProjectType, setProjectType] = useState([]);
+  const [ProjectStatus, setProjectStatus] = useState([]);
+  const [TechStacks, setTechStacks] = useState([]);
+  const [Department, setDepartment] = useState([]);
+  const [Staffs, setStaffs] = useState([]);
   const addDisabled = (arr = []) => {
     return arr.map(item => {
       if (item.status === "inactive") {
@@ -22,13 +31,11 @@ export const FormCreateProjects = () => {
       return { label: item.name, value: item.id };
     });
   };
-
   const changeArr = (arr = []) => {
     return arr.map(item => {
       return { label: item.name, value: item.id };
     });
 };
-
   const onSubmit = async data => {
     setLoading(true);
     data.deparmentId = null
@@ -51,31 +58,20 @@ export const FormCreateProjects = () => {
     selectedTechStacks.map((item) =>{
       data.techIds.push(item.value)
     })
-    console.log('dataNewStaff', data)
     try {
         const response = await axios.post(`${REACT_APP_BASE_URL}projects`, data)
         if(response.status == 200){
             setLoading(false);
             setTimeout(() => {
               history.push(PROJECTS);
+              Alert("Created Project Success", "Notification");
             }, TIMEOUT_REDIRECT);
           }
     } catch (error) {
         setLoading(false)
+        await Alert("Created Projects Fail, try again!", "Notification");
     }
   };
-  const [selectedProjectType, setSelectedProjectType] = useState([]);
-  const [selectedProjectStatus, setSelectedProjectStatus] = useState([]);
-  const [selectedTechStacks, setSelectedTechStacks] = useState([]);
-  const [selectedDepartment, setSelectedDepartment] = useState([]);
-  const [selectedStaffs, setSelectedStaffs] = useState([]);
-
-  const [ProjectType, setProjectType] = useState([]);
-  const [ProjectStatus, setProjectStatus] = useState([]);
-  const [TechStacks, setTechStacks] = useState([]);
-  const [Department, setDepartment] = useState([]);
-  const [Staffs, setStaffs] = useState([]);
-  
   const getProjectType = async () => {
     setLoading(true);
     try {
@@ -131,7 +127,6 @@ export const FormCreateProjects = () => {
         setLoading(true);
     }
   }
-
   useEffect(() => {
     getProjectType()
     getProjectStatus()
@@ -139,7 +134,6 @@ export const FormCreateProjects = () => {
     getDepartments()
     getStaffs()
   },[])
-
   return (
     <div className="mt-10">
       <TitlePage content="ADD Project " />

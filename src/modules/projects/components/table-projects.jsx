@@ -5,7 +5,6 @@ import RowTableProjects from "./row-table-projects";
 import axios from 'axios';
 import _ from 'lodash';
 import { REACT_APP_BASE_URL } from '../../../routers/router.type';
-const queryString = require("query-string");
 export const TableProjectType = () => {
       const [loading, setLoading] = useState(false);
     const [ListProjects, setListProjects] = useState([]);

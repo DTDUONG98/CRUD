@@ -1,9 +1,10 @@
 import React from 'react';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+import { Alert } from 'react-st-modal';
 import { useState } from "react";
 import { FcAbout } from "react-icons/fc";
 import { useHistory } from "react-router-dom";
-import axios from 'axios';
-import PropTypes from 'prop-types';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, PROJECT_STATUS } from '../../../routers/router.type';
 export const FormDetailProjectStatus = ({ dataDetails, setUpdate }) => {
   const [loading, setLoading] = useState(false);
@@ -17,11 +18,13 @@ export const FormDetailProjectStatus = ({ dataDetails, setUpdate }) => {
         setLoading(false);
         setTimeout(() => {
           history.push(PROJECT_STATUS);
+          Alert("Delete Project Status Success", "Notification");
         }, TIMEOUT_REDIRECT);
       }
     }
     catch (error) {
       setLoading(false);
+      await Alert("Delete Project Status Fail, try again!", "Notification");
     }
   };
 

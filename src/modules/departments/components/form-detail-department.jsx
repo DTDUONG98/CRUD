@@ -7,7 +7,6 @@ import axios from 'axios';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, DEPARTMENTS } from '../../../routers/router.type';
-
 export const FormDetailDepartment = ({ dataDetails, setUpdate }) => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
@@ -21,10 +20,12 @@ export const FormDetailDepartment = ({ dataDetails, setUpdate }) => {
         setLoading(false);
         setTimeout(() => {
           history.push(DEPARTMENTS);
+          Alert("Delete Department Success", "Notification");
         }, TIMEOUT_REDIRECT);
       }
     } catch (error) {
       setLoading(false);
+      await  Alert("Delete Department Fail", "Notification");
     }
   };
   const onBack = async () => {
