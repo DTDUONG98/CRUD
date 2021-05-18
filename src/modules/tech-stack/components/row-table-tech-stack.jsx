@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
-
+import React from 'react';
+import PropTypes from 'prop-types';
 const RowTableTechStack = ({ number, type = null, description, status, link }) => {
   const history = useHistory();
   const onClickRedirect = () => {
@@ -51,3 +52,11 @@ const RowTableTechStack = ({ number, type = null, description, status, link }) =
 };
 
 export default RowTableTechStack;
+
+RowTableTechStack.propTypes = {
+  number: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
+}

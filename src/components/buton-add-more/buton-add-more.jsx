@@ -1,5 +1,7 @@
 import { FcPlus } from "react-icons/fc";
 import { useHistory } from "react-router-dom";
+import React from 'react';
+import PropTypes from 'prop-types';
 export const ButtonAddMore = ({ route }) => {
   const history = useHistory();
   const redirectRouter = route => {
@@ -16,3 +18,7 @@ export const ButtonAddMore = ({ route }) => {
     </button>
   );
 };
+
+ButtonAddMore.propTypes = {
+  route: PropTypes.any.isRequired
+}

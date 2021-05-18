@@ -1,3 +1,4 @@
+import React from 'react';
 import { TitlePage } from "../../../components/title-page/title-page";
 import { TableProjectType } from "../../../modules/project-type/components/table-project-type";
 import { ButtonAddMore } from '../../../components/buton-add-more/buton-add-more';

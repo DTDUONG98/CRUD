@@ -1,7 +1,9 @@
+import React from 'react';
 import { useState } from "react";
 import { FcAbout } from "react-icons/fc";
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, PROJECT_STATUS } from '../../../routers/router.type';
 export const FormDetailProjectStatus = ({ dataDetails, setUpdate }) => {
   const [loading, setLoading] = useState(false);
@@ -87,3 +89,8 @@ export const FormDetailProjectStatus = ({ dataDetails, setUpdate }) => {
     </div>
   );
 };
+
+FormDetailProjectStatus.propTypes = {
+  dataDetails: PropTypes.object.isRequired,
+  setUpdate: PropTypes.func.isRequired
+}

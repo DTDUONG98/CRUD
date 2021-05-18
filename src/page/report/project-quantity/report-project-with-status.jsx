@@ -1,3 +1,4 @@
+import React from 'react';
 import { TitlePage } from "../../../components/title-page/title-page";
 import { FormReportProjectStatus } from "../../../modules/report-project/form-report-project-status";
 export const ReportProjectFollowStatus = () => {

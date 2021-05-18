@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from "react";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableStaffs from "./row-table-staffs";

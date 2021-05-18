@@ -1,3 +1,4 @@
+import React from 'react';
 import { DetailsProjects } from "../../../modules/projects/components/detail-projects";
 export const DetailProjects = () => {
   return (

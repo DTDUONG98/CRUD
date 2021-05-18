@@ -1,9 +1,11 @@
+import React from 'react';
 import { useState } from "react";
 import { FcAbout } from "react-icons/fc";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, DEPARTMENTS } from '../../../routers/router.type';
 
 export const FormDetailDepartment = ({ dataDetails, setUpdate }) => {
@@ -121,3 +123,8 @@ export const FormDetailDepartment = ({ dataDetails, setUpdate }) => {
     </div>
   );
 };
+
+FormDetailDepartment.propTypes = {
+  dataDetails: PropTypes.object.isRequired,
+  setUpdate: PropTypes.func.isRequired
+}

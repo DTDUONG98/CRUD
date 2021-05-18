@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import React from 'react';
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableCustomerGroup from "./row-table-customer-group";
 import { Loading } from '../../../components/loading/loading';

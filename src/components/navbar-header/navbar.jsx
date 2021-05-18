@@ -1,6 +1,6 @@
 import { AiOutlineLogin } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
-
+import React from 'react';
 export const Navbar = () => {
   const history = useHistory();
   return (

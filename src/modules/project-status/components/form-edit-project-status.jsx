@@ -1,6 +1,8 @@
+import React from 'react';
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import PropTypes from 'prop-types';
 import { BiChevronDown } from "react-icons/bi";
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT } from '../../../routers/router.type';
 export const FormEditProjectStatus = ({ dataDetails, setUpdate, setEdit, update }) => {
@@ -121,3 +123,10 @@ export const FormEditProjectStatus = ({ dataDetails, setUpdate, setEdit, update 
     </div>
   );
 };
+
+FormEditProjectStatus.propTypes = {
+  dataDetails: PropTypes.object.isRequired,
+  setUpdate: PropTypes.func.isRequired,
+  setEdit: PropTypes.func.isRequired,
+  update: PropTypes.bool.isRequired,
+}

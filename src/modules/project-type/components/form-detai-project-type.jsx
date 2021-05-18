@@ -1,10 +1,12 @@
+import React from 'react';
 import { useState } from "react";
 import { FcAbout } from "react-icons/fc";
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, PROJECT_TYPE } from '../../../routers/router.type';
 
-export const FormDetailProjectType = ({ dataDetails, setUpdate, setBack }) => {
+export const FormDetailProjectType = ({ dataDetails, setUpdate }) => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const sumbitDeleteProjectType = async () => {
@@ -88,3 +90,8 @@ export const FormDetailProjectType = ({ dataDetails, setUpdate, setBack }) => {
     </div>
   );
 };
+
+FormDetailProjectType.propTypes = {
+  dataDetails: PropTypes.object.isRequired,
+  setUpdate: PropTypes.func.isRequired
+}

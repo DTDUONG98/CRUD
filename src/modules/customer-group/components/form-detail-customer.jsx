@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { FcAbout } from "react-icons/fc";
 import { useHistory } from "react-router-dom";
+import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, CUSTOMER_GROUP } from '../../../routers/router.type';
 
 export const FormDetailCustomer = ({ dataDetails, setUpdate }) => {
@@ -88,3 +90,8 @@ export const FormDetailCustomer = ({ dataDetails, setUpdate }) => {
     </div>
   );
 };
+
+FormDetailCustomer.propTypes = {
+  dataDetails: PropTypes.object.isRequired,
+  setUpdate: PropTypes.func.isRequired
+}

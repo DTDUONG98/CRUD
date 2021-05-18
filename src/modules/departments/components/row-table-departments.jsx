@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
-
+import React from 'react';
+import PropTypes from 'prop-types';
 const RowTableDepartments = ({ number, type = null, mission, func , link }) => {
   const history = useHistory();
   const onClickRedirect = () => {
@@ -35,3 +36,11 @@ const RowTableDepartments = ({ number, type = null, mission, func , link }) => {
 };
 
 export default RowTableDepartments;
+
+RowTableDepartments.propTypes = {
+  number: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
+  mission: PropTypes.string.isRequired,
+  func: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
+}

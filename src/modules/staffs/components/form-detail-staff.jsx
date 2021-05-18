@@ -1,8 +1,10 @@
+import React from 'react';
 import { useState } from "react";
 import { FcAbout } from "react-icons/fc";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT, STAFFS } from '../../../routers/router.type';
 import moment from "moment";
 
@@ -101,3 +103,8 @@ export const FormDetailStaffs = ({ dataDetails, setUpdate }) => {
     </div>
   );
 };
+
+FormDetailStaffs.propTypes = {
+  dataDetails: PropTypes.object.isRequired,
+  setUpdate: PropTypes.func.isRequired
+}

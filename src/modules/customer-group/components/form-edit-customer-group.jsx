@@ -1,4 +1,6 @@
 import axios from "axios";
+import React from 'react';
+import PropTypes from 'prop-types';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiChevronDown } from "react-icons/bi";
@@ -146,3 +148,11 @@ export const FormEditCustomer = ({ dataDetails, setUpdate, setEdit, update }) =>
     </div>
   );
 };
+
+
+FormEditCustomer.propTypes = {
+  dataDetails: PropTypes.object.isRequired,
+  setUpdate: PropTypes.func.isRequired,
+  setEdit: PropTypes.func.isRequired,
+  update: PropTypes.bool.isRequired,
+}

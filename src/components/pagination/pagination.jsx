@@ -1,6 +1,7 @@
 import Pagination from "react-pagination-library";
 import "react-pagination-library/build/css/index.css";
-
+import React from 'react';
+import PropTypes from 'prop-types'
 export const PaginationNav = ({ onChange, totalPage, page }) => {
   return (
     <div className="flex w-11/12 sm:w-full justify-center mt-10 mb-20">
@@ -13,3 +14,9 @@ export const PaginationNav = ({ onChange, totalPage, page }) => {
     </div>
   );
 };
+
+PaginationNav.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  page: PropTypes.number.isRequired,
+  totalPage: PropTypes.number.isRequired
+}

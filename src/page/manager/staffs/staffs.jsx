@@ -1,3 +1,4 @@
+import React from 'react';
 import { TitlePage } from "../../../components/title-page/title-page";
 import { TableStaffs } from "../../../modules/staffs/components/table-staffs";
 import { ButtonAddMore } from '../../../components/buton-add-more/buton-add-more';

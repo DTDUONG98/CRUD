@@ -1,5 +1,5 @@
 import Chart from 'react-apexcharts';
-
+import React from 'react';
 export const FormChart = (dataChart) => {
     console.log('dataChart', dataChart.dataChart);
     const options = {

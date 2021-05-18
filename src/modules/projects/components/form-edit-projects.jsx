@@ -1,8 +1,10 @@
+import React from 'react';
 import axios from "axios";
 import _ from 'lodash';
 import { BsPlus } from "react-icons/bs";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import PropTypes from 'prop-types';
 import MultiSelect from "react-multi-select-component";
 import { TitlePage } from "../../../components/title-page/title-page";
 import { REACT_APP_BASE_URL, TIMEOUT_REDIRECT } from '../../../routers/router.type';
@@ -288,3 +290,10 @@ useEffect(() => {
   </div>
   );
 };
+
+FormEditProjects.propTypes = {
+  dataDetails: PropTypes.object.isRequired,
+  setUpdate: PropTypes.func.isRequired,
+  setEdit: PropTypes.func.isRequired,
+  update: PropTypes.bool.isRequired,
+}
