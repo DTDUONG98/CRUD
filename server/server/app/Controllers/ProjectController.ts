@@ -185,4 +185,52 @@ export default class ProjectController extends BaseController {
         };
     }
 
+    async update() {
+
+        let inputs = this.request.all();
+        let allowFields = {
+            id: "number!",
+            name: "string",
+            typeId: "number",
+            statusId: "number",
+            deparmentId: "number",
+            techIds: ["number"],
+            staffIds: ["number"],
+        }
+        let params = this.validate(inputs, allowFields, { removeNotAllow: false });
+        const projectId: number = params['id'];
+        if (!projectId) throw new ApiException(9996, "ID is required!");
+
+        /**
+         * Update Project
+         */
+        let dataUpdate: any = {
+            name: params['name'],
+            typeId: params['typeId'],
+            statusId: params['statusId'],
+            deparmentId: params['deparmentId']
+        }
+        let updatedProject = await this.Model.updateOne(projectId, dataUpdate);
+        /**
+         * Update relation Table : project_techs
+         */
+        let techIds: number[] = params['techIds'] || [];
+        await this.ProjectTechModel.deleteByCondition({projectId: projectId});
+        let dataProjectTechs: any[] = techIds.map(techId => ({techId, projectId}));
+        let updatedProjectTechs: any[] = await this.ProjectTechModel.insertMany(dataProjectTechs); 
+        /**
+         * Update relation Table : project_staffs 
+         */     
+        let staffIds: number[] = params['staffIds'] || [];
+        await this.ProjectStaffModel.deleteByCondition({projectId: projectId});
+        let dataProjectStaff: any[] = staffIds.map( staffId => ({staffId, projectId}));
+        let updatedProjectStaffs: any[] = await this.ProjectStaffModel.insertMany(dataProjectStaff);
+
+        return {
+            updatedProject,
+            updatedProjectTechs,
+            updatedProjectStaffs
+        }
+    }
+
 }
