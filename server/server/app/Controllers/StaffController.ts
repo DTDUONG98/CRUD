@@ -131,4 +131,43 @@ export default class ProjectStatusController extends BaseController {
       staff_techs
     }
   }
+
+  async update() {
+
+    let inputs = this.request.all();
+    let allowFields = {
+      id: "number!",
+      name: "string",
+      birth: "string",
+      tel: "string",
+      deparmentId: "number",
+      techIds: ["number"]
+    }
+    let params = this.validate(inputs, allowFields, { removeNotAllow: false });
+    const staffId: number = params['id'];
+    if (!staffId) throw new ApiException(9996, "ID is required!");
+
+    let dataUpdate = {
+      name: params['name'],
+      birth: params['birth'],
+      tel: params['tel'],
+      deparmentId: params['deparmentId']
+    }
+    /**
+     * Update Staff
+     */
+    let updateStaff = await this.Model.updateOne(staffId, dataUpdate);
+    /**
+     * Update relation Table : staff_techs
+     */
+    let techIds: number[] = params['techIds'] || [];
+    await this.StaffTechModel.deleteByCondition({staffId: staffId});
+    let dataStaffTechs: any[] = techIds.map( techId => ({techId, staffId}));
+    let updatedStaffTechs: any[] = await this.StaffTechModel.insertMany(dataStaffTechs);
+
+    return {
+      updateStaff,
+      updatedStaffTechs
+    }
+  }
 }
