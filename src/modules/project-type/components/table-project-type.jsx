@@ -1,25 +1,28 @@
 import React from 'react';
-import _ from 'lodash';
-import axios from 'axios';
 import { useEffect, useState } from "react";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableProjectType from "./row-table-project-type";
-import { REACT_APP_BASE_URL } from '../../../routers/router.type'
+import { Loading } from '../../../components/loading/loading';
+import { useDispatch, useSelector } from "react-redux";
+import { getProjectType } from '../../../services/project-type-service';
 export const TableProjectType = () => {
+    const data = useSelector(state => state.projectType.data);
+    const loading = useSelector(state => state.projectType.loading);
+    const dispatch = useDispatch();
     const [ListProjectType, setListProjectType] = useState([]);
     const [page, setPage] = useState(1);
     const getDataProjectType = async () => {
-       const response = await axios.get(`${REACT_APP_BASE_URL}project_types`, {
-        params: {
-            page: page-1,
-            pageSize: 5
+        try {
+            setListProjectType(data)
+        } catch (error) {
+            await Alert("GetData failed, try again!", "Notification");
         }
-      })
-       const {data} = _.get(response,'data.data', []);
-       setListProjectType({data: data});
     };
-    useEffect(() => {
+     useEffect(() => {
         getDataProjectType();
+    }, [loading])
+    useEffect(() => {
+        dispatch(getProjectType(page))
     }, [page]);
     const handelChangePage = e => {
         const numberPage = e;
@@ -27,6 +30,9 @@ export const TableProjectType = () => {
     };
     return (
         <div className="h-96 sm:w-full">
+              {loading ? (
+                <Loading />
+            ) : (
             <div className="sm:w-full sm:flex sm:flex-col sm:items-center">
                 <table className="flex-col shadow-xl flex justify-center sm:w-11/12 bg-white w-11/12 rounded-xl">
                     <thead>
@@ -38,8 +44,8 @@ export const TableProjectType = () => {
                             <th className="pt-5 pb-5 w-1/12 lg:w-2/12 sm:w-2/12">Status</th>
                         </tr>
                     </thead>
-                    {ListProjectType.data &&
-                        ListProjectType.data.map(projectType => {
+                    {ListProjectType &&
+                        ListProjectType.map(projectType => {
                             return (
                                 <RowTableProjectType
                                     link={"/category/project-type/" + projectType.id}
@@ -59,6 +65,7 @@ export const TableProjectType = () => {
                     onChange={handelChangePage}
                 />
             </div>
+             )}
         </div>
     );
 };

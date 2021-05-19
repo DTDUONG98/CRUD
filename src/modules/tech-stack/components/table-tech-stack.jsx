@@ -2,24 +2,27 @@ import React from 'react';
 import { useEffect, useState } from "react";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableTechStack from "./row-table-tech-stack";
-import axios from 'axios';
-import _ from 'lodash';
-import { REACT_APP_BASE_URL } from '../../../routers/router.type';
+import { Loading } from '../../../components/loading/loading';
+import { useDispatch, useSelector } from "react-redux";
+import { getTechStack } from '../../../services/tech-stack-service';
 export const TableTechStack = () => {
+    const data = useSelector(state => state.techStack.data);
+    const loading = useSelector(state => state.techStack.loading);
+    const dispatch = useDispatch();
     const [ListTechStack, setListTechStack] = useState([]);
     const [page, setPage] = useState(1);
     const getDataTechStack = async () => {
-        const response = await axios.get(`${REACT_APP_BASE_URL}tech_stacks`, {
-            params: {
-                page: page-1,
-                pageSize: 5,
-            }
-        })
-        const {data} = _.get(response,'data.data', []);
-        setListTechStack({data: data});
+        try {
+            setListTechStack(data)
+        } catch (error) {
+            await Alert("GetData failed, try again!", "Notification");
+        }
     };
     useEffect(() => {
         getDataTechStack();
+    }, [loading]);
+    useEffect(() => {
+        dispatch(getTechStack(page));
     }, [page]);
     const handelChangePage = e => {
         const numberPage = e;
@@ -27,6 +30,9 @@ export const TableTechStack = () => {
     };
     return (
         <div className="h-96 sm:w-full">
+             {loading ? (
+                <Loading />
+            ) : (
             <div className="sm:w-full sm:flex sm:flex-col sm:items-center">
                 <table className="flex-col shadow-xl flex justify-center sm:w-11/12 bg-white w-11/12 rounded-xl">
                     <thead>
@@ -37,8 +43,8 @@ export const TableTechStack = () => {
                             <th className="pt-5 pb-5 w-1/12 lg:w-2/12 sm:w-2/12">Status</th>
                         </tr>
                     </thead>
-                    {ListTechStack.data &&
-                        ListTechStack.data.map(techStack => {
+                    {ListTechStack &&
+                        ListTechStack.map(techStack => {
                             return (
                                 <RowTableTechStack
                                     link={"/category/tech-stack/" + techStack.id}
@@ -57,6 +63,7 @@ export const TableTechStack = () => {
                     onChange={handelChangePage}
                 />
             </div>
+            )}
         </div>
     );
 };

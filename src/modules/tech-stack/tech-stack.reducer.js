@@ -1,4 +1,4 @@
-import * as projectType from "./project-type.constants";
+import * as techStack from "./tech-stack.constant";
 
 const initialState = {
   loading: true,
@@ -6,14 +6,14 @@ const initialState = {
 };
 const reducer = (state = initialState, action) => {
   switch(action.type){
-      case projectType.GET_PROJECT_TYPE_PENDING: {
+      case techStack.GET_TECH_STACK_PENDING: {
           return {
               ...state,
               data: [],
               loading: true
           }
       }
-      case projectType.GET_PROJECT_TYPE_SUCCESS: {
+      case techStack.GET_TECH_STACK_SUCCESS: {
 
 
           return {
@@ -22,7 +22,7 @@ const reducer = (state = initialState, action) => {
               loading: false
           }
       }
-      case projectType.GET_PROJECT_TYPE_ERROR: {
+      case techStack.GET_TECH_STACK_ERROR: {
           return {
               ...state,
               data: [],

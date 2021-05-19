@@ -1,4 +1,4 @@
-import * as customer from './customer-group.constant'
+import * as projects from './projects.constant'
 
 const initialState = {
     data: [],
@@ -7,14 +7,14 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch(action.type){
-        case customer.GET_CUSTOMER_GROUP_PENDING: {
+        case projects.GET_PROJECTS_PENDING: {
             return {
                 ...state,
                 data: [],
                 loading: true
             }
         }
-        case customer.GET_CUSTOMER_GROUP_SUCCESS: {
+        case projects.GET_PROJECTS_SUCCESS: {
             const { data } = action.payload;
             return {
                 ...state,
@@ -22,7 +22,7 @@ const reducer = (state = initialState, action) => {
                 loading: false
             }
         }
-        case customer.GET_CUSTOMER_GROUP_ERROR: {
+        case projects.GET_PROJECTS_ERROR: {
             return {
                 ...state,
                 data: [],

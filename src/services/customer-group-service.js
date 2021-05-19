@@ -7,10 +7,10 @@ import {
 import axios from 'axios';
 import _ from 'lodash';
 
-export const getCustomers = () => async dispatch => {
+export const getCustomers = (page) => async dispatch => {
   dispatch(getCustomersPending());
   try {
-    const response = await axios.get(`${REACT_APP_BASE_URL}customer_groups?page=0&pageSize=5`);
+    const response = await axios.get(`${REACT_APP_BASE_URL}customer_groups?page=${page-1}&pageSize=5`);
     const {data} = _.get(response,'data.data', []);
     dispatch(getCustomersSuccess(data));
   }

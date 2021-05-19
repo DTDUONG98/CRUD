@@ -1,31 +1,29 @@
 import { useEffect, useState } from "react";
 import React from 'react';
-import axios from 'axios';
-import _ from 'lodash';
 import { Alert } from "react-st-modal";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableCustomerGroup from "./row-table-customer-group";
 import { Loading } from '../../../components/loading/loading';
-import { REACT_APP_BASE_URL } from '../../../routers/router.type';
-const queryString = require("query-string");
+import { useDispatch, useSelector } from "react-redux";
+import { getCustomers } from "../../../services/customer-group-service";
 export const TableCustomerGroup = () => {
-    const [loading, setLoading ] = useState(false);
+    const data = useSelector(state => state.customer.data);
+    const loading = useSelector(state => state.customer.loading);
+    const dispatch = useDispatch();
     const [ListCustomerGroup, setListCustomerGroup] = useState([]);
     const [page, setPage] = useState(1);
     const getDataCustomerGroup = async () => {
-        setLoading(true);
         try {
-            const response = await axios.get(`${REACT_APP_BASE_URL}customer_groups?page=${page-1}&pageSize=${5}`)
-            const {data} = _.get(response,'data.data', []);
-            setListCustomerGroup({data: data});
-            setLoading(false);
+            setListCustomerGroup(data)
         } catch (error) {
-            setLoading(false);
             await Alert("GetData failed, try again!", "Notification");
         }
     };
     useEffect(() => {
         getDataCustomerGroup();
+    }, [loading])
+    useEffect(() => {
+        dispatch(getCustomers(page));
     }, [page]);
     const handelChangePage = e => {
         const numberPage = e;
@@ -47,8 +45,8 @@ export const TableCustomerGroup = () => {
                             <th className="pt-5 pb-5 w-1/12 lg:w-2/12 sm:w-2/12">Status</th>
                         </tr>
                     </thead>
-                    {ListCustomerGroup.data &&
-                        ListCustomerGroup.data.map(customerGroup => {
+                    {ListCustomerGroup &&
+                        ListCustomerGroup.map(customerGroup => {
                             return (
                                 <RowTableCustomerGroup
                                     link={"/category/customer-group/" + customerGroup.id}

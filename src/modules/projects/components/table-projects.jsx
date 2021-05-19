@@ -2,31 +2,27 @@ import React from 'react';
 import { useEffect, useState } from "react";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableProjects from "./row-table-projects";
-import axios from 'axios';
-import _ from 'lodash';
-import { REACT_APP_BASE_URL } from '../../../routers/router.type';
+import { Loading } from '../../../components/loading/loading';
+import { useDispatch, useSelector } from "react-redux";
+import { getProjects } from '../../../services/projects-service';
 export const TableProjectType = () => {
-      const [loading, setLoading] = useState(false);
+    const data = useSelector(state => state.projects.data);
+    const loading = useSelector(state => state.projects.loading);
+    const dispatch = useDispatch();
     const [ListProjects, setListProjects] = useState([]);
     const [page, setPage] = useState(1);
     const getDataProjects = async () => {
-          setLoading(true);
           try {
-            const response = await axios.get(`${REACT_APP_BASE_URL}projects`, {
-                params: {
-                    page: page-1,
-                    pageSize: 5
-                }
-            })
-            const {data} = _.get(response, 'data.data', []);
-            setListProjects({data: data});
-            setLoading(false);
+            setListProjects(data)
         } catch (error) {
-            setLoading(false);
+            await Alert("GetData failed, try again!", "Notification");
         }
     };
     useEffect(() => {
         getDataProjects();
+    }, [loading])
+    useEffect(() => {
+        dispatch(getProjects(page))
     }, [page]);
     const handelChangePage = e => {
         const numberPage = e;
@@ -34,6 +30,9 @@ export const TableProjectType = () => {
     };
     return (
         <div className="h-96 sm:w-full">
+             {loading ? (
+            <Loading />
+        ) : (
             <div className="sm:w-full sm:flex sm:flex-col sm:items-center">
                 <table className="flex-col shadow-xl flex justify-center sm:w-11/12 bg-white w-11/12 rounded-xl">
                     <thead>
@@ -45,8 +44,8 @@ export const TableProjectType = () => {
                             <th className="pt-5 pb-5 w-1/12 sm:w-2/12">Department</th>
                         </tr>
                     </thead>
-                    {ListProjects.data &&
-                        ListProjects.data.map((projects, index) => {
+                    {ListProjects &&
+                        ListProjects.map((projects, index) => {
                             return (
                                 <RowTableProjects
                                     link={"/manager/projects/" + projects.id}
@@ -66,6 +65,7 @@ export const TableProjectType = () => {
                     onChange={handelChangePage}
                 />
             </div>
+        )}
         </div>
     );
 };

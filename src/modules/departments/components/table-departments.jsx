@@ -2,32 +2,27 @@ import React from 'react';
 import { useEffect, useState } from "react";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableDepartments from "./row-table-departments";
-import axios from 'axios';
-import _ from 'lodash';
-import { REACT_APP_BASE_URL } from '../../../routers/router.type';
-const queryString = require("query-string");
+import { Loading } from '../../../components/loading/loading';
+import { useDispatch, useSelector } from "react-redux";
+import { getDepartment } from '../../../services/departments-service';
 export const TableDepartments = () => {
-    const [loading, setLoading] = useState(false);
+    const data = useSelector(state => state.department.data);
+    const loading = useSelector(state => state.department.loading);
+    const dispatch = useDispatch();
     const [ListDepartments, setListDepartments] = useState([]);
     const [page, setPage] = useState(1);
     const getDataDepartment = async () => {
-        setLoading(true);
         try {
-          const response = await axios.get(`${REACT_APP_BASE_URL}departments`, {
-              params: {
-                  page: page-1,
-                  pageSize: 5
-              }
-          })
-          const {data} = _.get(response, 'data.data', []);
-          setListDepartments({data: data});
-          setLoading(false);
-      } catch (error) {
-          setLoading(false);
-      }
+            setListDepartments(data)
+        } catch (error) {
+            await Alert("GetData failed, try again!", "Notification");
+        }
     };
     useEffect(() => {
         getDataDepartment();
+    }, [loading]);
+    useEffect(() => {
+        dispatch(getDepartment(page));
     }, [page]);
     const handelChangePage = e => {
         const numberPage = e;
@@ -35,6 +30,9 @@ export const TableDepartments = () => {
     };
     return (
         <div className="h-96 sm:w-full">
+              {loading ? (
+            <Loading />
+        ) : (
             <div className="sm:w-full sm:flex sm:flex-col sm:items-center">
                 <table className="flex-col shadow-xl flex justify-center sm:w-11/12 bg-white w-11/12 rounded-xl">
                     <thead>
@@ -45,8 +43,8 @@ export const TableDepartments = () => {
                             <th className="pt-5 pb-5 w-2/12 sm:w-2/12 text-center">Mission</th>
                         </tr>
                     </thead>
-                    {ListDepartments.data &&
-                        ListDepartments.data.map((departments, index) => {
+                    {ListDepartments &&
+                        ListDepartments.map((departments, index) => {
                             return (
                                 <RowTableDepartments
                                     link={"/manager/departments/" + departments.id}
@@ -65,6 +63,7 @@ export const TableDepartments = () => {
                     onChange={handelChangePage}
                 />
             </div>
+        )}
         </div>
     );
 };

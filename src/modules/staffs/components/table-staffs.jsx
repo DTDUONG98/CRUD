@@ -2,31 +2,27 @@ import React from 'react';
 import { useEffect, useState } from "react";
 import { PaginationNav } from "../../../components/pagination/pagination";
 import RowTableStaffs from "./row-table-staffs";
-import axios from 'axios';
-import _ from 'lodash';
-import { REACT_APP_BASE_URL } from '../../../routers/router.type';
+import { Loading } from '../../../components/loading/loading';
+import { useDispatch, useSelector } from "react-redux";
+import { getStaffs } from '../../../services/staffs-service'
 export const TableStaffs = () => {
-    const [loading, setLoading] = useState(false);
+    const data = useSelector(state => state.staffs.data);
+    const loading = useSelector(state => state.staffs.loading);
+    const dispatch = useDispatch();
     const [ListStaffs, setListStaffs] = useState([]);
     const [page, setPage] = useState(1);
     const getDataProjectStatus = async () => {
-        setLoading(true);
         try {
-            const response = await axios.get(`${REACT_APP_BASE_URL}staffs`, {
-                params: {
-                    page: page-1,
-                    pageSize: 5
-                }
-            })
-            const {data} = _.get(response, 'data.data', []);
-            setListStaffs({data: data});
-            setLoading(false);
+            setListStaffs(data)
         } catch (error) {
-            setLoading(false);
+            await Alert("GetData failed, try again!", "Notification");
         }
     };
     useEffect(() => {
         getDataProjectStatus();
+    }, [loading])
+    useEffect(() => {
+        dispatch(getStaffs(page))
     }, [page]);
     const handelChangePage = e => {
         const numberPage = e;
@@ -34,6 +30,9 @@ export const TableStaffs = () => {
     };
     return (
         <div className="h-96 sm:w-full">
+              {loading ? (
+            <Loading />
+        ) : (
             <div className="sm:w-full sm:flex sm:flex-col sm:items-center">
                 <table className="flex-col shadow-xl flex justify-center sm:w-11/12 bg-white w-11/12 rounded-xl">
                     <thead>
@@ -44,8 +43,8 @@ export const TableStaffs = () => {
                             <th className="pt-5 pb-5 w-1/12 text-center">SĐT</th>
                         </tr>
                     </thead>
-                    {ListStaffs.data &&
-                        ListStaffs.data.map((staffs, index) => {
+                    {ListStaffs &&
+                        ListStaffs.map((staffs, index) => {
                             return (
                                 <RowTableStaffs
                                     link={"/manager/staffs/" + staffs.id}
@@ -64,6 +63,7 @@ export const TableStaffs = () => {
                     onChange={handelChangePage}
                 />
             </div>
+        )}
         </div>
     );
 };
