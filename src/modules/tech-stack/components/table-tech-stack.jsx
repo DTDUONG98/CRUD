@@ -6,6 +6,7 @@ import { Loading } from '../../../components/loading/loading';
 import { useDispatch, useSelector } from "react-redux";
 import { getTechStack } from '../../../services/tech-stack-service';
 export const TableTechStack = () => {
+    const pageSize = 5;
     const data = useSelector(state => state.techStack.data);
     const loading = useSelector(state => state.techStack.loading);
     const dispatch = useDispatch();
@@ -22,7 +23,7 @@ export const TableTechStack = () => {
         getDataTechStack();
     }, [loading]);
     useEffect(() => {
-        dispatch(getTechStack(page));
+        dispatch(getTechStack(page, pageSize));
     }, [page]);
     const handelChangePage = e => {
         const numberPage = e;

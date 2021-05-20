@@ -17,3 +17,20 @@ export const getProjectTypeError = error => {
     error,
   };
 };
+export const detailProjectTypePending = () => {
+  return {
+    type: CONSTANS.DETAIL_PROJECT_TYPE_PENDING,
+  };
+};
+export const detailProjectTypeSuccess = data => {
+  return {
+    type: CONSTANS.DETAIL_PROJECT_TYPE_SUCCESS,
+    payload: data,
+  };
+};
+export const detailProjectTypeError = error => {
+  return {
+    type: CONSTANS.DETAIL_PROJECT_TYPE_ERROR,
+    error,
+  };
+};

@@ -1,14 +1,14 @@
-import { useLoading, Audio } from '@agney/react-loading';
+import { useLoading, Circles } from '@agney/react-loading';
 import React from 'react';
 export const Loading = () => {
-  const { containerProps, BallTriangle } = useLoading({
+  const { containerProps, indicatorEl  } = useLoading({
     loading: true,
-    indicator: <Audio width="50" />,
+    indicator: <Circles width="200" />,
   });
 
   return (
     <section {...containerProps}>
-      {BallTriangle}
+      {indicatorEl }
     </section>
   );
 }
