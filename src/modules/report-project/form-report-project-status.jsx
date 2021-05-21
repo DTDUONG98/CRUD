@@ -59,7 +59,7 @@ export const FormReportProjectStatus = () => {
         <div className="flex justify-center">
         <div className="leading-loose w-full">
           <form className=" m-4 p-10 bg-white rounded shadow-xl flex flex-wrap" onSubmit={handleSubmit(onSubmit)}>
-            <p className="text-gray-800 font-medium mb-5 w-full">Departments information.</p>
+            <p className="text-gray-800 font-medium mb-5 w-full">Report project tech follow time</p>
             <div className="w-1/2 sm:w-full pt-4 pr-4 sm:pr-0">
               <label className="block text-sm text-gray-600 mb-2" htmlFor="startDate">
                 Start Date<span className="text-red-600">*</span>
@@ -91,6 +91,7 @@ export const FormReportProjectStatus = () => {
                 required
                 placeholder="endDate"
               />
+              </div>
                <div className="ml-auto mr-auto sm:mt-4 pt-8 ">
               <div className="m-3">
                 <button
@@ -113,7 +114,6 @@ export const FormReportProjectStatus = () => {
               </div>
               )}
               </div>
-            </div>
             </div>
           </form>
         </div>

@@ -50,7 +50,7 @@ export const TableProjectType = () => {
                                 <RowTableProjects
                                     link={"/manager/projects/" + projects.id}
                                     key={projects.id}
-                                    number={index + 1}
+                                    number={projects.id}
                                     type={projects.name}
                                     projectType={projects.projectType}
                                     projectStatus={projects.projectStatus}

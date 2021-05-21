@@ -21,6 +21,7 @@ import { DetailStaffs } from '../page/manager/staffs/detail-staff';
 import { DetailProjects } from '../page/manager/project/detail-projects';
 import { DetailDepartment } from '../page/manager/departments/detail-department';
 import { ReportProjectFollowStatus } from '../page/report/project-quantity/report-project-with-status';
+import { ReportProjectIssue } from '../page/report/issue/issue';
 
 export const routes = [
   // login
@@ -158,9 +159,9 @@ export const routes = [
     component: ReportProjectFollowStatus,
   },
   {
-    path: "/report-project/follow-type",
+    path: "/report-project/issue",
     exact: true,
-    component: ReportProjectFollowStatus,
+    component: ReportProjectIssue,
   },
   {
     path: "/report-project/follow-tech-stack",

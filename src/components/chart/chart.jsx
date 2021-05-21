@@ -26,7 +26,7 @@ export const FormChart = ({dataChart, categories}) => {
             chart={chart}
             series={series} 
             type="bar" 
-            // width={520} 
+            width={520} 
             height={320} 
         />
     );
