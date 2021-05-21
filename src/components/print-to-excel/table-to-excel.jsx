@@ -1,6 +1,6 @@
 import React from 'react';
 import TableToExcel from "@linways/table-to-excel";
-import { FcPlus } from "react-icons/fc";
+import { FaPrint } from "react-icons/fa";
 export const ExportToExcel = (name) => {
     const  PrintTableToExcel = () => {
         let table = document.querySelector('table')
@@ -15,7 +15,7 @@ export const ExportToExcel = (name) => {
         onClick={() => PrintTableToExcel()}
         >
         <p className="custom-outline font-semibold">ExportToExcel</p>
-        <FcPlus className="outline-none text-2xl ml-2 " />
+        <FaPrint className="outline-none text-2xl ml-2 " />
       </button>
     );
 }

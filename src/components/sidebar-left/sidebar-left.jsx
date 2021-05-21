@@ -149,12 +149,12 @@ export const SidebarLeft = () => {
             </div>
             <div onClick={handleHideSideBar} style={{paddingTop: '20px'}}>
               <NavLink
-                to="/report-project/follow-status"
+                to="/report-project/follow-tech-stack"
                 activeClassName="hover:bg-indigo-700 hover:text-pink-100 bg-indigo-700 text-white rounded-xl"
                 className="flex items-center mt-3 p-2 rounded-lg hover:text-gray-900 hover:bg-gray-200"
               >
                 <FcStatistics className=" text-2xl" />
-                <p className="  text-base ml-3">Follow Status</p>
+                <p className="  text-base ml-3">Follow Tech Stack</p>
               </NavLink>
               <NavLink
                 to="/report-project/follow-type"

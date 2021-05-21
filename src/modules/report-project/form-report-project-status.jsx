@@ -1,20 +1,24 @@
 import React from 'react';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { BsPlus } from "react-icons/bs";
+import { FaSearch } from "react-icons/fa";
 import { FormChart } from '../../components/chart/chart'
 import axios from 'axios';
 import _ from 'lodash';
 import { REACT_APP_BASE_URL } from '../../routers/router.type';
-const queryString = require("query-string");
+import { Loading } from '../../components/loading/loading';
 export const FormReportProjectStatus = () => {
     const [loading, setLoading] = useState(false);
     const [ListReports, setListReports] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [display, setDisplay] = useState(true)
     const { register: dataForm, handleSubmit } = useForm();
-
     const onSubmit = async dataTime => {
-        const projectStatus = []
-        console.log('on Submit', dataTime);
+        const techStacks = []
+        const res = {}
+        const techName = []
+        const DataChart = []
+        const dataCategory = []
         setLoading(true);
           try {
             const response = await axios.post(`${REACT_APP_BASE_URL}reports/projects`,{
@@ -25,18 +29,31 @@ export const FormReportProjectStatus = () => {
             })
             const {data} = _.get(response, 'data', []);
             data.map((item) => {
-                projectStatus.push(item.project_status)
+              techStacks.push(item.tech_stacks)
             })
-            // console.log('projectStatus', projectStatus);
-            setListReports(projectStatus)
+            techStacks.map((item) => {
+              techName.push(item.name)
+            })
+            techName.map((item) =>{
+              if(dataCategory.indexOf(item) == -1){
+                dataCategory.push(item)
+              }
+            })
+            techName.map((item) => {
+              res[item] = res[item] + 1 || 1
+            })
+            for (const iterator in res) {
+              DataChart.push(res[iterator])
+            }
+            setCategories(dataCategory)
+            setListReports(DataChart)
             setLoading(false);
+            setDisplay(false)
         } catch (error) {
             console.log('error', error);
             setLoading(false);
         }
     }
-    useEffect(() => {
-    }, []);
     return (
         <div className="mt-10">
         <div className="flex justify-center">
@@ -80,13 +97,22 @@ export const FormReportProjectStatus = () => {
                   style={{ outline: "none" }}
                   className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 flex items-center"
                 >
-                  <span className="mr-1">Add</span>
-                  <BsPlus className="text-xl font-bold " />
+                  <span className="mr-1">SEARCH</span>
+                  <FaSearch className="text-xl font-bold " />
                 </button>
               </div>
+              <div hidden={display}>
+              {loading ? (
+                  <Loading />
+              ) : (
               <div className="inline-block mt-2 w-full">
-                <FormChart dataChart={ListReports}/>
-            </div>
+                <FormChart 
+                  dataChart={ListReports} 
+                  categories={categories} 
+                />
+              </div>
+              )}
+              </div>
             </div>
             </div>
           </form>
