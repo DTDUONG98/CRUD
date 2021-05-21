@@ -1,34 +1,37 @@
 import Chart from 'react-apexcharts';
 import React from 'react';
-export const FormChart = (dataChart) => {
-    console.log('dataChart', dataChart.dataChart);
+import PropTypes from 'prop-types';
+export const FormChart = ({dataChart, categories}) => {
+    console.log(dataChart);
     const options = {
         plotOptions: {
             bar: {
               horizontal: true,
             }
         },
+        xaxis :  {
+            categories: categories
+        }
     }
     const chart = {
         id: 'apexchart-example',
     }
-    const xaxis =  {
-                categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-    }
     const series = [{
-        name: 'series-1',
-        data: [30, 40, 45, 50, 49, 60, 70, 91]
+        name: 'reslut',
+        data: dataChart
       }]
-
     return (
         <Chart 
             options={options} 
             chart={chart}
-            xaxis={xaxis}
             series={series} 
             type="bar" 
             // width={520} 
             height={320} 
         />
     );
+}
+FormChart.propTypes = {
+    dataChart: PropTypes.array.isRequired,
+    categories: PropTypes.array.isRequired
 }

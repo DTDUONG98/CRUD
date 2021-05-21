@@ -6,6 +6,7 @@ import techStackReducer from '../../modules/tech-stack/tech-stack.reducer';
 import departmentReducer from '../../modules/departments/department.reducer';
 import projectsReducer from '../../modules/projects/projects.reducer';
 import staffsReducer from '../../modules/staffs/staffs.reducer';
+import reportReducer from '../../modules/report-project/report-project.reducer';
 
 const rootReducer = combineReducers({
     customer: customerReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     department: departmentReducer,
     projects: projectsReducer,
     staffs: staffsReducer,
+    report: reportReducer,
 });
 
 export default rootReducer;
