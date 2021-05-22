@@ -22,10 +22,12 @@ export default class IssueController extends BaseController {
         }
 
         let params = this.validate(inputs, allowFields, {removeNotAllows: false});
-        let projectId = params['projectId'];
+        const projectId = params['projectId'];
         if (!projectId) throw new ApiException(9996, "projectID is required!");
         
-        let data = await this.Model.query().getForGridTable(inputs);
+        let data = await this.Model.query()
+            .where("projectId", projectId)
+            .getForGridTable(inputs);
         return data;
     }
 }
