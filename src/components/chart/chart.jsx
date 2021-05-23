@@ -2,7 +2,6 @@ import Chart from 'react-apexcharts';
 import React from 'react';
 import PropTypes from 'prop-types';
 export const FormChart = ({dataChart, categories}) => {
-    console.log(dataChart);
     const options = {
         plotOptions: {
             bar: {

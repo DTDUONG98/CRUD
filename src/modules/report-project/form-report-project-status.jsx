@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaSearch } from "react-icons/fa";
@@ -14,10 +14,26 @@ export const FormReportProjectStatus = () => {
   const [loading, setLoading] = useState(false);
   const [ListReports, setListReports] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [listTech, setListTech] = useState([]);
   const [display, setDisplay] = useState(true)
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date())
   const { register: dataForm, handleSubmit } = useForm();
+  const getTechStack = async () => {
+    const listTechName = []
+    try {
+      const response = await axios.get(`${REACT_APP_BASE_URL}tech_stacks`)
+      const {data} = _.get(response, 'data.data', [])
+      data.map((item) => {
+        if(item.status == 'active'){
+          listTechName.push(item.name)
+        }
+      })
+      setListTech(listTechName)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   const onSubmit = async dataTime => {
     const techStacks = []
     const res = {}
@@ -26,37 +42,46 @@ export const FormReportProjectStatus = () => {
     const dataCategory = []
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:3333/api/v1/reports/projects', {
+      const response = await axios.post(`${REACT_APP_BASE_URL}reports/projects`, {
           startDate: moment(startDate).format("YYYY-MM-DD"),
           endDate: moment(endDate).format("YYYY-MM-DD")
       })
       const { data } = _.get(response, 'data', []);
-      data.map((item) => {
-        techStacks.push(item.tech_stacks)
-      })
-      techStacks.map((item) => {
-        techName.push(item.name)
-      })
-      techName.map((item) => {
-        if (dataCategory.indexOf(item) == -1) {
-          dataCategory.push(item)
+      if(data.length !== 0){
+        data.map((item) => {
+          techStacks.push(item.tech_stacks)
+        })
+        techStacks.map((item) => {
+          techName.push(item.name)
+        })
+        techName.map((item) => {
+          if (dataCategory.indexOf(item) == -1) {
+            dataCategory.push(item)
+          }
+        })
+        techName.map((item) => {
+          res[item] = res[item] + 1 || 1
+        })
+        for (const iterator in res) {
+          DataChart.push(res[iterator])
         }
-      })
-      techName.map((item) => {
-        res[item] = res[item] + 1 || 1
-      })
-      for (const iterator in res) {
-        DataChart.push(res[iterator])
+        setCategories(dataCategory)
+        setListReports(DataChart)
+        setLoading(false);
+        setDisplay(false)
+      }else{
+        setCategories(listTech);
+        setLoading(false);
+        setDisplay(false)
       }
-      setCategories(dataCategory)
-      setListReports(DataChart)
-      setLoading(false);
-      setDisplay(false)
     } catch (error) {
       console.log('error', error);
       setLoading(false);
     }
   }
+  useEffect(() =>{
+    getTechStack();
+  },[])
   return (
     <div className="mt-10">
       <div className="flex justify-center">
