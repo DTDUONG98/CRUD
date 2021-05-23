@@ -139,5 +139,5 @@ BoardTrello.propTypes = {
     dataComplete: PropTypes.array.isRequired,
     dataLose: PropTypes.array.isRequired,
     setLoading: PropTypes.func.isRequired,
-    input: PropTypes.number.isRequired
+    input: PropTypes.any.isRequired
 }
