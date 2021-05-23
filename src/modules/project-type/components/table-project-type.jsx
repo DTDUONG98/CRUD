@@ -57,9 +57,9 @@ export const TableProjectType = () => {
   }
   const onSearch = () => {
     const input = document.getElementById("myInput");
-    var filter = input.value.toUpperCase();
-    var table = document.getElementById("myTable");
-    var tr = table.getElementsByTagName("tr");
+    const filter = input.value.toUpperCase();
+    const table = document.getElementById("myTable");
+    const tr = table.getElementsByTagName("tr");
     var td, i;
     for (i = 0; i < tr.length; i++) {
       td = tr[i].getElementsByTagName("td")[0];

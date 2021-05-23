@@ -8,6 +8,7 @@ export const PROJECTS = "/manager/projects";
 export const FOLLOW_STATUS = "/report-project/follow-status";
 export const FOLLOW_TYPE = "/report-project/follow-type";
 export const FOLLOW_TECH_STACK = "/report-project/follow-tech-stack";
+export const ISSUES = "/report-project/issue"
 
 export const REACT_APP_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 export const TIMEOUT_REDIRECT = 1500;

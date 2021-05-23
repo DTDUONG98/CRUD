@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
+import _ from 'lodash';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaSearch } from "react-icons/fa";
 import { BoardTrello } from '../../components/board-trello/board-trello';
-import axios from 'axios';
-import _ from 'lodash';
+import { Alert } from 'react-st-modal';
 import { REACT_APP_BASE_URL } from '../../routers/router.type';
 import { Loading } from '../../components/loading/loading';
 export const FormReportProjectIssue = () => {
@@ -14,6 +15,7 @@ export const FormReportProjectIssue = () => {
     const [dataExprired, setDataExprired] = useState([])
     const [dataComplete, setDataComplete] = useState([])
     const [dataLose, setDataLose] = useState([])
+    const [input, setInput] = useState(0);
     const { register: dataForm, handleSubmit } = useForm();
     const onSubmit = async input => {
       setLoading(true)
@@ -23,56 +25,64 @@ export const FormReportProjectIssue = () => {
       const dataComplete = []
       const dataLose = []
       try {
-        const response = await axios.get(`${REACT_APP_BASE_URL}projects/${input.projectId}/issues`)
-        const {data} = _.get(response, 'data.data', [])
-        data.map((item, index) => {
-          if(item.status == "start"){
-            dataStart.push({
-              id: index,
-              title: item.name,
-              description: item.description,
-              data: item
-            })
-          }
-          if(item.status == "doing"){
-            dataDoing.push({
-              id: index,
-              title: item.name,
-              description: item.description,
-              data: item
-            })
-          }
-          if(item.status == "exprired"){
-            dataExprired.push({
-              id: index,
-              title: item.name,
-              description: item.description,
-              data: item
-            })
-          }
-          if(item.status == "complete"){
-            dataComplete.push({
-              id: index,
-              title: item.name,
-              description: item.description,
-              data: item
-            })
-          }
-          if(item.status == "lose"){
-            dataLose.push({
-              id: index,
-              title: item.name,
-              description: item.description,
-              data: item
-            })
-          }
-        })
-        setDataStart(dataStart)
-        setDataDoing(dataDoing)
-        setDataExprired(dataExprired)
-        setDataComplete(dataComplete)
-        setDataLose(dataLose)
-        setLoading(false)
+        const projects = await axios.get(`${REACT_APP_BASE_URL}projects/${input.projectId}`);
+        const projectDetail = _.get(projects, 'data.data.projectStatus.name', {})
+        if(projectDetail == "doing" || projectDetail == "complete" || projectDetail == "fail"){
+          const response = await axios.get(`${REACT_APP_BASE_URL}projects/${input.projectId}/issues`)
+          const {data} = _.get(response, 'data.data', [])
+          data.map((item, index) => {
+            if(item.status == "start"){
+              dataStart.push({
+                id: index,
+                title: item.name,
+                description: item.description,
+                data: item
+              })
+            }
+            if(item.status == "doing"){
+              dataDoing.push({
+                id: index,
+                title: item.name,
+                description: item.description,
+                data: item
+              })
+            }
+            if(item.status == "exprired"){
+              dataExprired.push({
+                id: index,
+                title: item.name,
+                description: item.description,
+                data: item
+              })
+            }
+            if(item.status == "complete"){
+              dataComplete.push({
+                id: index,
+                title: item.name,
+                description: item.description,
+                data: item
+              })
+            }
+            if(item.status == "lose"){
+              dataLose.push({
+                id: index,
+                title: item.name,
+                description: item.description,
+                data: item
+              })
+            }
+          })
+          setDataStart(dataStart)
+          setDataDoing(dataDoing)
+          setDataExprired(dataExprired)
+          setDataComplete(dataComplete)
+          setDataLose(dataLose)
+          setInput(input.projectId)
+          setLoading(false)
+        }else{
+          Alert("Project có thể chưa được start", "Notification")
+          setLoading(false)
+        }
       } catch (error) {
         console.log(error)
         setLoading(false)
@@ -122,6 +132,8 @@ export const FormReportProjectIssue = () => {
                   dataExprired={dataExprired}
                   dataComplete={dataComplete}
                   dataLose={dataLose}
+                  setLoading={setLoading}
+                  input={input}
                 /> 
               </div>
               )}

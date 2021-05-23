@@ -6,7 +6,7 @@ import './index.css';
 import { Provider } from 'react-redux';
 import configStore from './redux/store/store';
 import reportWebVitals from './reportWebVitals';
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
 const store = configStore();
 
 ReactDOM.render(
