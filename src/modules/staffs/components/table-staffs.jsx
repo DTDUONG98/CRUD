@@ -91,7 +91,11 @@ export const TableStaffs = () => {
                 onKeyUp={() => onSearch()}
                 placeholder="Search Here"
               />
-                <table id="myTable" className="flex-col shadow-xl flex justify-center sm:w-11/12 bg-white w-11/12 rounded-xl">
+                <table 
+                  id="myTable" 
+                  className="flex-col shadow-xl flex justify-center sm:w-11/12 bg-white w-11/12 rounded-xl"
+                  data-cols-width="10,30,30,30"
+                >
                     <thead>
                         <tr className=" flex w-full sm:w-full bg-indigo-700 justify-around text-white rounded-t-xl cursor-pointer hover:bg-indigo-600">
                             <th className="pt-5 pb-5 w-1/12" onClick={() => sortTable(0)}>No.</th>

@@ -27,6 +27,7 @@ export const FormReportProjectIssue = () => {
       try {
         const projects = await axios.get(`${REACT_APP_BASE_URL}projects/${input.projectId}`);
         const projectDetail = _.get(projects, 'data.data.projectStatus.name', {})
+        console.log('projectDetail', projectDetail);
         if(projectDetail == "doing" || projectDetail == "complete" || projectDetail == "fail"){
           const response = await axios.get(`${REACT_APP_BASE_URL}projects/${input.projectId}/issues`)
           const {data} = _.get(response, 'data.data', [])
@@ -80,11 +81,12 @@ export const FormReportProjectIssue = () => {
           setInput(input.projectId)
           setLoading(false)
         }else{
-          Alert("Project có thể chưa được start", "Notification")
+          Alert("Project có thể chưa được start nên chưa có issue, try again", "Notification")
           setLoading(false)
         }
       } catch (error) {
         console.log(error)
+        Alert("Project không tồn tại, try again", "Notification")
         setLoading(false)
       }
     }
