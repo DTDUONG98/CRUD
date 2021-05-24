@@ -27,7 +27,6 @@ export const FormReportProjectIssue = () => {
       try {
         const projects = await axios.get(`${REACT_APP_BASE_URL}projects/${input.projectId}`);
         const projectDetail = _.get(projects, 'data.data.projectStatus.name', {})
-        console.log('projectDetail', projectDetail);
         if(projectDetail == "doing" || projectDetail == "complete" || projectDetail == "fail"){
           const response = await axios.get(`${REACT_APP_BASE_URL}projects/${input.projectId}/issues`)
           const {data} = _.get(response, 'data.data', [])
