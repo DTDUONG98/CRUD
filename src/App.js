@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import firebase from "./services/firebase";
+import React from "react";
 import "./App.css";
 import { LoginPage } from "./page/login/login";
 import {
@@ -12,7 +11,6 @@ import { routes } from "./routers/routers.config";
 import { PageTransition } from "@steveeeie/react-page-transition";
 import { Navbar } from "./components/navbar-header/navbar";
 import { SidebarLeft } from "./components/sidebar-left/sidebar-left";
-
 function App() {
   const reactRouter = () => {
     return routes.map((route, i) => {
@@ -26,13 +24,6 @@ function App() {
       );
     });
   };
-
-  // useEffect(() => {
-  //   const ref = firebase.database().ref("customer");
-  //   ref.on("value", (snapshot) => {
-  //     console.log(snapshot.val());
-  //   });
-  // }, []);
   return (
     <Router>
       <Switch>
@@ -62,5 +53,4 @@ function App() {
     </Router>
   );
 }
-
 export default App;
