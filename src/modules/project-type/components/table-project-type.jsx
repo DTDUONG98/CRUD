@@ -60,16 +60,12 @@ export const TableProjectType = () => {
     const filter = input.value.toUpperCase();
     const table = document.getElementById("myTable");
     const tr = table.getElementsByTagName("tr");
-    var td, i;
-    for (i = 0; i < tr.length; i++) {
-      td = tr[i].getElementsByTagName("td")[0];
-      if (td) {
-        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+    for (let i = 1; i < tr.length; i++) {
+        if (tr[i].textContent.toUpperCase().indexOf(filter) > -1) {
           tr[i].style.display = "";
         } else {
           tr[i].style.display = "none";
         }
-      }
     }
   }
   useEffect(() => {
@@ -89,6 +85,7 @@ export const TableProjectType = () => {
       ) : (
         <div className="sm:w-full sm:flex sm:flex-col sm:items-center">
           <input
+            className="p-2 mb-3 rounded-md w-5/12"
             type="search"
             id="myInput"
             onsearch={() => onSearch()}

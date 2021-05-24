@@ -55,6 +55,19 @@ export const TableCustomerGroup = () => {
           }
         }
     }
+    const onSearch = () => {
+      const input = document.getElementById("myInput");
+      const filter = input.value.toUpperCase();
+      const table = document.getElementById("myTable");
+      const tr = table.getElementsByTagName("tr");
+      for (let i = 1; i < tr.length; i++) {
+          if (tr[i].textContent.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+      }
+    }
     useEffect(() => {
         getDataCustomerGroup();
     }, [loading])
@@ -71,6 +84,14 @@ export const TableCustomerGroup = () => {
         <Loading />
       ) : (
             <div className="sm:w-full sm:flex sm:flex-col sm:items-center">
+              <input
+                className="p-2 mb-3 rounded-md w-5/12"
+                type="search"
+                id="myInput"
+                onsearch={() => onSearch()}
+                onKeyUp={() => onSearch()}
+                placeholder="Search Here"
+              />
                 <table id="myTable" className="flex-col shadow-xl flex justify-center sm:w-11/12 bg-white w-11/12 rounded-xl">
                     <thead>
                         <tr className=" flex w-full sm:w-full bg-indigo-700 justify-around text-white rounded-t-xl cursor-pointer hover:bg-indigo-600">
