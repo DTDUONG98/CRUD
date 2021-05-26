@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getStaffs } from '../../../services/staffs-service'
 export const TableStaffs = () => {
     const data = useSelector(state => state.staffs.data);
+    const total = useSelector(state => state.staffs.total);
     const loading = useSelector(state => state.staffs.loading);
     const dispatch = useDispatch();
     const [ListStaffs, setListStaffs] = useState([]);
@@ -120,7 +121,7 @@ export const TableStaffs = () => {
                 </table>
                 <PaginationNav
                     page={page}
-                    totalPage={ListStaffs.totalPage}
+                    totalPage={total >5 ? total/5 + 1 : 1}
                     onChange={handelChangePage}
                 />
             </div>

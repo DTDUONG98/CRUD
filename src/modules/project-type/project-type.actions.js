@@ -5,10 +5,13 @@ export const getProjectTypePending = () => {
     type: CONSTANS.GET_PROJECT_TYPE_PENDING,
   };
 };
-export const getProjectTypeSucess = data => {
+export const getProjectTypeSucess = (data, total) => {
   return {
     type: CONSTANS.GET_PROJECT_TYPE_SUCCESS,
     payload: data,
+    total: {
+      total
+    }
   };
 };
 export const getProjectTypeError = error => {

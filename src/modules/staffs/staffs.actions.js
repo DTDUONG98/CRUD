@@ -7,12 +7,15 @@ export const getStaffsPending = () => {
     }
 }
 
-export const getStaffsSuccess = (data) => {
+export const getStaffsSuccess = (data, total) => {
     return {
         type: CONSTANT.GET_STAFFS_SUCCESS,
         payload: {
             data,
         },
+        total: {
+            total,
+        }
     }
 }
 

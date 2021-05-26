@@ -3,6 +3,7 @@ import * as projectType from "./project-type.constants";
 const initialState = {
   loading: true,
   data: [],
+  total: 0,
   dataDetail: {},
 };
 const reducer = (state = initialState, action) => {
@@ -11,13 +12,16 @@ const reducer = (state = initialState, action) => {
           return {
               ...state,
               data: [],
+              total: 0,
               loading: true
           }
       }
       case projectType.GET_PROJECT_TYPE_SUCCESS: {
+        const { total } = action.total 
           return {
               ...state,
               data: action.payload,
+              total: total,
               loading: false
           }
       }
@@ -25,6 +29,7 @@ const reducer = (state = initialState, action) => {
           return {
               ...state,
               data: [],
+              total: 0,
               loading : false
           }
       }

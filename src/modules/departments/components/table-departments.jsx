@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDepartment } from '../../../services/departments-service';
 export const TableDepartments = () => {
     const data = useSelector(state => state.department.data);
+    const total = useSelector(state => state.department.total);
     const loading = useSelector(state => state.department.loading);
     const dispatch = useDispatch();
     const [ListDepartments, setListDepartments] = useState([]);
@@ -120,7 +121,7 @@ export const TableDepartments = () => {
                 </table>
                 <PaginationNav
                     page={page}
-                    totalPage={ListDepartments.totalPage}
+                    totalPage={total >5 ? total/5 + 1 : 1}
                     onChange={handelChangePage}
                 />
             </div>

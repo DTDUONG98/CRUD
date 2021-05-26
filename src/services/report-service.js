@@ -17,7 +17,6 @@ export const getReport = (startDate, endDate) => async dispatch => {
         }
     });
     const {data} = _.get(response,'data.data', []);
-    console.log('data', data);
     dispatch(getReportProjectSuccess(data));
   }
   catch (error) {

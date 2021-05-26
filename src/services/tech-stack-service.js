@@ -12,7 +12,8 @@ export const getTechStack = (page, pageSize) => async dispatch => {
   try {
     const response = await axios.get(`${REACT_APP_BASE_URL}tech_stacks?page=${page-1}&pageSize=${pageSize}`);
     const {data} = _.get(response,'data.data', []);
-    dispatch(getTechStackSucess(data));
+    const {total} = _.get(response, 'data.data',[]);
+    dispatch(getTechStackSucess(data, total));
   }
   catch (error) {
     if (error.response.status) {

@@ -10,6 +10,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { REACT_APP_BASE_URL } from '../../routers/router.type';
 import { Loading } from '../../components/loading/loading';
+import { Alert } from 'react-st-modal';
 export const FormReportProjectStatus = () => {
   const [loading, setLoading] = useState(false);
   const [ListReports, setListReports] = useState([]);
@@ -41,42 +42,46 @@ export const FormReportProjectStatus = () => {
     const DataChart = []
     const dataCategory = []
     setLoading(true);
-    try {
-      const response = await axios.post(`${REACT_APP_BASE_URL}reports/projects`, {
-          startDate: moment(startDate).format("YYYY-MM-DD"),
-          endDate: moment(endDate).format("YYYY-MM-DD")
-      })
-      const { data } = _.get(response, 'data', []);
-      if(data.length !== 0){
-        data.map((item) => {
-          techStacks.push(item.tech_stacks)
+    if(startDate > endDate){
+      Alert("StartDate phải nhỏ hơn EndDate, try again!", "Notification")
+    }else {
+      try {
+        const response = await axios.post(`${REACT_APP_BASE_URL}reports/projects`, {
+            startDate: moment(startDate).format("YYYY-MM-DD"),
+            endDate: moment(endDate).format("YYYY-MM-DD")
         })
-        techStacks.map((item) => {
-          techName.push(item.name)
-        })
-        techName.map((item) => {
-          if (dataCategory.indexOf(item) == -1) {
-            dataCategory.push(item)
+        const { data } = _.get(response, 'data', []);
+        if(data.length !== 0){
+          data.map((item) => {
+            techStacks.push(item.tech_stacks)
+          })
+          techStacks.map((item) => {
+            techName.push(item.name)
+          })
+          techName.map((item) => {
+            if (dataCategory.indexOf(item) == -1) {
+              dataCategory.push(item)
+            }
+          })
+          techName.map((item) => {
+            res[item] = res[item] + 1 || 1
+          })
+          for (const iterator in res) {
+            DataChart.push(res[iterator])
           }
-        })
-        techName.map((item) => {
-          res[item] = res[item] + 1 || 1
-        })
-        for (const iterator in res) {
-          DataChart.push(res[iterator])
+          setCategories(dataCategory)
+          setListReports(DataChart)
+          setLoading(false);
+          setDisplay(false)
+        }else{
+          setCategories(listTech);
+          setLoading(false);
+          setDisplay(false)
         }
-        setCategories(dataCategory)
-        setListReports(DataChart)
+      } catch (error) {
+        console.log('error', error);
         setLoading(false);
-        setDisplay(false)
-      }else{
-        setCategories(listTech);
-        setLoading(false);
-        setDisplay(false)
       }
-    } catch (error) {
-      console.log('error', error);
-      setLoading(false);
     }
   }
   useEffect(() =>{

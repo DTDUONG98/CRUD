@@ -8,6 +8,7 @@ import { getTechStack } from '../../../services/tech-stack-service';
 export const TableTechStack = () => {
     const pageSize = 5;
     const data = useSelector(state => state.techStack.data);
+    const total = useSelector(state => state.techStack.total);
     const loading = useSelector(state => state.techStack.loading);
     const dispatch = useDispatch();
     const [ListTechStack, setListTechStack] = useState([]);
@@ -121,7 +122,7 @@ export const TableTechStack = () => {
                 </table>
                 <PaginationNav
                     page={page}
-                    totalPage={ListTechStack.totalPage}
+                    totalPage={total >5 ? total/5 + 1 : 1}
                     onChange={handelChangePage}
                 />
             </div>

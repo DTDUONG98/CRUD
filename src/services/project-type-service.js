@@ -15,7 +15,8 @@ export const getProjectType = (page) => async dispatch => {
   try {
     const response = await axios.get(`${REACT_APP_BASE_URL}project_types?page=${page-1}&pageSize=5`);
     const {data} = _.get(response,'data.data', []);
-    dispatch(getProjectTypeSucess(data));
+    const {total} = _.get(response, 'data.data',[]);
+    dispatch(getProjectTypeSucess(data, total));
   }
   catch (error) {
     if (error.response.status) {

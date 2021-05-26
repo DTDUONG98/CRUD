@@ -7,12 +7,15 @@ export const getCustomersPending = () => {
     }
 }
 
-export const getCustomersSuccess = (data) => {
+export const getCustomersSuccess = (data, total) => {
     return {
         type: CustomerType.GET_CUSTOMER_GROUP_SUCCESS,
         payload: {
             data,
         },
+        total: {
+            total,
+        }
     }
 }
 

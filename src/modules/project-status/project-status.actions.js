@@ -7,12 +7,15 @@ export const getProjectStatusPending = () => {
     }
 }
 
-export const getProjectStatusSuccess = (data) => {
+export const getProjectStatusSuccess = (data, total) => {
     return {
         type: projectStatus.GET_PROJECT_STATUS_SUCCESS,
         payload: {
             data,
         },
+        total: {
+            total,
+        }
     }
 }
 

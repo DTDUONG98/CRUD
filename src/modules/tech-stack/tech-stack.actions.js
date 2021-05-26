@@ -5,10 +5,13 @@ export const getTechStackPending = () => {
     type: CONSTANS.GET_TECH_STACK_PENDING,
   };
 };
-export const getTechStackSucess = data => {
+export const getTechStackSucess = (data, total) => {
   return {
     type: CONSTANS.GET_TECH_STACK_SUCCESS,
     payload: data,
+    total: {
+      total,
+    }
   };
 };
 export const getTechStackError = error => {

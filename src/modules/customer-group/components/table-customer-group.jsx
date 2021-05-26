@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCustomers } from "../../../services/customer-group-service";
 export const TableCustomerGroup = () => {
     const data = useSelector(state => state.customer.data);
+    const total = useSelector(state => state.customer.total);
     const loading = useSelector(state => state.customer.loading);
     const dispatch = useDispatch();
     const [ListCustomerGroup, setListCustomerGroup] = useState([]);
@@ -123,7 +124,7 @@ export const TableCustomerGroup = () => {
                 </table>
                 <PaginationNav
                     page={page}
-                    totalPage={ListCustomerGroup.totalPage}
+                    totalPage={total >5 ? total/5 + 1 : 1}
                     onChange={handelChangePage}
                 />
             </div>

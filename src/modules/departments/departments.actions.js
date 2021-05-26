@@ -7,12 +7,15 @@ export const getDepartmentPending = () => {
     }
 }
 
-export const getDeparrtmentSuccess = (data) => {
+export const getDeparrtmentSuccess = (data, total) => {
     return {
         type: CONSTANT.GET_DEPARTMENT_SUCCESS,
         payload: {
             data,
         },
+        total: {
+            total,
+        }
     }
 }
 
